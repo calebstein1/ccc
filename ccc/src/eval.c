@@ -4,7 +4,21 @@
 #include "opcodes.h"
 #include "util.h"
 
-void adc_f() {}
+void adc_f() {
+    uint8_t la = a;
+    if (*(pc + 1) == NOP) {
+        a += (*pc++ + GET_C);
+    } else {
+        uint8_t low = *pc++;
+        uint8_t hi = *pc++;
+        a += (MAKE_WORD + GET_C);
+    }
+    if (a < la) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+}
 
 void and_f() {}
 
@@ -46,7 +60,9 @@ void bvc_f() {}
 
 void bvs_f() {}
 
-void clc_f() {}
+void clc_f() {
+    UNSET_C;
+}
 
 void cld_f() {}
 
