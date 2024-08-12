@@ -14,7 +14,7 @@
 int main(int argc, char **argv) {
     int asm_fd = 0, bin_fd = 0;
     size_t c = 0;
-    char *asm_buff = NULL;
+    char asm_buff[0xffff] = {};
     char *cur_tok = NULL;
     uint8_t bin_buff[0x8000] = {};
     uint8_t *bin_p = bin_buff;
@@ -41,10 +41,6 @@ int main(int argc, char **argv) {
     }
     argv[1][strlen(argv[1]) - 6] = '\0';
     fstat(asm_fd, &asm_stat);
-    if (!(asm_buff = malloc(asm_stat.st_size))) {
-        perror("malloc");
-        return -1;
-    }
     lseek(asm_fd, 0, SEEK_SET);
     read(asm_fd, asm_buff, asm_stat.st_size);
     close(asm_fd);
@@ -74,7 +70,6 @@ int main(int argc, char **argv) {
             c++;
         }
     }
-    free(asm_buff);
 
     bin_fd = open(argv[1], O_RDWR | O_CREAT, 0644);
     write(bin_fd, bin_buff, c);
