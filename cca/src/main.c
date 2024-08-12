@@ -35,15 +35,15 @@ int main(int argc, char **argv) {
         fputs("Please supply exactly one ccasm file\n", stderr);
         return -1;
     }
-    if (strcmp(&argv[1][strlen(argv[1]) - 6], ".ccasm") != 0) {
-        fputs("Please make sure your file has the .ccasm file extension\n", stderr);
+    if (strcmp(&argv[1][strlen(argv[1]) - 4], ".asm") != 0) {
+        fputs("Please make sure your file has the .asm file extension\n", stderr);
         return -1;
     }
     if ((asm_fd = open(argv[1], O_RDONLY)) == -1) {
         perror("open");
         return -1;
     }
-    argv[1][strlen(argv[1]) - 6] = '\0';
+    argv[1][strlen(argv[1]) - 4] = '\0';
     fstat(asm_fd, &asm_stat);
     lseek(asm_fd, 0, SEEK_SET);
     read(asm_fd, asm_buff, asm_stat.st_size);
