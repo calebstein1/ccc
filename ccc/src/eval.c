@@ -14,13 +14,29 @@ void bcc_f() {}
 
 void bcs_f() {}
 
-void beq_f() {}
+void beq_f() {
+    if (GET_Z) {
+        uint8_t low = *pc++;
+        uint8_t hi = *pc++;
+        pc = prg_ram + MAKE_WORD;
+        return;
+    }
+    pc += 2;
+}
 
 void bit_f() {}
 
 void bmi_f() {}
 
-void bne_f() {}
+void bne_f() {
+    if (!GET_Z) {
+        uint8_t low = *pc++;
+        uint8_t hi = *pc++;
+        pc = prg_ram + MAKE_WORD;
+        return;
+    }
+    pc += 2;
+}
 
 void bpl_f() {}
 
@@ -38,11 +54,59 @@ void cli_f() {}
 
 void clv_f() {}
 
-void cmp_f() {}
+void cmp_f() {
+    if (*(pc + 1) == NOP) {
+        if (a - *pc++) {
+            UNSET_Z;
+        } else {
+            SET_Z;
+        }
+        return;
+    }
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    if (a - *(prg_ram + MAKE_WORD)) {
+        UNSET_Z;
+    } else {
+        SET_Z;
+    }
+}
 
-void cpx_f() {}
+void cpx_f() {
+    if (*(pc + 1) == NOP) {
+        if (x - *pc++) {
+            UNSET_Z;
+        } else {
+            SET_Z;
+        }
+        return;
+    }
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    if (x - *(prg_ram + MAKE_WORD)) {
+        UNSET_Z;
+    } else {
+        SET_Z;
+    }
+}
 
-void cpy_f() {}
+void cpy_f() {
+    if (*(pc + 1) == NOP) {
+        if (y - *pc++) {
+            UNSET_Z;
+        } else {
+            SET_Z;
+        }
+        return;
+    }
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    if (y - *(prg_ram + MAKE_WORD)) {
+        UNSET_Z;
+    } else {
+        SET_Z;
+    }
+}
 
 void dec_f() {
     uint8_t low = *pc++;
