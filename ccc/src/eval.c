@@ -44,7 +44,7 @@ void cpy_f() {}
 void dec_f() {
     unsigned char low = *pc++;
     unsigned char hi = *pc++;
-    (*(prg_ram + (unsigned short)(hi << 8) + low))--;
+    *(prg_ram + (unsigned short)(hi << 8) + low) -= 1;
 }
 
 void dex_f() {
@@ -60,7 +60,7 @@ void for_f() {}
 void inc_f() {
     unsigned char low = *pc++;
     unsigned char hi = *pc++;
-    (*(prg_ram + (unsigned short)(hi << 8) + low))++;
+    *(prg_ram + (unsigned short)(hi << 8) + low) += 1;
 }
 
 void inx_f() {
