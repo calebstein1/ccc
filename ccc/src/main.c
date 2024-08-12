@@ -1,11 +1,12 @@
 #include <stdio.h>
 
 #include "prg.h"
+#include "opcodes.h"
 
 // RAM, Program Counter, and Stack Pointer
 unsigned char prg_ram[0xffff] = {};
 unsigned char *pc = &prg_ram[0x8000];
-unsigned char *s = &prg_ram[0x0100];
+unsigned char *sp = prg_ram;
 
 // CPU Registers
 unsigned char a = 0x0, x = 0x0, y = 0x0;
