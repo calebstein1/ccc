@@ -144,7 +144,7 @@ void sta_f() {
 void stx_f() {
     unsigned char low = *pc++;
     unsigned char hi = *pc++;
-    *(prg_ram + (unsigned short)(hi << 8) + low) = y;
+    *(prg_ram + (unsigned short)(hi << 8) + low) = x;
 }
 
 void sty_f() {
