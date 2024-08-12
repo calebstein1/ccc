@@ -6,7 +6,7 @@
 #include "globals.h"
 #include "prg.h"
 
-int parse_prg(char *prg) {
+int load_prg(char *prg) {
     struct stat p_stat = {};
     int fd;
     if ((fd = open(prg, O_RDONLY)) == -1) {
@@ -15,7 +15,7 @@ int parse_prg(char *prg) {
     }
     fstat(fd, &p_stat);
     if (p_stat.st_size > 0x8000) {
-        fprintf(stderr, "Program too large\n");
+        fputs("Program too large\n", stderr);
         return -1;
     }
     lseek(fd, 0, SEEK_SET);

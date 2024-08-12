@@ -13,11 +13,11 @@ unsigned char p = 0x0;
 
 int main(int argc, char **argv) {
     if (argc != 2) {
-        fprintf(stderr, "Please supply a single program file\n");
+        fputs("Please supply a single program file\n", stderr);
         return -1;
     }
-    if (parse_prg(argv[1])) {
-        fprintf(stderr, "Failed to load program\n");
+    if (load_prg(argv[1])) {
+        fputs("Failed to load program\n", stderr);
         return -1;
     }
 
