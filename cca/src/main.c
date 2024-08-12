@@ -1,16 +1,24 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <string.h>
 
+#include "globals.h"
 #include "opcodes.h"
+
+#define MASK 0xff
 
 int main(int argc, char **argv) {
     int asm_fd = 0, bin_fd = 0;
+    size_t c = 0;
     char *asm_buff = NULL;
-    char bin_buff[0x8000] = {};
-    char *bin_p = bin_buff;
+    char *cur_tok = NULL;
+    unsigned char bin_buff[0x8000] = {};
+    unsigned char *bin_p = bin_buff;
+    unsigned char low, hi;
+    long word;
     char *str_tbl[] = {
 #define X(opcode, op_fn, str_lit, ...) str_lit,
             OPCODES_LIST
@@ -32,9 +40,44 @@ int main(int argc, char **argv) {
     }
     argv[1][strlen(argv[1]) - 6] = '\0';
     fstat(asm_fd, &asm_stat);
+    if (!(asm_buff = malloc(asm_stat.st_size))) {
+        perror("malloc");
+        return -1;
+    }
     lseek(asm_fd, 0, SEEK_SET);
     read(asm_fd, asm_buff, asm_stat.st_size);
     close(asm_fd);
+
+    cur_tok = strtok(asm_buff, " \n\t");
+    goto loop;
+    while ((cur_tok = strtok(NULL, " \n\t"))) {
+        loop:
+        if (*cur_tok == '#') {
+            *bin_p++ = (char)strtol(cur_tok + 1, NULL, 10);
+            *bin_p++ = NOP;
+            c += 2;
+        } else if (*cur_tok == '$') {
+            word = strtol(cur_tok + 1, NULL, 16);
+            hi = (unsigned short)word >> 16;
+            low = (unsigned short)word & MASK;
+            *bin_p++ = low;
+            *bin_p++ = hi;
+            *bin_p++ = NOP;
+            c += 3;
+        } else {
+            int i = 0;
+            for (; i < OPCODE_COUNT; i++) {
+                if (strcmp(cur_tok, str_tbl[i]) == 0) break;
+            }
+            *bin_p++ = (char)i;
+            c++;
+        }
+    }
+    free(asm_buff);
+
+    bin_fd = open(argv[1], O_RDWR | O_CREAT, 0644);
+    write(bin_fd, bin_buff, c);
+    close(bin_fd);
 
     return 0;
 }
