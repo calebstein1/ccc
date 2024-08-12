@@ -11,7 +11,7 @@ void adc_f() {
     } else {
         uint8_t low = *pc++;
         uint8_t hi = *pc++;
-        a += (MAKE_WORD + GET_C);
+        a += (*(prg_ram + MAKE_WORD) + GET_C);
     }
     if (a < la) {
         SET_C;
