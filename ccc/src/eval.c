@@ -74,7 +74,11 @@ void iny_f() {
     y++;
 }
 
-void jmp_f() {}
+void jmp_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    pc = prg_ram + MAKE_WORD;
+}
 
 void jsr_f() {}
 
