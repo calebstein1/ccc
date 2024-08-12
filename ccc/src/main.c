@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    while (pc < &prg_ram[0xffff]) {
+    while (*pc != 0x0) {
         (*eval_func[*pc++])();
     }
 
