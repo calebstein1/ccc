@@ -23,8 +23,7 @@ int main(int argc, char **argv) {
     }
 
     while (pc < &prg_ram[0xffff]) {
-        (*eval_func[*pc])();
-        pc++;
+        (*eval_func[*pc++])();
     }
 
     printf("a: %d\nx: %d\ny: %d\n", a, x, y);

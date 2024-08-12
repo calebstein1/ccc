@@ -59,11 +59,17 @@ void jmp_f() {}
 
 void jsr_f() {}
 
-void lda_f() {}
+void lda_f() {
+    a = *pc++;
+}
 
-void ldx_f() {}
+void ldx_f() {
+    x = *pc++;
+}
 
-void ldy_f() {}
+void ldy_f() {
+    y = *pc++;
+}
 
 void lsr_f() {}
 
@@ -101,17 +107,25 @@ void stx_f() {}
 
 void sty_f() {}
 
-void tax_f() {}
+void tax_f() {
+    x = a;
+}
 
-void tay_f() {}
+void tay_f() {
+    y = a;
+}
 
 void tsx_f() {}
 
-void txa_f() {}
+void txa_f() {
+    a = x;
+}
 
 void txs_f() {}
 
-void tya_f() {}
+void tya_f() {
+    a = y;
+}
 
 void (*eval_func[OPCODE_COUNT])() = {
 #define X(opcode, op_fn, ...) op_fn,
