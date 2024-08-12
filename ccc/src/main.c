@@ -1,16 +1,17 @@
 #include <stdio.h>
+#include <stdint.h>
 
 #include "globals.h"
 #include "prg.h"
 
 // RAM, Program Counter, and Stack Pointer
-unsigned char prg_ram[0xffff] = {};
-unsigned char *pc = &prg_ram[0x8000];
-unsigned char *sp = prg_ram;
+uint8_t prg_ram[0xffff] = {};
+uint8_t *pc = &prg_ram[0x8000];
+uint8_t *sp = prg_ram;
 
 // CPU Registers
-unsigned char a = 0x0, x = 0x0, y = 0x0;
-unsigned char p = 0x0;
+uint8_t a = 0x0, x = 0x0, y = 0x0;
+uint8_t p = 0x0;
 
 int main(int argc, char **argv) {
     if (argc != 2) {

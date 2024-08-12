@@ -3,11 +3,13 @@
 
 #define OPCODE_COUNT 56
 
-extern unsigned char prg_ram[0xffff];
-extern unsigned char *pc;
-extern unsigned char *s;
-extern unsigned char a, x, y;
-extern unsigned char p;
+#include <stdint.h>
+
+extern uint8_t prg_ram[0xffff];
+extern uint8_t *pc;
+extern uint8_t *s;
+extern uint8_t a, x, y;
+extern uint8_t p;
 
 extern void (*eval_func[OPCODE_COUNT])();
 

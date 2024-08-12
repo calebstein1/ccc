@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
@@ -15,10 +16,10 @@ int main(int argc, char **argv) {
     size_t c = 0;
     char *asm_buff = NULL;
     char *cur_tok = NULL;
-    unsigned char bin_buff[0x8000] = {};
-    unsigned char *bin_p = bin_buff;
-    unsigned char low, hi;
-    unsigned long word;
+    uint8_t bin_buff[0x8000] = {};
+    uint8_t *bin_p = bin_buff;
+    uint8_t low, hi;
+    uint64_t word;
     char *str_tbl[] = {
 #define X(opcode, op_fn, str_lit, ...) str_lit,
             OPCODES_LIST
@@ -53,13 +54,13 @@ int main(int argc, char **argv) {
     while ((cur_tok = strtok(NULL, " \n\t"))) {
         loop:
         if (*cur_tok == '#') {
-            *bin_p++ = (unsigned char)strtol(cur_tok + 1, NULL, 10);
+            *bin_p++ = (uint8_t)strtol(cur_tok + 1, NULL, 10);
             *bin_p++ = NOP;
             c += 2;
         } else if (*cur_tok == '$') {
             word = strtol(cur_tok + 1, NULL, 16);
-            hi = (unsigned char)(word >> 8);
-            low = (unsigned char)(word & MASK);
+            hi = (uint8_t)(word >> 8);
+            low = (uint8_t)(word & MASK);
             *bin_p++ = low;
             *bin_p++ = hi;
             *bin_p++ = NOP;
@@ -69,7 +70,7 @@ int main(int argc, char **argv) {
             for (; i < OPCODE_COUNT; i++) {
                 if (strcmp(cur_tok, str_tbl[i]) == 0) break;
             }
-            *bin_p++ = (unsigned char)i;
+            *bin_p++ = (uint8_t)i;
             c++;
         }
     }

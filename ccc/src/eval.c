@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 #include "globals.h"
 #include "opcodes.h"
 
@@ -42,9 +44,9 @@ void cpx_f() {}
 void cpy_f() {}
 
 void dec_f() {
-    unsigned char low = *pc++;
-    unsigned char hi = *pc++;
-    *(prg_ram + (unsigned short)(hi << 8) + low) -= 1;
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    *(prg_ram + (uint16_t)(hi << 8) + low) -= 1;
 }
 
 void dex_f() {
@@ -58,9 +60,9 @@ void dey_f() {
 void for_f() {}
 
 void inc_f() {
-    unsigned char low = *pc++;
-    unsigned char hi = *pc++;
-    *(prg_ram + (unsigned short)(hi << 8) + low) += 1;
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    *(prg_ram + (uint16_t)(hi << 8) + low) += 1;
 }
 
 void inx_f() {
@@ -80,9 +82,9 @@ void lda_f() {
         a = *pc++;
         return;
     }
-    unsigned char low = *pc++;
-    unsigned char hi = *pc++;
-    a = *(prg_ram + (unsigned short)(hi << 8) + low);
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    a = *(prg_ram + (uint16_t)(hi << 8) + low);
 }
 
 void ldx_f() {
@@ -90,9 +92,9 @@ void ldx_f() {
         x = *pc++;
         return;
     }
-    unsigned char low = *pc++;
-    unsigned char hi = *pc++;
-    x = *(prg_ram + (unsigned short)(hi << 8) + low);
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    x = *(prg_ram + (uint16_t)(hi << 8) + low);
 }
 
 void ldy_f() {
@@ -100,9 +102,9 @@ void ldy_f() {
         y = *pc++;
         return;
     }
-    unsigned char low = *pc++;
-    unsigned char hi = *pc++;
-    y = *(prg_ram + (unsigned short)(hi << 8) + low);
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    y = *(prg_ram + (uint16_t)(hi << 8) + low);
 }
 
 void lsr_f() {}
@@ -136,21 +138,21 @@ void sed_f() {}
 void sei_f() {}
 
 void sta_f() {
-    unsigned char low = *pc++;
-    unsigned char hi = *pc++;
-    *(prg_ram + (unsigned short)(hi << 8) + low) = a;
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    *(prg_ram + (uint16_t)(hi << 8) + low) = a;
 }
 
 void stx_f() {
-    unsigned char low = *pc++;
-    unsigned char hi = *pc++;
-    *(prg_ram + (unsigned short)(hi << 8) + low) = x;
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    *(prg_ram + (uint16_t)(hi << 8) + low) = x;
 }
 
 void sty_f() {
-    unsigned char low = *pc++;
-    unsigned char hi = *pc++;
-    *(prg_ram + (unsigned short)(hi << 8) + low) = y;
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    *(prg_ram + (uint16_t)(hi << 8) + low) = y;
 }
 
 void tax_f() {
