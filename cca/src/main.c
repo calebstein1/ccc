@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
     unsigned char bin_buff[0x8000] = {};
     unsigned char *bin_p = bin_buff;
     unsigned char low, hi;
-    long word;
+    unsigned long word;
     char *str_tbl[] = {
 #define X(opcode, op_fn, str_lit, ...) str_lit,
             OPCODES_LIST
@@ -53,13 +53,13 @@ int main(int argc, char **argv) {
     while ((cur_tok = strtok(NULL, " \n\t"))) {
         loop:
         if (*cur_tok == '#') {
-            *bin_p++ = (char)strtol(cur_tok + 1, NULL, 10);
+            *bin_p++ = (unsigned char)strtol(cur_tok + 1, NULL, 10);
             *bin_p++ = NOP;
             c += 2;
         } else if (*cur_tok == '$') {
             word = strtol(cur_tok + 1, NULL, 16);
-            hi = (unsigned short)word >> 16;
-            low = (unsigned short)word & MASK;
+            hi = (unsigned char)(word >> 8);
+            low = (unsigned char)(word & MASK);
             *bin_p++ = low;
             *bin_p++ = hi;
             *bin_p++ = NOP;
@@ -69,7 +69,7 @@ int main(int argc, char **argv) {
             for (; i < OPCODE_COUNT; i++) {
                 if (strcmp(cur_tok, str_tbl[i]) == 0) break;
             }
-            *bin_p++ = (char)i;
+            *bin_p++ = (unsigned char)i;
             c++;
         }
     }
