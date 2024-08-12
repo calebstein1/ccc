@@ -2,7 +2,7 @@
 
 #include "globals.h"
 #include "opcodes.h"
-#include "util.h"
+#include "cpu.h"
 
 void adc_f() {
     uint8_t la = a;

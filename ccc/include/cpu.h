@@ -1,5 +1,5 @@
-#ifndef CCC_UTIL_H
-#define CCC_UTIL_H
+#ifndef CCC_CPU_H
+#define CCC_CPU_H
 
 #define MAKE_WORD (((uint16_t)hi << 8) + low)
 
@@ -27,4 +27,6 @@
 #define UNSET_V (p &= 191)
 #define UNSET_N (p &= 127)
 
-#endif //CCC_UTIL_H
+void run_prg();
+
+#endif //CCC_CPU_H
