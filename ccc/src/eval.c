@@ -49,26 +49,52 @@ void dey_f() {}
 
 void for_f() {}
 
-void inc_f() {}
+void inc_f() {
+    unsigned char low = *pc++;
+    unsigned char hi = *pc++;
+    (*(prg_ram + (hi * 16) + low))++;
+}
 
-void inx_f() {}
+void inx_f() {
+    x++;
+}
 
-void iny_f() {}
+void iny_f() {
+    y++;
+}
 
 void jmp_f() {}
 
 void jsr_f() {}
 
 void lda_f() {
-    a = *pc++;
+    if (*(pc + 1) == NOP) {
+        a = *pc++;
+        return;
+    }
+    unsigned char low = *pc++;
+    unsigned char hi = *pc++;
+    a = *(prg_ram + (hi * 16) + low);
 }
 
 void ldx_f() {
-    x = *pc++;
+    if (*(pc + 1) == NOP) {
+        y = *pc++;
+        return;
+    }
+    unsigned char low = *pc++;
+    unsigned char hi = *pc++;
+    y = *(prg_ram + (hi * 16) + low);
 }
 
 void ldy_f() {
-    y = *pc++;
+    if (*(pc + 1) == NOP) {
+        y = *pc++;
+        return;
+    }
+    unsigned char low = *pc++;
+    unsigned char hi = *pc++;
+    y = *(prg_ram + (hi * 16) + low);
 }
 
 void lsr_f() {}
@@ -101,11 +127,23 @@ void sed_f() {}
 
 void sei_f() {}
 
-void sta_f() {}
+void sta_f() {
+    unsigned char low = *pc++;
+    unsigned char hi = *pc++;
+    *(prg_ram + (hi * 16) + low) = a;
+}
 
-void stx_f() {}
+void stx_f() {
+    unsigned char low = *pc++;
+    unsigned char hi = *pc++;
+    *(prg_ram + (hi * 16) + low) = y;
+}
 
-void sty_f() {}
+void sty_f() {
+    unsigned char low = *pc++;
+    unsigned char hi = *pc++;
+    *(prg_ram + (hi * 16) + low) = y;
+}
 
 void tax_f() {
     x = a;
