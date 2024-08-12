@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "globals.h"
 #include "prg.h"
 
 // RAM, Program Counter, and Stack Pointer
@@ -21,5 +22,11 @@ int main(int argc, char **argv) {
         return -1;
     }
 
+    while (pc < &prg_ram[0xffff]) {
+        (*eval_func[*pc])();
+        pc++;
+    }
+
+    printf("a: %d\nx: %d\ny: %d\n", a, x, y);
     return 0;
 }

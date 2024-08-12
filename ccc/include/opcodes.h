@@ -1,8 +1,6 @@
 #ifndef CCC_OPCODES_H
 #define CCC_OPCODES_H
 
-#define OPCODE_COUNT 56
-
 #define OPCODES_LIST   \
     X(ADC, adc_f)      \
     X(AND, and_f)      \

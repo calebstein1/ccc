@@ -113,7 +113,7 @@ void txs_f() {}
 
 void tya_f() {}
 
-void (*eval_func[OPCODE_COUNT]) = {
+void (*eval_func[OPCODE_COUNT])() = {
 #define X(opcode, op_fn, ...) op_fn,
         OPCODES_LIST
 #undef X
