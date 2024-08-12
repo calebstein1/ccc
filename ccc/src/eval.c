@@ -2,6 +2,7 @@
 
 #include "globals.h"
 #include "opcodes.h"
+#include "util.h"
 
 void adc_f() {}
 
@@ -46,7 +47,7 @@ void cpy_f() {}
 void dec_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    *(prg_ram + (uint16_t)(hi << 8) + low) -= 1;
+    *(prg_ram + MAKE_WORD) -= 1;
 }
 
 void dex_f() {
@@ -62,7 +63,7 @@ void for_f() {}
 void inc_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    *(prg_ram + (uint16_t)(hi << 8) + low) += 1;
+    *(prg_ram + MAKE_WORD) += 1;
 }
 
 void inx_f() {
@@ -84,7 +85,7 @@ void lda_f() {
     }
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    a = *(prg_ram + (uint16_t)(hi << 8) + low);
+    a = *(prg_ram + MAKE_WORD);
 }
 
 void ldx_f() {
@@ -94,7 +95,7 @@ void ldx_f() {
     }
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    x = *(prg_ram + (uint16_t)(hi << 8) + low);
+    x = *(prg_ram + MAKE_WORD);
 }
 
 void ldy_f() {
@@ -104,7 +105,7 @@ void ldy_f() {
     }
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    y = *(prg_ram + (uint16_t)(hi << 8) + low);
+    y = *(prg_ram + MAKE_WORD);
 }
 
 void lsr_f() {}
@@ -140,19 +141,19 @@ void sei_f() {}
 void sta_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    *(prg_ram + (uint16_t)(hi << 8) + low) = a;
+    *(prg_ram + MAKE_WORD) = a;
 }
 
 void stx_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    *(prg_ram + (uint16_t)(hi << 8) + low) = x;
+    *(prg_ram + MAKE_WORD) = x;
 }
 
 void sty_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    *(prg_ram + (uint16_t)(hi << 8) + low) = y;
+    *(prg_ram + MAKE_WORD) = y;
 }
 
 void tax_f() {
