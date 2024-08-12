@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 #include "prg.h"
-#include "opcodes.h"
 
 // RAM, Program Counter, and Stack Pointer
 unsigned char prg_ram[0xffff] = {};
