@@ -27,6 +27,6 @@
 #define UNSET_V (p &= 191)
 #define UNSET_N (p &= 127)
 
-void run_prg();
+void start_cpu();
 
 #endif //CCC_CPU_H

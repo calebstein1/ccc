@@ -13,8 +13,7 @@ int main(int argc, char **argv) {
         fputs("Failed to load program\n", stderr);
         return -1;
     }
-
-    run_prg();
+    start_cpu();
 
     printf("a: %d\nx: %d\ny: %d\n", a, x, y);
     return 0;
