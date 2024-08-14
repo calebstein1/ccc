@@ -160,7 +160,19 @@ void jmp_f() {
     pc = prg_ram + MAKE_WORD;
 }
 
-void jsr_f() {}
+void jsr_f() {
+    uint8_t low = PC_LOW + 2;
+    uint8_t hi = PC_HI;
+    if (low <= 1) {
+        hi++;
+    }
+    STACK_PUSH(hi);
+    STACK_PUSH(low);
+
+    low = *pc++;
+    hi = *pc++;
+    pc = prg_ram + MAKE_WORD;
+}
 
 void lda_f() {
     if (*(pc + 1) == NOP) {
@@ -215,7 +227,11 @@ void rti_f() {}
 void rts_f() {
     if (sp == 0xff) {
         stop_cpu();
+        return;
     }
+    uint8_t low = STACK_POP;
+    uint8_t hi = STACK_POP;
+    pc = prg_ram + MAKE_WORD;
 }
 
 void sbc_f() {}
