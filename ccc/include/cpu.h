@@ -28,5 +28,6 @@
 #define UNSET_N (p &= 127)
 
 void start_cpu();
+void stop_cpu();
 
 #endif //CCC_CPU_H

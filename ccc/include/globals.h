@@ -1,13 +1,13 @@
 #ifndef CCC_GLOBALS_H
 #define CCC_GLOBALS_H
 
-#define OPCODE_COUNT 57
+#define OPCODE_COUNT 56
 
 #include <stdint.h>
 
 extern uint8_t prg_ram[0xffff];
 extern uint8_t *pc;
-extern uint8_t *s;
+extern uint8_t sp;
 extern uint8_t a, x, y;
 extern uint8_t p;
 

@@ -212,7 +212,11 @@ void ror_f() {}
 
 void rti_f() {}
 
-void rts_f() {}
+void rts_f() {
+    if (sp == 0xff) {
+        stop_cpu();
+    }
+}
 
 void sbc_f() {}
 

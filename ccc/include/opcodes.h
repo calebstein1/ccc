@@ -2,7 +2,6 @@
 #define CCC_OPCODES_H
 
 #define OPCODES_LIST          \
-    X(END, nop_f, "END")      \
     X(ADC, adc_f, "ADC")      \
     X(AND, and_f, "AND")      \
     X(ASL, asl_f, "ASL")      \
