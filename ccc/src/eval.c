@@ -24,9 +24,25 @@ void and_f() {}
 
 void asl_f() {}
 
-void bcc_f() {}
+void bcc_f() {
+    if (!GET_C) {
+        uint8_t low = *pc++;
+        uint8_t hi = *pc++;
+        pc = prg_ram + MAKE_WORD;
+        return;
+    }
+    pc += 2;
+}
 
-void bcs_f() {}
+void bcs_f() {
+    if (GET_C) {
+        uint8_t low = *pc++;
+        uint8_t hi = *pc++;
+        pc = prg_ram + MAKE_WORD;
+        return;
+    }
+    pc += 2;
+}
 
 void beq_f() {
     if (GET_Z) {
