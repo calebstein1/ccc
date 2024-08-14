@@ -210,13 +210,21 @@ void nop_f() {}
 
 void ora_f() {}
 
-void pha_f() {}
+void pha_f() {
+    STACK_PUSH(a);
+}
 
-void php_f() {}
+void php_f() {
+    STACK_PUSH(p);
+}
 
-void pla_f() {}
+void pla_f() {
+    a = STACK_POP;
+}
 
-void plp_f() {}
+void plp_f() {
+    p = STACK_POP;
+}
 
 void rol_f() {}
 
@@ -268,13 +276,17 @@ void tay_f() {
     y = a;
 }
 
-void tsx_f() {}
+void tsx_f() {
+    x = STACK_PEEK;
+}
 
 void txa_f() {
     a = x;
 }
 
-void txs_f() {}
+void txs_f() {
+    STACK_PUSH(x);
+}
 
 void tya_f() {
     a = y;
