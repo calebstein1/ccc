@@ -31,8 +31,8 @@ int main(int argc, char **argv) {
     };
     struct stat asm_stat = {};
 
-    if (argc != 2) {
-        fputs("Please supply exactly one ccasm file\n", stderr);
+    if (argc < 2) {
+        fputs("Please supply exactly one asm file\n", stderr);
         return -1;
     }
     if (strcmp(&argv[1][strlen(argv[1]) - 4], ".asm") != 0) {
@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
         perror("open");
         return -1;
     }
-    argv[1][strlen(argv[1]) - 4] = '\0';
+    strcpy(&argv[1][strlen(argv[1]) - 3], "bin");
     fstat(asm_fd, &asm_stat);
     lseek(asm_fd, 0, SEEK_SET);
     read(asm_fd, asm_buff, asm_stat.st_size);
