@@ -67,9 +67,9 @@ int main(int argc, char **argv) {
                 cur_tok[i] = '\n';
             }
         } else if (*cur_tok == '#') {
-            addr += 2;
+            addr += 1;
         } else if (*cur_tok == '$') {
-            addr += 3;
+            addr += strtol(cur_tok + 1, NULL, 16) > 0xff ? 2 : 1;
         } else {
             int i = 0;
             for (; i < OPCODE_COUNT; i++) {
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
             if (i < OPCODE_COUNT) {
                 addr += 1;
             } else {
-                addr += 3;
+                addr += 2;
             }
         }
         cur_tok[strlen(cur_tok)] = '\n';
@@ -89,19 +89,33 @@ int main(int argc, char **argv) {
     cur_tok = strtok(asm_buff, " \n\t");
     do {
         if (*cur_tok == '#') {
+            // Immediate
+            *(bin_p - 1) += 6;
             int b = *(cur_tok + 1) == '$' ? 16 : 10;
             *bin_p++ = (uint8_t) strtol(b == 16 ? cur_tok + 2 : cur_tok + 1, NULL, b);
-            *bin_p++ = NOP;
-            c += 2;
+            c += 1;
         } else if (*cur_tok == '$') {
+            // Address
+            if (strtol(cur_tok + 1, NULL, 16) > 0xff) {
+                c += 2;
+            } else {
+                *(bin_p - 1) += 3;
+                c += 1;
+            }
+            if (cur_tok[strlen(cur_tok) - 1] == 'X') {
+                *(bin_p - 1) += 1;
+            } else if (cur_tok[strlen(cur_tok) - 1] == 'Y') {
+                *(bin_p - 1) += 2;
+            }
             word = strtol(cur_tok + 1, NULL, 16);
             hi = (uint8_t) (word >> 8);
             low = (uint8_t) (word & MASK);
             *bin_p++ = low;
-            *bin_p++ = hi;
-            *bin_p++ = NOP;
-            c += 3;
+            if (hi) {
+                *bin_p++ = hi;
+            }
         } else {
+            // Opcode or label
             int i = 0;
             for (; i < OPCODE_COUNT; i++) {
                 if (strcmp(cur_tok, str_tbl[i]) == 0) break;
@@ -119,8 +133,7 @@ int main(int argc, char **argv) {
                 low = (uint8_t) (word & MASK);
                 *bin_p++ = low;
                 *bin_p++ = hi;
-                *bin_p++ = NOP;
-                c += 3;
+                c += 2;
             }
         }
     } while ((cur_tok = strtok(NULL, " \n\t")));
