@@ -293,7 +293,7 @@ void tay_f() {
 }
 
 void tsx_f() {
-    x = STACK_PEEK;
+    x = sp;
 }
 
 void txa_f() {
@@ -301,7 +301,7 @@ void txa_f() {
 }
 
 void txs_f() {
-    STACK_PUSH(x);
+    sp = x;
 }
 
 void tya_f() {
