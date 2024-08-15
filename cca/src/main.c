@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdbool.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
@@ -19,8 +20,9 @@ int main(int argc, char **argv) {
     }
 
     int asm_fd = 0, bin_fd = 0;
+    bool os_mode = (argv[2] && strcmp(argv[2], "-os") == 0);
     size_t c = 0;
-    uint16_t addr = (argv[2] && strcmp(argv[2], "-os") == 0) ? 0xff00 : 0x8000;
+    uint16_t addr = os_mode ? 0xff00 : 0x8000;
     char asm_buff[0xffff] = {};
     char *cur_tok = NULL;
     uint8_t bin_buff[0x7f00] = {};
@@ -29,6 +31,7 @@ int main(int argc, char **argv) {
     uint64_t word;
     char *lbl_tbl[MAX_LABELS] = {};
     uint16_t addr_tbl[MAX_LABELS] = {};
+    uint8_t lbl_count = 0;
     char *str_tbl[] = {
 #define X(opcode, op_fn, str_lit, ...) str_lit,
             OPCODES_LIST
@@ -50,6 +53,7 @@ int main(int argc, char **argv) {
     read(asm_fd, asm_buff, asm_stat.st_size);
     close(asm_fd);
 
+    // First pass replaces labels with addresses
     cur_tok = strtok(asm_buff, " \n\t");
     do {
         if (cur_tok[strlen(cur_tok) - 1] == ':') {
@@ -61,22 +65,23 @@ int main(int argc, char **argv) {
             if (!lbl_tbl[i]) {
                 lbl_tbl[i] = malloc(strlen(cur_tok) + 1);
                 strcpy(lbl_tbl[i], cur_tok);
+                lbl_count++;
             }
             addr_tbl[i] = addr;
             for (i = 0; i < strlen(cur_tok); i++) {
                 cur_tok[i] = '\n';
             }
         } else if (*cur_tok == '#') {
-            addr += 0x2;
+            addr += 2;
         } else if (*cur_tok == '$') {
-            addr += 0x3;
+            addr += 3;
         } else {
             int i = 0;
             for (; i < OPCODE_COUNT; i++) {
                 if (strcmp(cur_tok, str_tbl[i]) == 0) break;
             }
             if (i < OPCODE_COUNT) {
-                addr += 0x1;
+                addr += 1;
             } else {
                 addr += 3;
             }
@@ -85,6 +90,7 @@ int main(int argc, char **argv) {
         cur_tok[strlen(cur_tok)] = '\n';
     } while ((cur_tok = strtok(NULL, " \n\t")));
 
+    // Second pass generates machine code
     cur_tok = strtok(asm_buff, " \n\t");
     do {
         if (*cur_tok == '#') {
@@ -126,6 +132,14 @@ int main(int argc, char **argv) {
     bin_fd = open(argv[1], O_RDWR | O_CREAT, 0644);
     write(bin_fd, bin_buff, c);
     close(bin_fd);
+    if (os_mode) {
+        bin_fd = open("address.txt", O_RDWR | O_CREAT, 0644);
+        for (int i = 0; i < lbl_count; i++) {
+            lseek(bin_fd, 0, SEEK_END);
+            dprintf(bin_fd, "%s\t%x\n", lbl_tbl[i], addr_tbl[i]);
+        }
+        close(bin_fd);
+    }
     for (int i = 0; i < MAX_LABELS; i++) {
         if (!lbl_tbl[i]) break;
         free(lbl_tbl[i]);
