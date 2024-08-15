@@ -25,3 +25,9 @@ In the end, it will get a ground-up rewrite, or I'll just implement 6502 properl
 Right now, CCC assembly is a very limited subset of 6502 assembly.
 Not every opcode is implemented yet, and only absolute addressing is supported at this point, for example.
 Any CCC assembly code should run on a proper 6502, but any proper 6502 assembly won't run on CCC yet.
+
+#### CCOS (Caleb's Crappy Operating System)
+
+Currently just initializes CCC's registers and stack pointer, it will ultimately contain something akin to a "standard library" of subroutines for programs to use.
+
+The top 256 bytes of CCC's memory are reserved for CCOS, and after it's finished initializing the system, execution is handed to the loaded program at 0x8000.
