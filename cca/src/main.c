@@ -94,7 +94,8 @@ int main(int argc, char **argv) {
     cur_tok = strtok(asm_buff, " \n\t");
     do {
         if (*cur_tok == '#') {
-            *bin_p++ = (uint8_t) strtol(cur_tok + 1, NULL, 10);
+            int b = *(cur_tok + 1) == '$' ? 16 : 10;
+            *bin_p++ = (uint8_t) strtol(b == 16 ? cur_tok + 2 : cur_tok + 1, NULL, b);
             *bin_p++ = NOP;
             c += 2;
         } else if (*cur_tok == '$') {

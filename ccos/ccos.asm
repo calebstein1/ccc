@@ -1,6 +1,6 @@
-    LDX #255
+    LDX #$ff
     TXS
-    LDA #128
+    LDA #$80
     PHA
     LDA #0
     TAX
