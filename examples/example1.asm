@@ -1,5 +1,3 @@
-    LDA #0
-    TAY
     STA $3000
 outer_loop:
     LDX #0
