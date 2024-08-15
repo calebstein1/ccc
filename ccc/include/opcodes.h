@@ -65,4 +65,10 @@ typedef enum {
 #undef X
 } opcode_e;
 
+static char *str_tbl[] = {
+#define X(opcode, op_fn, str_lit, ...) str_lit,
+        OPCODES_LIST
+#undef X
+};
+
 #endif //CCC_OPCODES_H

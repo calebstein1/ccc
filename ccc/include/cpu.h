@@ -28,7 +28,6 @@
 #define UNSET_N (p &= 127)
 
 #define STACK_PUSH(v) (*(prg_ram + s-- + 256) = v)
-#define STACK_PEEK (*(prg_ram + (s + 1) + 256))
 #define STACK_POP (*(prg_ram + ++s + 256))
 
 #define PC_LOW ((pc - prg_ram) & 0xff)
@@ -36,5 +35,6 @@
 
 void start_cpu();
 void stop_cpu();
+void print_registers();
 
 #endif //CCC_CPU_H

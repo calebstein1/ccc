@@ -1,11 +1,12 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "globals.h"
 #include "cpu.h"
 #include "prg.h"
 
 int main(int argc, char **argv) {
-    if (argc != 2) {
+    if (argc < 2) {
         fputs("Please supply a single program file\n", stderr);
         return -1;
     }
@@ -17,8 +18,11 @@ int main(int argc, char **argv) {
         fputs("Failed to load program\n", stderr);
         return -1;
     }
+    if (argv[2] && strcmp(argv[2], "-d") == 0) {
+        debug = 1;
+    }
     start_cpu();
+    print_registers();
 
-    printf("a: %d\nx: %d\ny: %d\n", a, x, y);
     return 0;
 }
