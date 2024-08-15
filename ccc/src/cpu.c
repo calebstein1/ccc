@@ -21,7 +21,7 @@ void start_cpu() {
 
     while (!shutdown) {
         l_cycle = p_time.tv_usec;
-        gettimeofday(&p_time, NULL);
+        gettimeofday(&p_time, 0);
         if (l_cycle == p_time.tv_usec) continue;
 
         (*eval_func[*pc++])();
