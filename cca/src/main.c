@@ -13,12 +13,17 @@
 #define MAX_LABELS 256
 
 int main(int argc, char **argv) {
+    if (argc < 2) {
+        fputs("Please supply exactly one asm file\n", stderr);
+        return -1;
+    }
+
     int asm_fd = 0, bin_fd = 0;
     size_t c = 0;
-    uint16_t addr = 0x8000;
+    uint16_t addr = (argv[2] && strcmp(argv[2], "-os") == 0) ? 0xff00 : 0x8000;
     char asm_buff[0xffff] = {};
     char *cur_tok = NULL;
-    uint8_t bin_buff[0x8000] = {};
+    uint8_t bin_buff[0x7f00] = {};
     uint8_t *bin_p = bin_buff;
     uint8_t low, hi;
     uint64_t word;
@@ -31,10 +36,6 @@ int main(int argc, char **argv) {
     };
     struct stat asm_stat = {};
 
-    if (argc < 2) {
-        fputs("Please supply exactly one asm file\n", stderr);
-        return -1;
-    }
     if (strcmp(&argv[1][strlen(argv[1]) - 4], ".asm") != 0) {
         fputs("Please make sure your file has the .asm file extension\n", stderr);
         return -1;
@@ -102,7 +103,6 @@ int main(int argc, char **argv) {
             *bin_p++ = hi;
             *bin_p++ = NOP;
             c += 3;
-            addr += 0x3;
         } else {
             int i = 0;
             for (; i < OPCODE_COUNT; i++) {
