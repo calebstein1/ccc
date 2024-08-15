@@ -32,11 +32,6 @@ int main(int argc, char **argv) {
     char *lbl_tbl[MAX_LABELS] = {};
     uint16_t addr_tbl[MAX_LABELS] = {};
     uint8_t lbl_count = 0;
-    char *str_tbl[] = {
-#define X(opcode, op_fn, str_lit, ...) str_lit,
-            OPCODES_LIST
-#undef X
-    };
     struct stat asm_stat = {};
 
     if (strcmp(&argv[1][strlen(argv[1]) - 4], ".asm") != 0) {
