@@ -249,7 +249,7 @@ void ror_f() {}
 void rti_f() {}
 
 void rts_f() {
-    if (sp == 0xff) {
+    if (s == 0xff) {
         stop_cpu();
         return;
     }
@@ -293,7 +293,7 @@ void tay_f() {
 }
 
 void tsx_f() {
-    x = sp;
+    x = s;
 }
 
 void txa_f() {
@@ -301,7 +301,7 @@ void txa_f() {
 }
 
 void txs_f() {
-    sp = x;
+    s = x;
 }
 
 void tya_f() {

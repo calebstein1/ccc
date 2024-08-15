@@ -27,9 +27,9 @@
 #define UNSET_V (p &= 191)
 #define UNSET_N (p &= 127)
 
-#define STACK_PUSH(v) (*(prg_ram + sp-- + 256) = v)
-#define STACK_PEEK (*(prg_ram + (sp + 1) + 256))
-#define STACK_POP (*(prg_ram + ++sp + 256))
+#define STACK_PUSH(v) (*(prg_ram + s-- + 256) = v)
+#define STACK_PEEK (*(prg_ram + (s + 1) + 256))
+#define STACK_POP (*(prg_ram + ++s + 256))
 
 #define PC_LOW ((pc - prg_ram) & 0xff)
 #define PC_HI ((pc - prg_ram) >> 8)
