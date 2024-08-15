@@ -51,9 +51,7 @@ int main(int argc, char **argv) {
     close(asm_fd);
 
     cur_tok = strtok(asm_buff, " \n\t");
-    goto floop;
-    while ((cur_tok = strtok(NULL, " \n\t"))) {
-        floop:
+    do {
         if (cur_tok[strlen(cur_tok) - 1] == ':') {
             cur_tok[strlen(cur_tok) - 1] = '\0';
             int i = 0;
@@ -85,20 +83,18 @@ int main(int argc, char **argv) {
         }
         cur_tok[strlen(cur_tok)] = '\n';
         cur_tok[strlen(cur_tok)] = '\n';
-    }
+    } while ((cur_tok = strtok(NULL, " \n\t")));
 
     cur_tok = strtok(asm_buff, " \n\t");
-    goto sloop;
-    while ((cur_tok = strtok(NULL, " \n\t"))) {
-        sloop:
+    do {
         if (*cur_tok == '#') {
-            *bin_p++ = (uint8_t)strtol(cur_tok + 1, NULL, 10);
+            *bin_p++ = (uint8_t) strtol(cur_tok + 1, NULL, 10);
             *bin_p++ = NOP;
             c += 2;
         } else if (*cur_tok == '$') {
             word = strtol(cur_tok + 1, NULL, 16);
-            hi = (uint8_t)(word >> 8);
-            low = (uint8_t)(word & MASK);
+            hi = (uint8_t) (word >> 8);
+            low = (uint8_t) (word & MASK);
             *bin_p++ = low;
             *bin_p++ = hi;
             *bin_p++ = NOP;
@@ -117,15 +113,15 @@ int main(int argc, char **argv) {
                     if (!lbl_tbl[i] || strcmp(cur_tok, lbl_tbl[i]) == 0) break;
                 }
                 word = addr_tbl[i];
-                hi = (uint8_t)(word >> 8);
-                low = (uint8_t)(word & MASK);
+                hi = (uint8_t) (word >> 8);
+                low = (uint8_t) (word & MASK);
                 *bin_p++ = low;
                 *bin_p++ = hi;
                 *bin_p++ = NOP;
                 c += 3;
             }
         }
-    }
+    } while ((cur_tok = strtok(NULL, " \n\t")));
 
     bin_fd = open(argv[1], O_RDWR | O_CREAT, 0644);
     write(bin_fd, bin_buff, c);
