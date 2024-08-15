@@ -5,13 +5,13 @@
 #include "cpu.h"
 
 // RAM, Program Counter, and Stack Pointer
-uint8_t prg_ram[0xffff] = {};
-uint8_t *pc = &prg_ram[0x8000];
+uint8_t prg_ram[0xffff];
+uint8_t *pc = &prg_ram[0xff00];
 uint8_t sp = 0xff;
 
 // CPU Registers
-uint8_t a = 0x0, x = 0x0, y = 0x0;
-uint8_t p = 0x0;
+uint8_t a, x, y;
+uint8_t p;
 
 uint8_t shutdown = 0;
 

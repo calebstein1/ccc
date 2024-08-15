@@ -9,6 +9,10 @@ int main(int argc, char **argv) {
         fputs("Please supply a single program file\n", stderr);
         return -1;
     }
+    if (load_os()) {
+        fputs("Failed to load OS\n", stderr);
+        return -1;
+    }
     if (load_prg(argv[1])) {
         fputs("Failed to load program\n", stderr);
         return -1;
