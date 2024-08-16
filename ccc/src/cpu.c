@@ -17,6 +17,7 @@ uint8_t p;
 
 uint8_t shutdown = 0;
 uint8_t debug = 0;
+uint8_t m6502 = 0;
 
 void start_cpu() {
     struct timeval p_time = {};
@@ -28,7 +29,11 @@ void start_cpu() {
         if (l_cycle == p_time.tv_usec) continue;
 
         if (debug && pc < prg_ram + 0xff00) printf("%s\n", str_tbl[*pc]);
-        (*eval_func[*pc++])();
+        if (m6502) {
+            (*eval_func[t6502[*pc++]])();
+        } else {
+            (*eval_func[*pc++])();
+        }
         if (debug && pc < prg_ram + 0xff00) {
             print_registers();
             getchar();

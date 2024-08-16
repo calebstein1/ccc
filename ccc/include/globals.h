@@ -1,7 +1,7 @@
 #ifndef CCC_GLOBALS_H
 #define CCC_GLOBALS_H
 
-#define OPCODE_COUNT 188
+#define OPCODE_COUNT 189
 
 #include <stdint.h>
 
@@ -11,6 +11,7 @@ extern uint8_t s;
 extern uint8_t a, x, y;
 extern uint8_t p;
 extern uint8_t debug;
+extern uint8_t m6502;
 
 extern void (*eval_func[OPCODE_COUNT])();
 

@@ -85,6 +85,7 @@
     X(EOR_Z, eorz_f, "EOR")   \
     X(EOR_ZX, eorzx_f, "EOR") \
     X(EOR_ZY, eorzy_f, "EOR") \
+    X(EOR_I, eori_f, "EOR") \
     X(INC_A, inca_f, "INC")   \
     X(INC_AX, incax_f, "INC") \
     X(INC_AY, incay_f, "INC") \
@@ -196,6 +197,25 @@ typedef enum {
     OPCODES_LIST
 #undef X
 } opcode_e;
+
+static opcode_e t6502[] = {
+        BRK, NOP, NOP, NOP, NOP, ORA_Z, ASL_Z, NOP, PHP, ORA_I, ASL_AC, NOP, NOP, ORA_A, ASL_A, NOP,
+        BPL_65, NOP, NOP, NOP, NOP, ORA_ZX, ASL_ZX, NOP, CLC, ORA_AY, NOP, NOP, NOP, ORA_AX, ASL_AX, NOP,
+        JSR, NOP, NOP, NOP,  BIT_Z, AND_Z, ROL_Z, NOP, PLP, AND_I, ROL_AC, NOP, BIT_A, AND_A, ROL_A, NOP,
+        BMI_65, NOP, NOP, NOP, NOP, AND_ZX, ROL_ZX, NOP, SEC, AND_AY, NOP, NOP, NOP, AND_AX, ROL_AX, NOP,
+        RTI, NOP, NOP, NOP, NOP, EOR_Z, LSR_Z, NOP, PHA, EOR_I, LSR_AC, NOP, JMP_A, EOR_A, LSR_A, NOP,
+        BVC_65, NOP, NOP, NOP, NOP, EOR_ZX, LSR_ZX, NOP, CLI, EOR_AY, NOP, NOP, NOP, EOR_AX, LSR_AX, NOP,
+        RTS, NOP, NOP, NOP, NOP, ADC_Z, ROR_Z, NOP, PLA, ADC_I, ROR_AC, NOP, NOP, ADC_A, ROR_A, NOP,
+        BVS_65, NOP, NOP, NOP, NOP, ADC_ZX, ROR_ZX, NOP, SEI, ADC_AY, NOP, NOP, NOP, ADC_AX, ROR_AX, NOP,
+        NOP, NOP, NOP, NOP, STY_Z, STA_Z, STX_Z, NOP, DEY, NOP, TXA, NOP, STY_A, STA_A, STX_A, NOP,
+        BCC_65, NOP, NOP, NOP, STY_ZX, STA_ZX, STX_ZY, NOP, TYA, STA_AY, TXS, NOP, NOP, STA_AX, NOP, NOP,
+        LDY_I, NOP, LDX_I, NOP, LDY_Z, LDA_Z, LDX_Z, NOP, TAY, LDA_I, TAX, NOP, LDY_A, LDA_A, LDX_A, NOP,
+        BCS_65, NOP, NOP, NOP, LDY_ZX, LDA_ZX, LDX_ZY, NOP, CLV, LDA_AY, TSX, NOP, LDY_AX, LDA_AX, LDX_AY, NOP,
+        CPY_I, NOP, NOP, NOP, CPY_Z, CMP_Z, DEC_Z, NOP, INY, CMP_I, DEX, NOP, CPY_A, CMP_A, DEC_A, NOP,
+        BNE_65, NOP, NOP, NOP, NOP, CMP_ZX, DEC_ZX, NOP, CLD, CMP_AY, NOP, NOP, NOP, CMP_AX, DEC_AX, NOP,
+        CPX_I, NOP, NOP, NOP, CPX_Z, SBC_Z, INC_Z, NOP, INX, SBC_I, NOP, NOP, CPX_A, SBC_A, INC_A, NOP,
+        BEQ_65, NOP, NOP, NOP, NOP, SBC_ZX, INC_ZX, NOP, SED, SBC_AY, NOP, NOP, NOP, SBC_AX, INC_AX, NOP
+};
 
 static char *str_tbl[] = {
 #define X(opcode, op_fn, str_lit, ...) str_lit,
