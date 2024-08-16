@@ -443,11 +443,17 @@ void clc_f() {
     UNSET_C;
 }
 
-void cld_f() {}
+void cld_f() {
+    UNSET_D;
+}
 
-void cli_f() {}
+void cli_f() {
+    UNSET_I;
+}
 
-void clv_f() {}
+void clv_f() {
+    UNSET_V;
+}
 
 void cmpa_f() {
     uint8_t low = *pc++;
@@ -926,11 +932,17 @@ void rts_f() {
 
 void sbc_f() {}
 
-void sec_f() {}
+void sec_f() {
+    SET_C;
+}
 
-void sed_f() {}
+void sed_f() {
+    SET_D;
+}
 
-void sei_f() {}
+void sei_f() {
+    SET_I;
+}
 
 void staa_f() {
     uint8_t low = *pc++;
