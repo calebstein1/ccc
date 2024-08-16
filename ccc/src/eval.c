@@ -8,22 +8,54 @@ void adca_f() {
     uint8_t la = a;
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    a += (*(prg_ram + MAKE_WORD) + GET_C);
+    uint8_t op = *(prg_ram + MAKE_WORD) + GET_C;
+    a += op;
     if (a < la) {
         SET_C;
     } else {
         UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
     }
 }
 
 void adcz_f() {
     uint8_t la = a;
     uint8_t low = *pc++;
-    a += (*(prg_ram + low) + GET_C);
+    uint8_t op = *(prg_ram + low) + GET_C;
+    a += op;
     if (a < la) {
         SET_C;
     } else {
         UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
     }
 }
 
@@ -31,11 +63,27 @@ void adcax_f() {
     uint8_t la = a;
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    a += (*(prg_ram + MAKE_WORD + x) + GET_C);
+    uint8_t op = *(prg_ram + MAKE_WORD + x) + GET_C;
+    a += op;
     if (a < la) {
         SET_C;
     } else {
         UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
     }
 }
 
@@ -43,38 +91,108 @@ void adcay_f() {
     uint8_t la = a;
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    a += (*(prg_ram + MAKE_WORD + y) + GET_C);
+    uint8_t op = *(prg_ram + MAKE_WORD + y) + GET_C;
+    a += op;
     if (a < la) {
         SET_C;
     } else {
         UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
     }
 }
 
 void adczx_f() {
     uint8_t la = a;
     uint8_t low = *pc++;
-    a += (*(prg_ram + low + x) + GET_C);
+    uint8_t op = *(prg_ram + low + x) + GET_C;
+    a += op;
     if (a < la) {
         SET_C;
     } else {
         UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
     }
 }
 
 void adczy_f() {
     uint8_t la = a;
     uint8_t low = *pc++;
-    a += (*(prg_ram + low + y) + GET_C);
+    uint8_t op = *(prg_ram + low + y) + GET_C;
+    a += op;
     if (a < la) {
         SET_C;
     } else {
         UNSET_C;
     }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
 }
 
 void adci_f() {
-    a += (*pc++ + GET_C);
+    uint8_t la = a;
+    uint8_t op = *pc++ + GET_C;
+    a += op;
+    if (a < la) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
 }
 
 void and_f() {}
