@@ -27,9 +27,9 @@ void start_cpu() {
         gettimeofday(&p_time, 0);
         if (l_cycle == p_time.tv_usec) continue;
 
-        if (debug) printf("%s\n", str_tbl[*pc]);
+        if (debug && pc < prg_ram + 0xff00) printf("%s\n", str_tbl[*pc]);
         (*eval_func[*pc++])();
-        if (debug) {
+        if (debug && pc < prg_ram + 0xff00) {
             print_registers();
             getchar();
         }
