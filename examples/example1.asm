@@ -1,10 +1,10 @@
-    STA $3000
+    STA $01
 outer_loop:
     LDX #0
-    INC $3000
+    INC $01
 inner_loop:
     JSR add_value
-    CPX $3000
+    CPX $01
     BNE inner_loop
     INY
     CPY #5
@@ -12,6 +12,6 @@ inner_loop:
     RTS
 
 add_value:
-    ADC $3000
+    ADC $01
     INX
     RTS
