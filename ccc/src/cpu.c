@@ -29,7 +29,7 @@ void start_cpu() {
         if (l_cycle == p_time.tv_usec) continue;
 
         if (debug && pc < prg_ram + 0xff00) printf("%s\n", str_tbl[*pc]);
-        if (m6502) {
+        if (m6502 && pc < prg_ram + 0xff00) {
             (*eval_func[t6502[*pc++]])();
         } else {
             (*eval_func[*pc++])();
