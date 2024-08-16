@@ -3,7 +3,7 @@
 
 #include "globals.h"
 #include "cpu.h"
-#include "prg.h"
+#include "loader.h"
 
 int main(int argc, char **argv) {
     if (argc < 2) {

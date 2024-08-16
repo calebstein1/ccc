@@ -4,7 +4,7 @@
 #include <sys/stat.h>
 
 #include "globals.h"
-#include "prg.h"
+#include "loader.h"
 
 int load_os() {
     struct stat os_stat = {};
