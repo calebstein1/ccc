@@ -15,16 +15,14 @@ Builds and runs, currently working towards getting all opcodes implemented.
 
 #### CCA (Caleb's Crappy Assembler)
 
-Exceedingly crappy.
-
-This is the result of about an hour of work because I got tired of raw-dogging hexadecimal into binary files to test the console.
-It will turn .asm files into CCC machine code and that's it.
-No fancy features, but it makes testing easier for now.
-In the end, it will get a ground-up rewrite, or I'll just implement 6502 properly and not have to worry about this wierd custom assembler.
+Assembles .asm files into .bin files for execution on the CCC CPU.
 
 Right now, CCC assembly is a very limited subset of 6502 assembly.
-Not every opcode is implemented yet, and only absolute addressing is supported at this point, for example.
-Any CCC assembly code should run on a proper 6502, but any proper 6502 assembly won't run on CCC yet.
+Not every opcode is implemented yet, but that's in progress.
+Supported addressing modes are immediate, absolute, absolute indexed, zero-page, and zero-page indexed.
+There is currently no support for indirect addressing.
+Labels are supported for use with branching instructions, JMP, and JSR.
+Any CCC assembly code should run on a proper 6502, but 6502 assembly won't run on CCC.
 
 #### CCOS (Caleb's Crappy Operating System)
 
