@@ -1,6 +1,6 @@
     LDA #2
     LDY #1
-    STY $00,X
+    STY $00
 
 fib_loop:
     STA $00,Y
