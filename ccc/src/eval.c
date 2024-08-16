@@ -268,7 +268,12 @@ void beq65_f() {
     pc++;
 }
 
-void bit_f() {}
+void bita_f() {}
+void bitax_f() {}
+void bitay_f() {}
+void bitz_f() {}
+void bitzx_f() {}
+void bitzy_f() {}
 
 void bmi_f() {
     if (GET_N) {

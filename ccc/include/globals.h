@@ -1,7 +1,7 @@
 #ifndef CCC_GLOBALS_H
 #define CCC_GLOBALS_H
 
-#define OPCODE_COUNT 183
+#define OPCODE_COUNT 188
 
 #include <stdint.h>
 

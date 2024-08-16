@@ -29,7 +29,12 @@
     X(BCS_65, bcs65_f, "BCS") \
     X(BEQ, beq_f, "BEQ")      \
     X(BEQ_65, beq65_f, "BEQ") \
-    X(BIT, bit_f, "BIT")      \
+    X(BIT_A, bita_f, "BIT")   \
+    X(BIT_AX, bitax_f, "BIT") \
+    X(BIT_AY, bitay_f, "BIT") \
+    X(BIT_Z, bitz_f, "BIT")   \
+    X(BIT_ZX, bitzx_f, "BIT") \
+    X(BIT_ZY, bitzy_f, "BIT") \
     X(BMI, bmi_f, "BMI")      \
     X(BMI_65, bmi65_f, "BMI") \
     X(BNE, bne_f, "BNE")      \
@@ -141,7 +146,7 @@
     X(ROL_Z, rolz_f, "ROL")   \
     X(ROL_ZX, rolzx_f, "ROL") \
     X(ROL_ZY, rolzy_f, "ROL") \
-    X(ROL_AC, rolac_a, "ROL") \
+    X(ROL_AC, rolac_f, "ROL") \
     X(ROR_A, rora_f, "ROR")   \
     X(ROR_AX, rorax_f, "ROR") \
     X(ROR_AY, roray_f, "ROR") \
