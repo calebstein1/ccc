@@ -32,7 +32,6 @@
 
 #define PC_LOW ((pc - prg_ram) & 0xff)
 #define PC_HI ((pc - prg_ram) >> 8)
-#define PC_HI16 (pc - prg_ram)
 
 void start_cpu();
 void stop_cpu();

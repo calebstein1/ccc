@@ -223,8 +223,8 @@ void bcc_f() {
 
 void bcc65_f() {
     if (!GET_C) {
-        uint8_t low = *pc++;
-        pc = prg_ram + PC_HI16 + low;
+        int8_t off = (int8_t)*pc++;
+        pc += off;
         return;
     }
     pc++;
@@ -242,8 +242,8 @@ void bcs_f() {
 
 void bcs65_f() {
     if (GET_C) {
-        uint8_t low = *pc++;
-        pc = prg_ram + PC_HI16 + low;
+        int8_t off = (int8_t)*pc++;
+        pc += off;
         return;
     }
     pc++;
@@ -261,8 +261,8 @@ void beq_f() {
 
 void beq65_f() {
     if (GET_Z) {
-        uint8_t low = *pc++;
-        pc = prg_ram + PC_HI16 + low;
+        int8_t off = (int8_t)*pc++;
+        pc += off;
         return;
     }
     pc++;
@@ -287,8 +287,8 @@ void bmi_f() {
 
 void bmi65_f() {
     if (GET_N) {
-        uint8_t low = *pc++;
-        pc = prg_ram + PC_HI16 + low;
+        int8_t off = (int8_t)*pc++;
+        pc += off;
         return;
     }
     pc++;
@@ -306,8 +306,8 @@ void bne_f() {
 
 void bne65_f() {
     if (!GET_Z) {
-        uint8_t low = *pc++;
-        pc = prg_ram + PC_HI16 + low;
+        int8_t off = (int8_t)*pc++;
+        pc += off;
         return;
     }
     pc++;
@@ -325,8 +325,8 @@ void bpl_f() {
 
 void bpl65_f() {
     if (!GET_N) {
-        uint8_t low = *pc++;
-        pc = prg_ram + PC_HI16 + low;
+        int8_t off = (int8_t)*pc++;
+        pc += off;
         return;
     }
     pc++;
@@ -346,8 +346,8 @@ void bvc_f() {
 
 void bvc65_f() {
     if (!GET_V) {
-        uint8_t low = *pc++;
-        pc = prg_ram + PC_HI16 + low;
+        int8_t off = (int8_t)*pc++;
+        pc += off;
         return;
     }
     pc++;
@@ -365,8 +365,8 @@ void bvs_f() {
 
 void bvs65_f() {
     if (GET_V) {
-        uint8_t low = *pc++;
-        pc = prg_ram + PC_HI16 + low;
+        int8_t off = (int8_t)*pc++;
+        pc += off;
         return;
     }
     pc++;
