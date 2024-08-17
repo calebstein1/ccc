@@ -8,8 +8,8 @@
 
 // RAM, Program Counter, and Stack Pointer
 uint8_t prg_ram[0xffff];
-uint8_t *pc = &prg_ram[0xff00];
-uint8_t s;
+uint8_t *pc = &prg_ram[0x8000];
+uint8_t s = 0xff;
 
 // CPU Registers
 uint8_t a, x, y;
@@ -17,7 +17,7 @@ uint8_t p;
 
 uint8_t shutdown = 0;
 uint8_t debug = 0;
-uint8_t m6502 = 0;
+uint8_t m6502 = 1;
 
 void start_cpu() {
     struct timeval p_time = {};
@@ -28,8 +28,8 @@ void start_cpu() {
         gettimeofday(&p_time, 0);
         if (l_cycle == p_time.tv_usec) continue;
 
-        if (debug && pc < prg_ram + 0xff00) printf("%s\n", str_tbl[*pc]);
-        if (m6502 && pc < prg_ram + 0xff00) {
+        if (debug) printf("%s\n", str_tbl[t6502[*pc]]);
+        if (m6502) {
             (*eval_func[t6502[*pc++]])();
         } else {
             (*eval_func[*pc++])();
