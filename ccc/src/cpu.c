@@ -28,15 +28,15 @@ void start_cpu() {
         gettimeofday(&p_time, 0);
         if (l_cycle == p_time.tv_usec) continue;
 
-        if (debug) printf("%s\n", str_tbl[t6502[*pc]]);
+        if (debug) {
+            printf("Next: %s\n", str_tbl[t6502[*pc]]);
+            print_registers();
+            getchar();
+        }
         if (m6502) {
             (*eval_func[t6502[*pc++]])();
         } else {
             (*eval_func[*pc++])();
-        }
-        if (debug && pc < prg_ram + 0xff00) {
-            print_registers();
-            getchar();
         }
     }
 }
@@ -46,6 +46,6 @@ void stop_cpu() {
 }
 
 void print_registers() {
-    printf("a: %d\nx: %d\ny: %d\np: %d%d1%d%d%d%d%d\n   NV1BDIZC\n",
-           a, x, y, GET_N, GET_V, GET_B, GET_D, GET_I, GET_Z, GET_C);
+    printf("a: %d\nx: %d\ny: %d\npc: 0x%x\ns: 0x%x\np: %d%d1%d%d%d%d%d\n   NV1BDIZC\n",
+           a, x, y, (uint16_t)(pc - prg_ram), s, GET_N, GET_V, GET_B, GET_D, GET_I, GET_Z, GET_C);
 }
