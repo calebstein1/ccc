@@ -391,237 +391,477 @@ void clv_f() {
 void cmpa_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    if (a - *(prg_ram + MAKE_WORD)) {
+    uint8_t op = *(prg_ram + MAKE_WORD);
+    if (a - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((a - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cmpax_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    if (a - *(prg_ram + MAKE_WORD + x)) {
+    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    if (a - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((a - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cmpay_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    if (a - *(prg_ram + MAKE_WORD + y)) {
+    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    if (a - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((a - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cmpz_f() {
-    uint8_t low = *pc++;
-    if (a - *(prg_ram + low)) {
+    uint8_t op = *(prg_ram + *pc++);
+    if (a - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((a - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cmpzx_f() {
-    uint8_t low = *pc++;
-    if (a - *(prg_ram + low + x)) {
+    uint8_t op = *(prg_ram + *pc++ + x);
+    if (a - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((a - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cmpzy_f() {
-    uint8_t low = *pc++;
-    if (a - *(prg_ram + low + y)) {
+    uint8_t op = *(prg_ram + *pc++ + y);
+    if (a - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((a - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cmpi_f() {
-    if (a - *pc++) {
+    uint8_t op = *pc++;
+    if (a - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((a - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpxa_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    if (x - *(prg_ram + MAKE_WORD)) {
+    uint8_t op = *(prg_ram + MAKE_WORD);
+    if (x - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((x - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpxax_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    if (x - *(prg_ram + MAKE_WORD + x)) {
+    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    if (x - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((x - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpxay_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    if (x - *(prg_ram + MAKE_WORD + y)) {
+    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    if (x - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((x - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpxz_f() {
-    uint8_t low = *pc++;
-    if (x - *(prg_ram + low)) {
+    uint8_t op = *(prg_ram + *pc++);
+    if (x - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((x - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpxzx_f() {
-    uint8_t low = *pc++;
-    if (x - *(prg_ram + low + x)) {
+    uint8_t op = *(prg_ram + *pc++ + x);
+    if (x - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((x - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpxzy_f() {
-    uint8_t low = *pc++;
-    if (x - *(prg_ram + low + y)) {
+    uint8_t op = *(prg_ram + *pc++ + y);
+    if (x - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((x - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpxi_f() {
-    if (x - *pc++) {
+    uint8_t op = *pc++;
+    if (x - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((x - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpya_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    if (y - *(prg_ram + MAKE_WORD)) {
+    uint8_t op = *(prg_ram + MAKE_WORD);
+    if (y - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((y - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpyax_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    if (y - *(prg_ram + MAKE_WORD + x)) {
+    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    if (y - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((y - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpyay_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
-    if (y - *(prg_ram + MAKE_WORD + y)) {
+    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    if (y - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((y - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpyz_f() {
-    uint8_t low = *pc++;
-    if (y - *(prg_ram + low)) {
+    uint8_t op = *(prg_ram + *pc++);
+    if (y - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((y - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpyzx_f() {
-    uint8_t low = *pc++;
-    if (y - *(prg_ram + low + x)) {
+    uint8_t op = *(prg_ram + *pc++ + x);
+    if (y - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((y - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpyzy_f() {
     uint8_t low = *pc++;
-    if (y - *(prg_ram + low + y)) {
+    uint8_t op = *(prg_ram + *pc++ + y);
+    if (y - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((y - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void cpyi_f() {
-    if (y - *pc++) {
+    uint8_t op = *pc++;
+    if (y - op) {
         UNSET_Z;
-        return;
+    } else {
+        SET_Z;
     }
-    SET_Z;
+    if ((y - op) >> 7) {
+        SET_N;
+        SET_C;
+    } else {
+        UNSET_N;
+        UNSET_C;
+    }
 }
 
 void deca_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     *(prg_ram + MAKE_WORD) -= 1;
+    if (!*(prg_ram + MAKE_WORD)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + MAKE_WORD) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void decax_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     *(prg_ram + MAKE_WORD + x) -= 1;
+    if (!*(prg_ram + MAKE_WORD + x)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + MAKE_WORD + x) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void decay_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     *(prg_ram + MAKE_WORD + y) -= 1;
+    if (!*(prg_ram + MAKE_WORD + y)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + MAKE_WORD + y) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void decz_f() {
     uint8_t low = *pc++;
     *(prg_ram + low) -= 1;
+    if (!*(prg_ram + low)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + low) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void deczx_f() {
     uint8_t low = *pc++;
     *(prg_ram + low + x) -= 1;
+    if (!*(prg_ram + low + x)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + low + x) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void deczy_f() {
     uint8_t low = *pc++;
     *(prg_ram + low + y) -= 1;
+    if (!*(prg_ram + low + y)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + low + y) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void dex_f() {
     x--;
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void dey_f() {
     y--;
+    if (!y) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (y >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void eora_f() {}
@@ -636,41 +876,121 @@ void inca_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     *(prg_ram + MAKE_WORD) += 1;
+    if (!*(prg_ram + MAKE_WORD)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + MAKE_WORD) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void incax_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     *(prg_ram + MAKE_WORD + x) += 1;
+    if (!*(prg_ram + MAKE_WORD + x)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + MAKE_WORD + x) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void incay_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     *(prg_ram + MAKE_WORD + y) += 1;
+    if (!*(prg_ram + MAKE_WORD + y)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + MAKE_WORD + y) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void incz_f() {
     uint8_t low = *pc++;
     *(prg_ram + low) += 1;
+    if (!*(prg_ram + low)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + low) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void inczx_f() {
     uint8_t low = *pc++;
     *(prg_ram + low + x) += 1;
+    if (!*(prg_ram + low + x)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + low + x) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void inczy_f() {
     uint8_t low = *pc++;
     *(prg_ram + low + y) += 1;
+    if (!*(prg_ram + low + y)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (*(prg_ram + low + y) >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void inx_f() {
     x++;
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void iny_f() {
     y++;
+    if (!y) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (y >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void jmpa_f() {
@@ -724,111 +1044,321 @@ void ldaa_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     a = *(prg_ram + MAKE_WORD);
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldaax_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     a = *(prg_ram + MAKE_WORD + x);
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldaay_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     a = *(prg_ram + MAKE_WORD + y);
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldaz_f() {
     uint8_t low = *pc++;
     a = *(prg_ram + low);
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldazx_f() {
     uint8_t low = *pc++;
     a = *(prg_ram + low + x);
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldazy_f() {
     uint8_t low = *pc++;
     a = *(prg_ram + low + y);
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldai_f() {
     a = *pc++;
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldxa_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     x = *(prg_ram + MAKE_WORD);
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldxax_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     x = *(prg_ram + MAKE_WORD + x);
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldxay_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     x = *(prg_ram + MAKE_WORD + y);
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldxz_f() {
     uint8_t low = *pc++;
     x = *(prg_ram + low);
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldxzx_f() {
     uint8_t low = *pc++;
     x = *(prg_ram + low + x);
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldxzy_f() {
     uint8_t low = *pc++;
     x = *(prg_ram + low + y);
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldxi_f() {
     x = *pc++;
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldya_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     y = *(prg_ram + MAKE_WORD);
+    if (!y) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (y >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldyax_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     y = *(prg_ram + MAKE_WORD + x);
+    if (!y) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (y >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldyay_f() {
     uint8_t low = *pc++;
     uint8_t hi = *pc++;
     y = *(prg_ram + MAKE_WORD + y);
+    if (!y) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (y >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldyz_f() {
     uint8_t low = *pc++;
     y = *(prg_ram + low);
+    if (!y) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (y >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldyzx_f() {
     uint8_t low = *pc++;
     y = *(prg_ram + low + x);
+    if (!y) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (y >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldyzy_f() {
     uint8_t low = *pc++;
     y = *(prg_ram + low + y);
+    if (!y) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (y >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void ldyi_f() {
     y = *pc++;
+    if (!y) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (y >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void lsra_f() {}
@@ -859,6 +1389,16 @@ void php_f() {
 
 void pla_f() {
     a = STACK_POP;
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void plp_f() {
@@ -1014,18 +1554,58 @@ void styzy_f() {
 
 void tax_f() {
     x = a;
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void tay_f() {
     y = a;
+    if (!y) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (y >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void tsx_f() {
     x = s;
+    if (!x) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (x >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void txa_f() {
     a = x;
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void txs_f() {
@@ -1034,6 +1614,16 @@ void txs_f() {
 
 void tya_f() {
     a = y;
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
 }
 
 void (*eval_func[OPCODE_COUNT])() = {
