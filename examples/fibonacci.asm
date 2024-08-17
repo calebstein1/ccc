@@ -4,6 +4,7 @@
 
 fib_loop:
     STA $00,Y
+    CLC
     ADC $00,X
     INX
     INY
