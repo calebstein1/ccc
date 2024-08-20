@@ -20,7 +20,6 @@ int main(int argc, char **argv) {
         m6502 = 0;
     }
     start_cpu();
-    print_registers();
 
     return 0;
 }

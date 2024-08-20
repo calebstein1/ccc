@@ -3,6 +3,7 @@
 #include <sys/time.h>
 
 #include "globals.h"
+#include "console.h"
 #include "cpu.h"
 #include "opcodes.h"
 
@@ -33,6 +34,13 @@ void start_cpu() {
             print_registers();
             getchar();
         }
+
+        if (prg_ram[0x4018]) {
+            prg_ram[0x4018] = 0;
+            print_buffer();
+            continue;
+        }
+
         if (m6502) {
             (*eval_func[t6502[*pc++]])();
         } else {
