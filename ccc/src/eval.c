@@ -195,21 +195,263 @@ void adci_f() {
     }
 }
 
-void anda_f() {}
-void andax_f() {}
-void anday_f() {}
-void andz_f() {}
-void andzx_f() {}
-void andzy_f() {}
-void andi_f() {}
+void anda_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD);
+    a &= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
 
-void asla_f() {}
-void aslax_f() {}
-void aslay_f() {}
-void aslz_f() {}
-void aslzx_f() {}
-void aslzy_f() {}
-void aslac_f() {}
+void andax_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    a &= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void anday_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    a &= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void andz_f() {
+    uint8_t low = *pc++;
+    uint8_t op = *(prg_ram + low);
+    a &= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void andzx_f() {
+    uint8_t low = *pc++;
+    uint8_t op = *(prg_ram + low + x);
+    a &= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void andzy_f() {
+    uint8_t low = *pc++;
+    uint8_t op = *(prg_ram + low + y);
+    a &= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void andi_f() {
+    a &= *pc++;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void asla_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD;
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void aslax_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD + x;
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void aslay_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD + y;
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void aslz_f() {
+    uint8_t *op = prg_ram + *pc++;
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void aslzx_f() {
+    uint8_t *op = prg_ram + *pc++ + x;
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void aslzy_f() {
+    uint8_t *op = prg_ram + *pc++ + y;
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void aslac_f() {
+    if (a >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    a <<= 1;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
 
 void bcc_f() {
     if (!GET_C) {
@@ -864,13 +1106,115 @@ void dey_f() {
     }
 }
 
-void eora_f() {}
-void eorax_f() {}
-void eoray_f() {}
-void eorz_f() {}
-void eorzx_f() {}
-void eorzy_f() {}
-void eori_f() {}
+void eora_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD);
+    a ^= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void eorax_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    a ^= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void eoray_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    a ^= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void eorz_f() {
+    uint8_t op = *(prg_ram + *pc++);
+    a ^= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void eorzx_f() {
+    uint8_t op = *(prg_ram + *pc++ + x);
+    a ^= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void eorzy_f() {
+    uint8_t op = *(prg_ram + *pc++ + y);
+    a ^= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void eori_f() {
+    a ^= *pc++;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
 
 void inca_f() {
     uint8_t low = *pc++;
@@ -1361,23 +1705,234 @@ void ldyi_f() {
     }
 }
 
-void lsra_f() {}
-void lsrax_f() {}
-void lsray_f() {}
-void lsrz_f() {}
-void lsrzx_f() {}
-void lsrzy_f() {}
-void lsrac_f() {}
+void lsra_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD;
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    UNSET_N;
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void lsrax_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD + x;
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    UNSET_N;
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void lsray_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD + y;
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    UNSET_N;
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void lsrz_f() {
+    uint8_t *op = prg_ram + *pc++;
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    UNSET_N;
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void lsrzx_f() {
+    uint8_t *op = prg_ram + *pc++ + x;
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    UNSET_N;
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void lsrzy_f() {
+    uint8_t *op = prg_ram + *pc++ + y;
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    UNSET_N;
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void lsrac_f() {
+    if (a & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    a >>= 1;
+    UNSET_N;
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
 
 void nop_f() {}
 
-void oraa_f() {}
-void oraax_f() {}
-void oraay_f() {}
-void oraz_f() {}
-void orazx_f() {}
-void orazy_f() {}
-void orai_f() {}
+void oraa_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD);
+    a |= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void oraax_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    a |= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void oraay_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    a |= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void oraz_f() {
+    uint8_t op = *(prg_ram + *pc++);
+    a |= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void orazx_f() {
+    uint8_t op = *(prg_ram + *pc++ + x);
+    a |= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void orazy_f() {
+    uint8_t op = *(prg_ram + *pc++ + y);
+    a |= op;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void orai_f() {
+    a |= *pc++;
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
 
 void pha_f() {
     STACK_PUSH(a);
@@ -1405,21 +1960,393 @@ void plp_f() {
     p = STACK_POP;
 }
 
-void rola_f() {}
-void rolax_f() {}
-void rolay_f() {}
-void rolz_f() {}
-void rolzx_f() {}
-void rolzy_f() {}
-void rolac_f() {}
+void rola_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (c) {
+        *op |= 1;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
 
-void rora_f() {}
-void rorax_f() {}
-void roray_f() {}
-void rorz_f() {}
-void rorzx_f() {}
-void rorzy_f() {}
-void rorac_f() {}
+void rolax_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD + x;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (c) {
+        *op |= 1;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rolay_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD + y;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (c) {
+        *op |= 1;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rolz_f() {
+    uint8_t *op = prg_ram + *pc++;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (c) {
+        *op |= 1;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rolzx_f() {
+    uint8_t *op = prg_ram + *pc++ + x;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (c) {
+        *op |= 1;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rolzy_f() {
+    uint8_t *op = prg_ram + *pc++ + y;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op <<= 1;
+    if (c) {
+        *op |= 1;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rolac_f() {
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (a >> 7) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    a <<= 1;
+    if (c) {
+        a |= 1;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rora_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    if (c) {
+        *op |= 128;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rorax_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD + x;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    if (c) {
+        *op |= 128;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void roray_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD + y;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    if (c) {
+        *op |= 128;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rorz_f() {
+    uint8_t *op = prg_ram + *pc++;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    if (c) {
+        *op |= 128;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rorzx_f() {
+    uint8_t *op = prg_ram + *pc++ + x;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    if (c) {
+        *op |= 128;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rorzy_f() {
+    uint8_t *op = prg_ram + *pc++ + y;
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (*op & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    *op >>= 1;
+    if (c) {
+        *op |= 128;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!*op) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void rorac_f() {
+    uint8_t c = 0;
+    if (GET_C) {
+        c = 1;
+    }
+    if (a & 1) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    a >>= 1;
+    if (c) {
+        a |= 128;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
 
 void rti_f() {}
 
@@ -1433,13 +2360,193 @@ void rts_f() {
     pc = prg_ram + MAKE_WORD;
 }
 
-void sbca_f() {}
-void sbcax_f() {}
-void sbcay_f() {}
-void sbcz_f() {}
-void sbczx_f() {}
-void sbczy_f() {}
-void sbci_f() {}
+void sbca_f() {
+    uint8_t la = a;
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD) - GET_C;
+    a -= op;
+    if (a > la) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void sbcax_f() {
+    uint8_t la = a;
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD + x) - GET_C;
+    a -= op;
+    if (a > la) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void sbcay_f() {
+    uint8_t la = a;
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t op = *(prg_ram + MAKE_WORD + y) - GET_C;
+    a -= op;
+    if (a > la) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void sbcz_f() {
+    uint8_t la = a;
+    uint8_t op = *(prg_ram + *pc++) - GET_C;
+    a -= op;
+    if (a > la) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void sbczx_f() {
+    uint8_t la = a;
+    uint8_t op = *(prg_ram + *pc++ + x) - GET_C;
+    a -= op;
+    if (a > la) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void sbczy_f() {
+    uint8_t la = a;
+    uint8_t op = *(prg_ram + *pc++ + y) - GET_C;
+    a -= op;
+    if (a > la) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void sbci_f() {
+    uint8_t la = a;
+    uint8_t op = *pc++ - GET_C;
+    a -= op;
+    if (a > la) {
+        SET_C;
+    } else {
+        UNSET_C;
+    }
+    if ((la >> 7 == op >> 7 && la >> 7 != a >> 7)) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (a >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!a) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
 
 void sec_f() {
     SET_C;
