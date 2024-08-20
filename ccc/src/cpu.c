@@ -29,12 +29,6 @@ void start_cpu() {
         gettimeofday(&p_time, 0);
         if (l_cycle == p_time.tv_usec) continue;
 
-        if (debug) {
-            printf("Next: %s\n", str_tbl[t6502[*pc]]);
-            print_registers();
-            getchar();
-        }
-
         if (prg_ram[0x4018]) {
             prg_ram[0x4018] = 0;
             print_buffer();
@@ -43,6 +37,12 @@ void start_cpu() {
             prg_ram[0x4019] = 0;
             print_number();
             continue;
+        }
+
+        if (debug) {
+            printf("Next: %s\n", str_tbl[t6502[*pc]]);
+            print_registers();
+            getchar();
         }
 
         if (m6502) {
