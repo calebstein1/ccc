@@ -510,12 +510,125 @@ void beq65_f() {
     pc++;
 }
 
-void bita_f() {}
-void bitax_f() {}
-void bitay_f() {}
-void bitz_f() {}
-void bitzx_f() {}
-void bitzy_f() {}
+void bita_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD;
+    if (*op >> 6) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!(a & *op)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void bitax_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD + x;
+    if (*op >> 6) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!(a & *op)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void bitay_f() {
+    uint8_t low = *pc++;
+    uint8_t hi = *pc++;
+    uint8_t *op = prg_ram + MAKE_WORD + y;
+    if (*op >> 6) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!(a & *op)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void bitz_f() {
+    uint8_t *op = prg_ram + *pc++;
+    if (*op >> 6) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!(a & *op)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void bitzx_f() {
+    uint8_t *op = prg_ram + *pc++ + x;
+    if (*op >> 6) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!(a & *op)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
+
+void bitzy_f() {
+    uint8_t *op = prg_ram + *pc++ + y;
+    if (*op >> 6) {
+        SET_V;
+    } else {
+        UNSET_V;
+    }
+    if (*op >> 7) {
+        SET_N;
+    } else {
+        UNSET_N;
+    }
+    if (!(a & *op)) {
+        SET_Z;
+    } else {
+        UNSET_Z;
+    }
+}
 
 void bmi_f() {
     if (GET_N) {
