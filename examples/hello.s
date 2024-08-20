@@ -1,6 +1,6 @@
 sbuff=$4020
 
-    ldy #13
+    ldy #14
 loop:
     lda string,y
     sta sbuff,y
@@ -11,4 +11,4 @@ loop:
     rts
 
 string:
-    .byte "Hello, world!", $00
+    .byte "Hello, world!", $0A, $00

@@ -39,6 +39,10 @@ void start_cpu() {
             prg_ram[0x4018] = 0;
             print_buffer();
             continue;
+        } else if (prg_ram[0x4019]) {
+            prg_ram[0x4019] = 0;
+            print_number();
+            continue;
         }
 
         if (m6502) {
