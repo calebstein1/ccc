@@ -1,7 +1,7 @@
 #ifndef CCC_SHELL_H
 #define CCC_SHELL_H
 
-#define CMD_BUFF_SIZE 16
+#define CMD_BUFF_SIZE 256
 #define MAX_CMD_ARGS 4
 #define SHELL_CMD_COUNT 5
 

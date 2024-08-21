@@ -70,6 +70,7 @@ void shell_prompt() {
             args[i++] = arg_buff & 0xff;
             args[i++] = arg_buff >> 8;
         }
+        if (i == MAX_CMD_ARGS) break;
     }
 
     (*shell_func[cmd])(args);
