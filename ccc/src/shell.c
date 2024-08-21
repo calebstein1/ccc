@@ -5,6 +5,7 @@
 
 #include "globals.h"
 #include "shell.h"
+#include "cpu.h"
 
 void help_f(const uint8_t *args) {
     puts("  peek [addr] - print the byte stored at [addr]");
@@ -26,6 +27,10 @@ void load_f(const uint8_t *args) {
 
 void run_f(const uint8_t *args) {
 
+}
+
+void exit_f(const uint8_t *args) {
+    stop_cpu();
 }
 
 void shell_prompt() {

@@ -3,14 +3,15 @@
 
 #define CMD_BUFF_SIZE 256
 #define MAX_CMD_ARGS 4
-#define SHELL_CMD_COUNT 5
+#define SHELL_CMD_COUNT 6
 
 #define SHELL_CMD_TBL         \
     X(HELP, help_f, "help")   \
     X(PEEK, peek_f, "peek")   \
     X(POKE, poke_f, "poke")   \
     X(LOAD, load_f, "load")   \
-    X(RUN, run_f, "run")
+    X(RUN, run_f, "run")      \
+    X(EXIT, exit_f, "exit")
 
 typedef enum shell_cmd {
 #define X(op, ...) op,
