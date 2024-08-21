@@ -18,7 +18,6 @@ uint8_t p;
 
 uint8_t shutdown = 0;
 uint8_t debug = 0;
-uint8_t m6502 = 1;
 
 void start_cpu() {
     struct timeval p_time = {};
@@ -45,11 +44,7 @@ void start_cpu() {
             getchar();
         }
 
-        if (m6502) {
-            (*eval_func[t6502[*pc++]])();
-        } else {
-            (*eval_func[*pc++])();
-        }
+        (*eval_func[t6502[*pc++]])();
     }
 }
 

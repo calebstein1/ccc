@@ -11,7 +11,6 @@ extern uint8_t s;
 extern uint8_t a, x, y;
 extern uint8_t p;
 extern uint8_t debug;
-extern uint8_t m6502;
 
 extern void (*eval_func[OPCODE_COUNT])();
 

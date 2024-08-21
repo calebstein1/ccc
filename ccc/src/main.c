@@ -16,8 +16,6 @@ int main(int argc, char **argv) {
     }
     if (argv[2] && strcmp(argv[2], "-d") == 0) {
         debug = 1;
-    } else if (argv[2] && strcmp(argv[2], "-ccc") == 0) {
-        m6502 = 0;
     }
     start_cpu();
 
