@@ -687,7 +687,17 @@ void bpl65_f() {
     pc++;
 }
 
-void brk_f() {}
+void brk_f() {
+    SET_I;
+    uint8_t low = PC_LOW + 1;
+    uint8_t hi = PC_HI;
+    if (low <= 1) {
+        hi++;
+    }
+    STACK_PUSH(hi);
+    STACK_PUSH(low);
+    STACK_PUSH(p);
+}
 
 void bvc_f() {
     if (!GET_V) {
@@ -1484,7 +1494,7 @@ void jmpzy_f() {
 }
 
 void jsr_f() {
-    uint8_t low = PC_LOW + 2;
+    uint8_t low = PC_LOW + 1;
     uint8_t hi = PC_HI;
     if (low <= 1) {
         hi++;
@@ -2071,6 +2081,7 @@ void pla_f() {
 
 void plp_f() {
     p = STACK_POP;
+    UNSET_I;
 }
 
 void rola_f() {
@@ -2461,7 +2472,13 @@ void rorac_f() {
     }
 }
 
-void rti_f() {}
+void rti_f() {
+    p = STACK_POP;
+    UNSET_I;
+    uint8_t low = STACK_POP;
+    uint8_t hi = STACK_POP;
+    pc = prg_ram + MAKE_WORD;
+}
 
 void rts_f() {
     if (s == 0xff) {
@@ -2470,7 +2487,7 @@ void rts_f() {
     }
     uint8_t low = STACK_POP;
     uint8_t hi = STACK_POP;
-    pc = prg_ram + MAKE_WORD;
+    pc = prg_ram + MAKE_WORD + 1;
 }
 
 void sbca_f() {
