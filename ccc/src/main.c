@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv) {
     if (!argv[1] || load_prg(argv[1])) {
-        puts("Welcome to CCC v0.0.1\n\nRun 'help' at the prompt to list available commands\n");
+        printf("Welcome to CCC v%s\n\nRun 'help' at the prompt to list available commands\n\n", CCC_VER);
         while (!prg_loaded) {
             fputs("$ ", stdout);
             shell_prompt();

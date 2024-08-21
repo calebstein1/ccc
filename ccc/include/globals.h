@@ -1,6 +1,7 @@
 #ifndef CCC_GLOBALS_H
 #define CCC_GLOBALS_H
 
+#define CCC_VER "0.0.1-prealpha"
 #define OPCODE_COUNT 189
 
 #include <stdint.h>
