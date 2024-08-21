@@ -689,6 +689,7 @@ void bpl65_f() {
 
 void brk_f() {
     SET_I;
+    SET_B;
     uint8_t low = PC_LOW + 1;
     uint8_t hi = PC_HI;
     if (low <= 1) {
@@ -2062,6 +2063,7 @@ void pha_f() {
 }
 
 void php_f() {
+    SET_B;
     STACK_PUSH(p);
 }
 
@@ -2082,6 +2084,7 @@ void pla_f() {
 void plp_f() {
     p = STACK_POP;
     UNSET_I;
+    UNSET_B;
 }
 
 void rola_f() {
@@ -2475,6 +2478,7 @@ void rorac_f() {
 void rti_f() {
     p = STACK_POP;
     UNSET_I;
+    UNSET_B;
     uint8_t low = STACK_POP;
     uint8_t hi = STACK_POP;
     pc = prg_ram + MAKE_WORD;

@@ -15,7 +15,7 @@ uint8_t s = 0xff;
 
 // CPU Registers
 uint8_t a, x, y;
-uint8_t p;
+uint8_t p = 32;
 
 uint8_t prg_loaded = 0;
 uint8_t shutdown = 0;
