@@ -21,6 +21,7 @@ int load_prg(char *prg) {
     lseek(fd, 0, SEEK_SET);
     read(fd, pc, p_stat.st_size);
     close(fd);
+    prg_loaded = 1;
 
     return 0;
 }

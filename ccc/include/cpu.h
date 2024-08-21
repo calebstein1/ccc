@@ -35,6 +35,5 @@
 
 void start_cpu();
 void stop_cpu();
-void print_registers();
 
 #endif //CCC_CPU_H

@@ -4,6 +4,7 @@
 
 #include "globals.h"
 #include "console.h"
+#include "shell.h"
 #include "cpu.h"
 #include "opcodes.h"
 
@@ -16,6 +17,7 @@ uint8_t s = 0xff;
 uint8_t a, x, y;
 uint8_t p;
 
+uint8_t prg_loaded = 0;
 uint8_t shutdown = 0;
 uint8_t debug = 0;
 
@@ -41,6 +43,8 @@ void start_cpu() {
         if (debug) {
             printf("Next: %s\n", str_tbl[t6502[*pc]]);
             print_registers();
+            fputs("$ ", stdout);
+            shell_prompt();
             getchar();
         }
 
@@ -50,9 +54,4 @@ void start_cpu() {
 
 void stop_cpu() {
     shutdown = 1;
-}
-
-void print_registers() {
-    printf("a: %d\nx: %d\ny: %d\npc: 0x%x\ns: 0x%x\np: %d%d1%d%d%d%d%d\n   NV1BDIZC\n",
-           a, x, y, (uint16_t)(pc - prg_ram), s, GET_N, GET_V, GET_B, GET_D, GET_I, GET_Z, GET_C);
 }
