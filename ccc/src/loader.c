@@ -14,7 +14,7 @@ int load_prg(char *prg) {
         return -1;
     }
     fstat(fd, &p_stat);
-    if (p_stat.st_size > 0x7f00) {
+    if (p_stat.st_size > 0x8000) {
         fputs("Program too large\n", stderr);
         return -1;
     }
