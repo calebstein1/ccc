@@ -40,6 +40,12 @@ void start_cpu() {
             continue;
         }
 
+        if(!prg_loaded) {
+            fputs("$ ", stdout);
+            shell_prompt();
+            continue;
+        }
+
         if (debug) {
             printf("Next: %s\n", str_tbl[t6502[*pc]]);
             print_registers();
