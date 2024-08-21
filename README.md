@@ -2,30 +2,67 @@
 
 Caleb's Crappy Console is a new fantasy console under heavy development and coming soon.
 
-Unlike other fantasy consoles that aim to be easy to use by running languages like Lua, this console runs it's own custom virtual 8-bit CPU that's somewhat reminiscent of the 6502.
-There's currently no documentation on its machine code or assembly language, though obviously that'll change as the project moves along.
-Ultimately, it would be nice to properly implement the 6502 instruction set in this thing, that way you'd be able to write software for it using, for example, the cc65 toolchain.
-We'll call it a stretch goal 🤷
+Unlike other fantasy consoles that aim to be easy to use by running languages like Lua, this console runs it's own custom virtual 8-bit CPU that's based on the design of the 6502 CPU.
+It is binary compatible with 6502 machine code and will run binaries produced by the cc65 toolchain using the included ld65 config file.
 
-## Status by project
+## Current Status
 
-#### CCC (Caleb's Crappy Console)
+All documented 6502 instructions are implemented.
+All addressing modes are supported with the exception of the indirect modes, which will be added soon.
+There is no display support yet, but strings and numbers can be printed to the console.
+There is a basic shell which can be used as part of debugging (invoked with `ccc [prg.bin] -d`) supporting `peek` and `poke` to view and manipulate the memory of a running program.
 
-Builds and runs, currently working towards getting all opcodes implemented.
+## Building the program
 
-#### CCA (Caleb's Crappy Assembler)
+First thing you should do is clone the repo and enter the directory:
 
-Assembles .asm files into .bin files for execution on the CCC CPU.
+```
+git clone https://github.com/calebstein1/ccc
+cd ccc
+```
 
-Right now, CCC assembly is a very limited subset of 6502 assembly.
-Not every opcode is implemented yet, but that's in progress.
-Supported addressing modes are immediate, absolute, absolute indexed, zero-page, and zero-page indexed.
-There is currently no support for indirect addressing.
-Labels are supported for use with branching instructions, JMP, and JSR.
-Any CCC assembly code should run on a proper 6502, but 6502 assembly won't run on CCC.
+You can then build CCC as so:
 
-#### CCOS (Caleb's Crappy Operating System)
+```
+cd ccc
+make
+```
 
-Currently just initializes CCC's registers and stack pointer, it will ultimately contain something akin to a "standard library" of subroutines for programs to use.
+If you'd like to build CCLib as well, you'll need to install the [cc65 toolchain](https://cc65.github.io/) and then you'd do as follows:
 
-The top 256 bytes of CCC's memory are reserved for CCOS, and after it's finished initializing the system, execution is handed to the loaded program at 0x8000.
+```
+cd lib
+ca65 cclib.s
+```
+
+## Building programs
+
+### Assembly without CCLib
+
+```
+ca65 your-file.s
+ld65 -C [/path/to/ccc/ld65/ccc.conf] -o your-file.bin your-file.o
+```
+
+### Assembly with CCLib
+
+At the top of your program source, you'll need to import any functions you're using from CCLib as so:
+
+```
+.import printbuff, printnum
+```
+
+Then:
+
+```
+ca65 your-file.s
+ld65 -C [/path/to/ccc/ld65/ccc.conf] -o your-file.bin your-file.o [path/to/cclib.o]
+```
+
+### C (experimental support, currently no standard library for CCC)
+
+```
+cc65 your-file.c
+ca65 your-file.s
+ld65 -C [/path/to/ccc/ld65/ccc.conf] -o your-file.bin your-file.o none.lib
+```
