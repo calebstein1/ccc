@@ -1,6 +1,5 @@
 #include <stdint.h>
 
-#include "globals.h"
 #include "opcodes.h"
 #include "cpu.h"
 

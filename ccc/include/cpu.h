@@ -1,6 +1,11 @@
 #ifndef CCC_CPU_H
 #define CCC_CPU_H
 
+#include <stdint.h>
+
+#define CCC_VER "0.0.1-prealpha"
+#define OPCODE_COUNT 189
+
 #define MAKE_WORD (((uint16_t)hi << 8) + low)
 
 #define GET_C (p & 1)
@@ -32,6 +37,24 @@
 
 #define PC_LOW ((pc - prg_ram) & 0xff)
 #define PC_HI ((pc - prg_ram) >> 8)
+
+typedef enum cpu_state {
+    SHUTDWN,
+    BOOT,
+    PRG_LD,
+    PRG_DBG,
+    PRG_RN,
+} cpu_state;
+
+extern uint8_t prg_ram[0x10000];
+extern uint8_t *pc;
+extern uint8_t s;
+extern uint8_t a, x, y;
+extern uint8_t p;
+
+extern cpu_state state;
+
+extern void (*eval_func[OPCODE_COUNT])();
 
 void start_cpu();
 void stop_cpu();

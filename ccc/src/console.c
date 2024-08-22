@@ -1,6 +1,6 @@
 #include <stdio.h>
+#include <stdint.h>
 
-#include "globals.h"
 #include "console.h"
 #include "cpu.h"
 

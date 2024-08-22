@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <sys/stat.h>
 
-#include "globals.h"
+#include "cpu.h"
 #include "loader.h"
 
 int load_prg(char *prg) {
@@ -21,7 +21,7 @@ int load_prg(char *prg) {
     lseek(fd, 0, SEEK_SET);
     read(fd, pc, p_stat.st_size);
     close(fd);
-    prg_loaded = 1;
+    state = PRG_LD;
 
     return 0;
 }
