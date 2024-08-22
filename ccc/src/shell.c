@@ -4,6 +4,8 @@
 #include <string.h>
 
 #include "globals.h"
+#include "opcodes.h"
+#include "console.h"
 #include "shell.h"
 #include "cpu.h"
 
@@ -29,12 +31,21 @@ void run_f(const uint8_t *args) {
 
 }
 
+void status_f(const uint8_t *args) {
+    printf("Next: %s\n", str_tbl[t6502[*pc]]);
+    print_registers();
+}
+
+void continue_f(const uint8_t *args) {
+    prg_ram[0x4000] = 0;
+}
+
 void exit_f(const uint8_t *args) {
     stop_cpu();
 }
 
 void shell_prompt() {
-    static void (*shell_func[SHELL_CMD_COUNT])(const uint8_t *args) = {
+    static void (*shell_func[])(const uint8_t *args) = {
 #define X(op, fn, ...) fn,
             SHELL_CMD_TBL
 #undef X
