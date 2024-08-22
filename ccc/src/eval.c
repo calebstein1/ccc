@@ -690,14 +690,18 @@ void bpl65_f() {
 void brk_f() {
     SET_I;
     SET_B;
+    pc--;
     uint8_t low = PC_LOW + 1;
     uint8_t hi = PC_HI;
-    if (low <= 1) {
+    if (!low) {
         hi++;
     }
     STACK_PUSH(hi);
     STACK_PUSH(low);
     STACK_PUSH(p);
+    low = prg_ram[0xfffe];
+    hi = prg_ram[0xffff];
+    pc = prg_ram + MAKE_WORD;
 }
 
 void bvc_f() {
