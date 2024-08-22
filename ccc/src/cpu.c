@@ -33,6 +33,7 @@ void start_cpu() {
         if (prg_ram[0x4000]) {
             fputs("$ ", stdout);
             shell_prompt();
+            continue;
         } else if (prg_ram[0x4018]) {
             prg_ram[0x4018] = 0;
             print_buffer();
