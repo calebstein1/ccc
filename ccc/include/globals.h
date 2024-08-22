@@ -6,7 +6,7 @@
 
 #include <stdint.h>
 
-extern uint8_t prg_ram[0xffff];
+extern uint8_t prg_ram[0x10000];
 extern uint8_t *pc;
 extern uint8_t s;
 extern uint8_t a, x, y;

@@ -9,7 +9,7 @@
 #include "opcodes.h"
 
 // RAM, Program Counter, and Stack Pointer
-uint8_t prg_ram[0xffff];
+uint8_t prg_ram[0x10000];
 uint8_t *pc = &prg_ram[0x8000];
 uint8_t s = 0xff;
 
