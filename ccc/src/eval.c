@@ -690,8 +690,7 @@ void bpl65_f() {
 void brk_f() {
     SET_I;
     SET_B;
-    pc--;
-    uint8_t low = PC_LOW + 1;
+    uint8_t low = PC_LOW;
     uint8_t hi = PC_HI;
     if (!low) {
         hi++;
