@@ -13,7 +13,6 @@ extern uint8_t a, x, y;
 extern uint8_t p;
 
 extern uint8_t prg_loaded;
-extern uint8_t debug;
 
 extern void (*eval_func[OPCODE_COUNT])();
 
