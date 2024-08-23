@@ -50,8 +50,8 @@ void run_f(const uint8_t *args, const char *arg) {
 }
 
 void status_f(const uint8_t *args, const char *arg) {
-    printf("Next: %s\n", str_tbl[t6502[*pc]]);
-    print_registers();
+    printf("a: %d\nx: %d\ny: %d\npc: 0x%x\ns: 0x%x\np: %d%d%d%d%d%d\n   NVDIZC\n",
+           a, x, y, (uint16_t)(pc - prg_ram), s, GET_N, GET_V, GET_D, GET_I, GET_Z, GET_C);
 }
 
 void continue_f(const uint8_t *args, const char *arg) {

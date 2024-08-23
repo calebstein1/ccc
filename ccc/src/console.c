@@ -4,11 +4,6 @@
 #include "console.h"
 #include "cpu.h"
 
-void print_registers() {
-    printf("a: %d\nx: %d\ny: %d\npc: 0x%x\ns: 0x%x\np: %d%d%d%d%d%d\n   NVDIZC\n",
-           a, x, y, (uint16_t)(pc - prg_ram), s, GET_N, GET_V, GET_D, GET_I, GET_Z, GET_C);
-}
-
 void print_buffer() {
     printf("%s", &prg_ram[0x4020]);
 }
