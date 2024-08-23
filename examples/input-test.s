@@ -4,6 +4,8 @@ ctrl=$4001
 sbuff=$4020
 
 main:
+    lda $2000
+    pha
     lda ctrl
     and #%00000001
     beq check_secondary
@@ -31,8 +33,13 @@ check_up:
 check_down:
     lda ctrl
     and #%00100000
-    beq main
+    beq begin_hold
     jsr print_down
+begin_hold:
+    pla
+hold:
+    cmp $2000
+    beq hold
     bvc main
     rts
 
