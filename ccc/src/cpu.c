@@ -41,6 +41,9 @@ void *start_cpu() {
         if (l_cycle == p_time.tv_usec) continue;
 
         if (prg_ram[0x4000]) {
+            uint8_t low = *(prg_ram + s + 0x103);
+            uint8_t hi = *(prg_ram + s + 0x104);
+            printf("Breaking at address 0x%x\n", MAKE_WORD - 1);
             c_state = PRG_DBG;
         } else if (prg_ram[0x4018]) {
             prg_ram[0x4018] = 0;
