@@ -198,7 +198,7 @@ typedef enum {
 #undef X
 } opcode_e;
 
-static opcode_e t6502[] = {
+static const opcode_e t6502[] = {
         BRK, NOP, NOP, NOP, NOP, ORA_Z, ASL_Z, NOP, PHP, ORA_I, ASL_AC, NOP, NOP, ORA_A, ASL_A, NOP,
         BPL_65, NOP, NOP, NOP, NOP, ORA_ZX, ASL_ZX, NOP, CLC, ORA_AY, NOP, NOP, NOP, ORA_AX, ASL_AX, NOP,
         JSR, NOP, NOP, NOP,  BIT_Z, AND_Z, ROL_Z, NOP, PLP, AND_I, ROL_AC, NOP, BIT_A, AND_A, ROL_A, NOP,
@@ -217,7 +217,7 @@ static opcode_e t6502[] = {
         BEQ_65, NOP, NOP, NOP, NOP, SBC_ZX, INC_ZX, NOP, SED, SBC_AY, NOP, NOP, NOP, SBC_AX, INC_AX, NOP
 };
 
-static char *str_tbl[] = {
+static const char *str_tbl[] = {
 #define X(opcode, op_fn, str_lit, ...) str_lit,
         OPCODES_LIST
 #undef X
