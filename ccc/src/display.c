@@ -35,6 +35,8 @@ void start_gpu() {
     g_state = GPU_RN;
 
     while (g_state == GPU_RN && c_state) {
+        FRM_CNT++;
+
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 g_state = GPU_STP;
