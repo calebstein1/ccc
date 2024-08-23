@@ -49,6 +49,14 @@ void run_f(const uint8_t *args, const char *arg) {
     }
 }
 
+void runanyway_f(const uint8_t *args, const char *arg) {
+    if (c_state == PRG_DBG) {
+        fputs("Program already running\n", stderr);
+    } else {
+        c_state = PRG_RN;
+    }
+}
+
 void status_f(const uint8_t *args, const char *arg) {
     printf("a: %d\nx: %d\ny: %d\npc: 0x%x\ns: 0x%x\np: %d%d%d%d%d%d\n   NVDIZC\n",
            a, x, y, (uint16_t)(pc - prg_ram), s, GET_N, GET_V, GET_D, GET_I, GET_Z, GET_C);
