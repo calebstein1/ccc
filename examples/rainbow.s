@@ -96,4 +96,4 @@ dec_blue:
     rts
 
 string:
-    .byte "Welcome to the CCC Rainbow example! Press 'z' to exit", $0A, $00
+    .byte "Welcome to the CCC Rainbow example! Press 'x' to exit", $0A, $00
