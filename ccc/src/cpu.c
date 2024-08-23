@@ -58,7 +58,6 @@ void *start_cpu() {
         if(c_state == PRG_RN) {
             (*eval_func[t6502[*pc++]])();
         } else {
-            fputs("$ ", stdout);
             shell_prompt();
             continue;
         }
