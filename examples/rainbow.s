@@ -1,4 +1,4 @@
-    .import printbuff ; from cclib
+    .import drawloop, printbuff ; from cclib
 
 frame=$2000
 red=$2002
@@ -27,22 +27,15 @@ str_loop:
     lda #$40
     sta blue
 draw_loop:
-    lda frame
-    pha
+    jsr drawloop
     lda ctrl
     and #1
     bne leave
     jsr mod_red
     jsr mod_green
     jsr mod_blue
-begin_hold:
-    pla
-hold:
-    cmp frame
-    beq hold
     bvc draw_loop
 leave:
-    pla
     rts
 
 check_min:

@@ -1,11 +1,10 @@
-    .import printbuff ; from cclib
+    .import drawloop, printbuff ; from cclib
 
 ctrl=$4001
 sbuff=$4020
 
 main:
-    lda $2000
-    pha
+    jsr drawloop
     lda ctrl
     and #%00000001
     beq check_secondary
@@ -33,13 +32,8 @@ check_up:
 check_down:
     lda ctrl
     and #%00100000
-    beq begin_hold
+    beq main
     jsr print_down
-begin_hold:
-    pla
-hold:
-    cmp $2000
-    beq hold
     bvc main
     rts
 

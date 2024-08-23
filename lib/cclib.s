@@ -1,4 +1,13 @@
-.export printbuff, printnum
+.export drawloop, printbuff, printnum
+
+drawloop:
+    pha
+    lda $2000
+hold:
+    cmp $2000
+    beq hold
+    pla
+    rts
 
 printbuff:
     pha
