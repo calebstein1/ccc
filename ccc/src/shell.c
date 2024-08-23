@@ -2,18 +2,19 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <unistd.h>
+#include <dirent.h>
 
 #include "loader.h"
-#include "opcodes.h"
-#include "console.h"
 #include "shell.h"
-#include "display.h"
 #include "cpu.h"
 
 void help_f(const uint8_t *args, const char *arg) {
     puts("  peek [addr] - print the byte stored at [addr]");
     puts("  poke [addr] [val] - write the byte [val] to [addr]");
     puts("  load [prg] - attempt to load program located at path [prg] into memory");
+    puts("  ls [dir] - list the contents of the current directory or the directory [dir]");
+    puts("  cd [dir] - change the current working directory to [dir]");
     puts("  run - run the program loaded by 'load'");
     puts("  status - display the status of CPU registers, pc, s, and p");
     puts("  continue - continue execution of a running program from a breakpoint");
@@ -27,6 +28,29 @@ void peek_f(const uint8_t *args, const char *arg) {
 void poke_f(const uint8_t *args, const char *arg) {
     uint8_t *addr = prg_ram + args[0] + (args[1] * 0x100);
     *addr = args[2];
+}
+
+void ls_f(const uint8_t *args, const char *arg) {
+    const char *filetypes[] = { "???", "FIFO", "CHR", "",
+                          "DIR", "", "BLK", "",
+                          "FILE", "", "SYM", "",
+                          "SOCK", "", "WHT", "" };
+    DIR *dir;
+    struct dirent *dir_itm;
+    if (!(dir = opendir(arg ? arg : "."))) {
+        perror("opendir");
+        return;
+    }
+    rewinddir(dir);
+    while ((dir_itm = readdir(dir))) {
+        printf("%-16s\t%s\n", dir_itm->d_name, filetypes[dir_itm->d_type]);
+    }
+}
+
+void cd_f(const uint8_t *args, const char *arg) {
+    if (chdir(arg ? arg : ".")) {
+        perror("chdir");
+    }
 }
 
 void load_f(const uint8_t *args, const char *arg) {
@@ -82,7 +106,7 @@ void shell_prompt() {
 #undef X
     };
 
-    static char *shell_str[] = {
+    static const char *shell_str[] = {
 #define X(op, fn, str, ...) str,
             SHELL_CMD_TBL
 #undef X
@@ -96,6 +120,10 @@ void shell_prompt() {
     char *arg = NULL;
     uint8_t i = 0;
 
+    char dir_buff[CMD_BUFF_SIZE];
+    getcwd(dir_buff, CMD_BUFF_SIZE);
+
+    printf("\033[1;31m[\033[1;34mCCC %s \033[1;35m%s\033[1;31m]\033[0m$ ", CCC_VER, dir_buff);
     fgets(cmd_buff, CMD_BUFF_SIZE, stdin);
     if (*cmd_buff == '\n') return;
 
