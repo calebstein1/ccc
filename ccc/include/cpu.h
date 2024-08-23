@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define CCC_VER "0.0.1-prealpha"
+#define CCC_VER "0.0.2-prealpha"
 #define OPCODE_COUNT 189
 
 #define MAKE_WORD (((uint16_t)hi << 8) + low)
