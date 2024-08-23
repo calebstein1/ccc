@@ -3,7 +3,7 @@
 
 #define CMD_BUFF_SIZE 256
 #define MAX_CMD_ARGS 4
-#define SHELL_CMD_COUNT 11
+#define SHELL_CMD_COUNT 12
 
 #define SHELL_CMD_TBL                      \
     X(HELP, help_f, "help")                \
@@ -16,6 +16,7 @@
     X(RUNANYWAY, runanyway_f, "runanyway") \
     X(STATUS, status_f, "status")          \
     X(CONTINUE, continue_f, "continue")    \
+    X(CLEAR, clear_f, "clear")             \
     X(EXIT, exit_f, "exit")
 
 typedef enum shell_cmd {

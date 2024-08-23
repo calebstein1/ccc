@@ -4,10 +4,11 @@
 #include "display.h"
 #include "cpu.h"
 #include "loader.h"
+#include "colors.h"
 
 int main(int argc, char **argv) {
     if (!argv[1] || load_prg(argv[1])) {
-        printf("Welcome to CCC v%s\n\nRun 'help' at the prompt to list available commands\n\n", CCC_VER);
+        printf("Welcome to CCC v%s\n\nRun %shelp%s at the prompt to list available commands\n\n", CCC_VER, GREENB, RESET);
     } else {
         c_state = PRG_RN;
     }

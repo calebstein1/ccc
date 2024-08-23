@@ -8,17 +8,19 @@
 #include "loader.h"
 #include "shell.h"
 #include "cpu.h"
+#include "colors.h"
 
 void help_f(const uint8_t *args, const char *arg) {
-    puts("  peek [addr] - print the byte stored at [addr]");
-    puts("  poke [addr] [val] - write the byte [val] to [addr]");
-    puts("  load [prg] - attempt to load program located at path [prg] into memory");
-    puts("  ls [dir] - list the contents of the current directory or the directory [dir]");
-    puts("  cd [dir] - change the current working directory to [dir]");
-    puts("  run - run the program loaded by 'load'");
-    puts("  status - display the status of CPU registers, pc, s, and p");
-    puts("  continue - continue execution of a running program from a breakpoint");
-    puts("  exit - shutdown CCC");
+    printf("  %speek %s[addr] %s- print the byte stored at %s[addr]%s\n", GREENB, CYAN, RESET, CYAN, RESET);
+    printf("  %spoke %s[addr] %s[val] %s- write the byte %s[val]%s to %s[addr]%s\n", GREENB, CYAN, BLUE, RESET, BLUE, RESET, CYAN, RESET);
+    printf("  %sload %s[prg] %s- attempt to load program located at path %s[prg]%s into memory\n", GREENB, CYAN, RESET, CYAN, RESET);
+    printf("  %sls %s[dir] %s- list the contents of the current directory or the directory %s[dir]%s\n", GREENB, CYAN, RESET, CYAN, RESET);
+    printf("  %scd %s[dir] %s- change the current working directory to %s[dir]%s\n", GREENB, CYAN, RESET, CYAN, RESET);
+    printf("  %srun %s- run the program loaded by %sload%s\n", GREENB, RESET, GREENB, RESET);
+    printf("  %sstatus %s- display the status of CPU registers, pc, s, and p\n", GREENB, RESET);
+    printf("  %scontinue %s- continue execution of a running program from a breakpoint\n", GREENB, RESET);
+    printf("  %sclear %s- clears the terminal screen\n", GREENB, RESET);
+    printf("  %sexit %s- shutdown CCC\n", GREENB, RESET);
 }
 
 void peek_f(const uint8_t *args, const char *arg) {
@@ -35,6 +37,10 @@ void ls_f(const uint8_t *args, const char *arg) {
                           "DIR", "", "BLK", "",
                           "FILE", "", "SYM", "",
                           "SOCK", "", "WHT", "" };
+    const char *fcolors[] = { RESET, RESET, RESET, RESET,
+                                BLUE, RESET, YELLOW, RESET,
+                                RESET, RESET, PURPLE, RESET,
+                                RED, RESET, RESET, RESET };
     DIR *dir;
     struct dirent *dir_itm;
     if (!(dir = opendir(arg ? arg : "."))) {
@@ -43,7 +49,7 @@ void ls_f(const uint8_t *args, const char *arg) {
     }
     rewinddir(dir);
     while ((dir_itm = readdir(dir))) {
-        printf("%-16s\t%s\n", dir_itm->d_name, filetypes[dir_itm->d_type]);
+        printf("%s%-16s%s\t%s\n", fcolors[dir_itm->d_type], dir_itm->d_name, RESET, filetypes[dir_itm->d_type]);
     }
 }
 
@@ -56,9 +62,9 @@ void cd_f(const uint8_t *args, const char *arg) {
 void load_f(const uint8_t *args, const char *arg) {
     memset(&prg_ram[0x8000], 0, 0x8000);
     if (load_prg(arg)) {
-        fprintf(stderr, "Failed to load program: %s\n", arg);
+        fprintf(stderr, "Failed to load program: %s%s%s\n", REDB, arg, RESET);
     } else {
-        printf("Loaded program: %s\n", arg);
+        printf("Loaded program: %s%s%s\n", GREENB, arg, RESET);
         c_state = PRG_LD;
     }
 }
@@ -95,6 +101,10 @@ void continue_f(const uint8_t *args, const char *arg) {
     }
 }
 
+void clear_f(const uint8_t *args, const char *arg) {
+    fputs("\e[1;1H\e[2J", stdout);
+}
+
 void exit_f(const uint8_t *args, const char *arg) {
     stop_cpu();
 }
@@ -123,7 +133,7 @@ void shell_prompt() {
     char dir_buff[CMD_BUFF_SIZE];
     getcwd(dir_buff, CMD_BUFF_SIZE);
 
-    printf("\033[1;31m[\033[1;34mCCC %s \033[1;35m%s\033[1;31m]\033[0m$ ", CCC_VER, dir_buff);
+    printf("%s[%s%s%s@%sCCC %s %s%s%s]%s$ ", REDB, CYANB, getlogin(), GREENB, BLUEB, CCC_VER, PURPLEB, dir_buff, REDB, RESET);
     fgets(cmd_buff, CMD_BUFF_SIZE, stdin);
     if (*cmd_buff == '\n') return;
 
