@@ -7,6 +7,7 @@
 #include "opcodes.h"
 #include "console.h"
 #include "shell.h"
+#include "display.h"
 #include "cpu.h"
 
 void help_f(const uint8_t *args, const char *arg) {
@@ -34,17 +35,17 @@ void load_f(const uint8_t *args, const char *arg) {
         fprintf(stderr, "Failed to load program: %s\n", arg);
     } else {
         printf("Loaded program: %s\n", arg);
-        state = PRG_LD;
+        c_state = PRG_LD;
     }
 }
 
 void run_f(const uint8_t *args, const char *arg) {
-    if (state == BOOT) {
+    if (c_state == BOOT) {
         fputs("No program loaded\n", stderr);
-    } else if (state == PRG_DBG) {
+    } else if (c_state == PRG_DBG) {
         fputs("Program already running\n", stderr);
     } else {
-        state = PRG_RN;
+        c_state = PRG_RN;
     }
 }
 
@@ -54,12 +55,16 @@ void status_f(const uint8_t *args, const char *arg) {
 }
 
 void continue_f(const uint8_t *args, const char *arg) {
-    if (state != PRG_DBG) {
+    if (c_state != PRG_DBG) {
         fputs("Not at a breakpoint\n", stderr);
     } else {
         prg_ram[0x4000] = 0;
-        state = PRG_RN;
+        c_state = PRG_RN;
     }
+}
+
+void stopgpu_f(const uint8_t *args, const char *arg) {
+    stop_gpu();
 }
 
 void exit_f(const uint8_t *args, const char *arg) {

@@ -21,7 +21,7 @@ int load_prg(const char *prg) {
     lseek(fd, 0, SEEK_SET);
     read(fd, pc, p_stat.st_size);
     close(fd);
-    state = PRG_LD;
+    c_state = PRG_LD;
 
     return 0;
 }

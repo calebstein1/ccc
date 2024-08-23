@@ -4,6 +4,7 @@
 
 #include "console.h"
 #include "shell.h"
+#include "display.h"
 #include "cpu.h"
 #include "opcodes.h"
 
@@ -16,20 +17,20 @@ uint8_t s = 0xff;
 uint8_t a, x, y;
 uint8_t p = 32;
 
-cpu_state state = BOOT;
+cpu_state c_state = BOOT;
 
-void start_cpu() {
+void *start_cpu() {
     struct timeval p_time = {};
     uint32_t l_cycle = 0;
 
-    // Shutdown state is 0
-    while (state) {
+    // Shutdown c_state is 0
+    while (c_state) {
         l_cycle = p_time.tv_usec;
         gettimeofday(&p_time, 0);
         if (l_cycle == p_time.tv_usec) continue;
 
         if (prg_ram[0x4000]) {
-            state = PRG_DBG;
+            c_state = PRG_DBG;
         } else if (prg_ram[0x4018]) {
             prg_ram[0x4018] = 0;
             print_buffer();
@@ -40,7 +41,7 @@ void start_cpu() {
             continue;
         }
 
-        if(state == PRG_RN) {
+        if(c_state == PRG_RN) {
             (*eval_func[t6502[*pc++]])();
         } else {
             fputs("$ ", stdout);
@@ -49,8 +50,11 @@ void start_cpu() {
         }
 
     }
+
+    return 0;
 }
 
 void stop_cpu() {
-    state = SHUTDWN;
+    c_state = CPU_STP;
+    stop_gpu();
 }

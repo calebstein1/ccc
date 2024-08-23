@@ -39,7 +39,7 @@
 #define PC_HI ((pc - prg_ram) >> 8)
 
 typedef enum cpu_state {
-    SHUTDWN,
+    CPU_STP,
     BOOT,
     PRG_LD,
     PRG_DBG,
@@ -52,11 +52,11 @@ extern uint8_t s;
 extern uint8_t a, x, y;
 extern uint8_t p;
 
-extern cpu_state state;
+extern cpu_state c_state;
 
 extern void (*eval_func[OPCODE_COUNT])();
 
-void start_cpu();
+void *start_cpu();
 void stop_cpu();
 
 #endif //CCC_CPU_H

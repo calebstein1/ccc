@@ -3,7 +3,7 @@ SRC = $(wildcard src/*.c)
 OBJ = $(patsubst src/%.c, obj/%.o, $(SRC))
 CC = cc
 CFLAGS=-fsanitize=address,undefined -Iinclude
-#CFLAGS=-Iinclude
+LDFLAGS=-lpthread -lSDL2
 
 all: clean $(TARGET)
 
@@ -13,7 +13,7 @@ clean:
 
 $(TARGET): $(OBJ)
 	mkdir -p bin
-	$(CC) -o $@ $? $(CFLAGS)
+	$(CC) -o $@ $? $(CFLAGS) $(LDFLAGS)
 
 obj/%.o: src/%.c
 	mkdir -p obj
