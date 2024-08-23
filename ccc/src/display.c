@@ -3,10 +3,10 @@
 #include <SDL2/SDL.h>
 
 #include "display.h"
+#include "controller.h"
 #include "cpu.h"
 
 gpu_state g_state = GPU_STP;
-SDL_Event e;
 
 void start_gpu() {
     uint64_t last_frame = SDL_GetTicks64();
@@ -14,6 +14,7 @@ void start_gpu() {
 
     SDL_Window *disp;
     SDL_Renderer *renderer;
+    SDL_Event e;
 
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         fprintf(stderr, "Failed to init SDL: %s\n", SDL_GetError());
@@ -35,6 +36,14 @@ void start_gpu() {
     g_state = GPU_RN;
 
     while (g_state == GPU_RN && c_state) {
+        get_controller_state(&e);
+
+        cur_frame = SDL_GetTicks64();
+        d_frame = cur_frame - last_frame;
+        if (d_frame < SCREEN_TICKS_PER_FRAME) {
+            continue;
+        }
+        last_frame = cur_frame;
         FRM_CNT++;
 
         while (SDL_PollEvent(&e)) {
@@ -43,18 +52,10 @@ void start_gpu() {
             }
         }
 
-        cur_frame = SDL_GetTicks64();
-        d_frame = cur_frame - last_frame;
-        last_frame = cur_frame;
-
         SDL_SetRenderDrawColor(renderer, BG_R, BG_G, BG_B, 0xff);
         SDL_RenderClear(renderer);
 
         SDL_RenderPresent(renderer);
-
-        if (d_frame < SCREEN_TICKS_PER_FRAME) {
-            SDL_Delay(SCREEN_TICKS_PER_FRAME - d_frame);
-        }
     }
 
     SDL_DestroyRenderer(renderer);

@@ -4,7 +4,6 @@
 
 #include "console.h"
 #include "shell.h"
-#include "display.h"
 #include "cpu.h"
 #include "opcodes.h"
 
@@ -48,7 +47,6 @@ void *start_cpu() {
             shell_prompt();
             continue;
         }
-
     }
 
     return 0;
