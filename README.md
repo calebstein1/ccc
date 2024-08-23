@@ -9,12 +9,18 @@ It is binary compatible with 6502 machine code and will run binaries produced by
 
 All documented 6502 instructions are implemented.
 All addressing modes are supported with the exception of the indirect modes, which will be added soon.
-There is no display support yet, but strings and numbers can be printed to the console.
-There is a basic shell which can be used as part of debugging (invoked with `ccc [prg.bin] -d`) supporting `peek` and `poke` to view and manipulate the memory of a running program.
 
-## Building the program
+There is a display which can currently only display a solid color background which can be changed by writing bytes to addresses 0x2001, 0x2002, and 0x2003 (r, g, and b respectively).
 
-First thing you should do is clone the repo and enter the directory:
+Six input buttons are supported, that status of which can be accessed via a bitfield at address 0x4001 (the bottom six bits correspond to primary, secondary, left, right, up, and down respectively from low to high; a bit is set while the button is pressed and unset when the button is not).
+
+There is a basic shell which can be used as part of debugging (invoked by default with the `brk` instruction) supporting `peek` and `poke` to view and manipulate the memory of a running program.
+The default `brk` handler can be overridden by writing a new address (little endian) to bytes 0xfffe and 0xffff.
+The default `brk` handler is located at 0x7ff8-0x7fff, the 8 bytes preceding the program start, and is loaded by the CPU during its initial boot.
+
+## Building the console
+
+First thing you'll do is clone the repo and enter the directory:
 
 ```
 git clone https://github.com/calebstein1/ccc
@@ -28,7 +34,7 @@ cd ccc
 make
 ```
 
-If you'd like to build CCLib as well, you'll need to install the [cc65 toolchain](https://cc65.github.io/) and then you'd do as follows:
+If you'd like to build CCLib as well, you'll need to install the [cc65 toolchain](https://cc65.github.io/) (you'll need to install it to build programs anyway, unless you like writing machine code 😉) and then you'd do as follows:
 
 ```
 cd lib
