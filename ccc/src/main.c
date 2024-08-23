@@ -8,7 +8,7 @@
 
 int main(int argc, char **argv) {
     if (!argv[1] || load_prg(argv[1])) {
-        printf("Welcome to CCC v%s\n\nRun %shelp%s at the prompt to list available commands\n\n", CCC_VER, GREENB, RESET);
+        printf("Welcome to CCC %s\n\nRun %shelp%s at the prompt to list available commands\n\n", CCC_VER, GREENB, RESET);
     } else {
         c_state = PRG_RN;
     }
