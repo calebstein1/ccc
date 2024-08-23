@@ -63,10 +63,6 @@ void continue_f(const uint8_t *args, const char *arg) {
     }
 }
 
-void stopgpu_f(const uint8_t *args, const char *arg) {
-    stop_gpu();
-}
-
 void exit_f(const uint8_t *args, const char *arg) {
     stop_cpu();
 }

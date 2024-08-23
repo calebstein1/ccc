@@ -16,6 +16,5 @@ typedef enum gpu_state {
 extern gpu_state g_state;
 
 void start_gpu();
-void stop_gpu();
 
 #endif //CCC_DISPLAY_H

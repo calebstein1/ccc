@@ -56,5 +56,4 @@ void *start_cpu() {
 
 void stop_cpu() {
     c_state = CPU_STP;
-    stop_gpu();
 }

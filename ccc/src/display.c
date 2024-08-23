@@ -34,7 +34,7 @@ void start_gpu() {
     }
     g_state = GPU_RN;
 
-    while (g_state == GPU_RN) {
+    while (g_state == GPU_RN && c_state) {
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 g_state = GPU_STP;
@@ -58,8 +58,4 @@ void start_gpu() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(disp);
     SDL_Quit();
-}
-
-void stop_gpu() {
-    g_state = GPU_STP;
 }
