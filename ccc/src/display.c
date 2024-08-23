@@ -46,12 +46,6 @@ void start_gpu() {
         last_frame = cur_frame;
         FRM_CNT++;
 
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                g_state = GPU_STP;
-            }
-        }
-
         SDL_SetRenderDrawColor(renderer, BG_R, BG_G, BG_B, 0xff);
         SDL_RenderClear(renderer);
 

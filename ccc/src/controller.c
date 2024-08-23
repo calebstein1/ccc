@@ -45,5 +45,8 @@ void get_controller_state(SDL_Event *e) {
                 CONTROLLER_BITFIELD &= 223;
             }
         }
+        if (e->type == SDL_QUIT) {
+            stop_cpu();
+        }
     }
 }
