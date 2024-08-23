@@ -1,12 +1,17 @@
 #include <stdio.h>
+#include <stdint.h>
 #include <SDL2/SDL.h>
 
 #include "display.h"
 #include "cpu.h"
 
 gpu_state g_state = GPU_STP;
+SDL_Event e;
 
 void start_gpu() {
+    uint64_t last_frame = SDL_GetTicks64();
+    uint64_t cur_frame, d_frame;
+
     SDL_Window *disp;
     SDL_Renderer *renderer;
 
@@ -30,17 +35,24 @@ void start_gpu() {
     g_state = GPU_RN;
 
     while (g_state == GPU_RN) {
-        SDL_Event e;
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_QUIT) {
                 g_state = GPU_STP;
             }
         }
 
+        cur_frame = SDL_GetTicks64();
+        d_frame = cur_frame - last_frame;
+        last_frame = cur_frame;
+
         SDL_SetRenderDrawColor(renderer, BG_R, BG_G, BG_B, 0xff);
         SDL_RenderClear(renderer);
 
         SDL_RenderPresent(renderer);
+
+        if (d_frame < SCREEN_TICKS_PER_FRAME) {
+            SDL_Delay(SCREEN_TICKS_PER_FRAME - d_frame);
+        }
     }
 
     SDL_DestroyRenderer(renderer);
