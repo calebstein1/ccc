@@ -142,7 +142,7 @@ void shell_prompt() {
         i++;
     }
     if (i == SHELL_CMD_COUNT) {
-        fprintf(stderr, "Invalid command: %s\n", cmd_parse);
+        fprintf(stderr, "Invalid command: %s%s%s\n", REDB, cmd_parse, RESET);
         return;
     }
     cmd = i;
