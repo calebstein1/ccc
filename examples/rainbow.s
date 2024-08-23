@@ -1,7 +1,18 @@
+    .import printbuff ; from cclib
+
 red=$2002
 green=$2003
 blue=$2004
 ctrl=$4001
+sbuff=$4020
+
+    ldy #54
+str_loop:
+    lda string,y
+    sta sbuff,y
+    dey
+    bpl str_loop
+    jsr printbuff
 
     ldx #0
     lda #$C0
@@ -31,3 +42,6 @@ leave:
 reset_frame:
     stx $2000
     rts
+
+string:
+    .byte "Welcome to the CCC Rainbow example! Press 'z' to exit", $0A, $00
