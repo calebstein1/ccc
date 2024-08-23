@@ -1,6 +1,5 @@
     .import drawloop, printbuff ; from cclib
 
-frame=$2000
 red=$2002
 green=$2003
 blue=$2004
