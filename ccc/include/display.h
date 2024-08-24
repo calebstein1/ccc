@@ -1,6 +1,8 @@
 #ifndef CCC_DISPLAY_H
 #define CCC_DISPLAY_H
 
+#include <stdint.h>
+
 #define SCREEN_FPS 60
 #define SCREEN_TICKS_PER_FRAME (1000 / SCREEN_FPS)
 
@@ -16,6 +18,7 @@ typedef enum gpu_state {
 } gpu_state;
 
 extern gpu_state g_state;
+extern uint8_t gpu_rom[0x8000];
 
 void start_gpu();
 

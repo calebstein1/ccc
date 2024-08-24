@@ -70,6 +70,7 @@ void load_f(const uint8_t *args, const char *arg) {
 }
 
 void run_f(const uint8_t *args, const char *arg) {
+    init_ccrom();
     if (c_state == BOOT) {
         fputs("No program loaded\n", stderr);
     } else if (c_state == PRG_DBG) {
@@ -80,6 +81,7 @@ void run_f(const uint8_t *args, const char *arg) {
 }
 
 void runanyway_f(const uint8_t *args, const char *arg) {
+    init_ccrom();
     if (c_state == PRG_DBG) {
         fputs("Program already running\n", stderr);
     } else {

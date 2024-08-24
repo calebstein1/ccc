@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <SDL2/SDL.h>
 
 #include "display.h"
@@ -7,6 +6,7 @@
 #include "cpu.h"
 
 gpu_state g_state = GPU_STP;
+uint8_t gpu_rom[0x8000];
 
 void start_gpu() {
     uint64_t last_frame = SDL_GetTicks64();
