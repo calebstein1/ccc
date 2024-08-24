@@ -7,10 +7,12 @@
 
 gpu_state g_state = GPU_STP;
 uint8_t gpu_rom[0x8000];
+int screen_resolution;
 
 void start_gpu() {
     uint64_t last_frame = SDL_GetTicks64();
     uint64_t cur_frame, d_frame;
+    const int screen_resolutions[] = { 128, 64, 256 };
 
     SDL_Window *disp;
     SDL_Renderer *renderer;
@@ -24,11 +26,12 @@ void start_gpu() {
     int win_x = SDL_WINDOWPOS_UNDEFINED, win_y = SDL_WINDOWPOS_UNDEFINED;
     char win_title[256];
 
-    SCREEN_RESOLUTION = 128;
+    SCREEN_RESOLUTION_MODE = 0;
     PIXEL_SIZE = 6;
 
     init_window:
-    win_size = SCREEN_RESOLUTION * PIXEL_SIZE;
+    screen_resolution = screen_resolutions[SCREEN_RESOLUTION_MODE];
+    win_size = screen_resolution * PIXEL_SIZE;
     snprintf(win_title, 256, "CCC %s", CCC_VER);
     disp = SDL_CreateWindow(win_title, win_x, win_y, win_size, win_size, SDL_WINDOW_SHOWN);
     if (!disp) {
