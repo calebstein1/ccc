@@ -1,4 +1,4 @@
-    .import drawloop, printbuff ; from cclib
+    .import waitnextframe, printbuff ; from cclib
 
 ctrl=$4001
 sbuff=$4020
@@ -12,7 +12,7 @@ hello_loop:
     jsr printbuff
 
 main:
-    jsr drawloop
+    jsr waitnextframe
     lda ctrl
     and #%00000001
     beq check_secondary

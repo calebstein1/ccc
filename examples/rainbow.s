@@ -1,4 +1,4 @@
-    .import drawloop, printbuff ; from cclib
+    .import waitnextframe, printbuff ; from cclib
 
 red=$2002
 green=$2003
@@ -26,7 +26,7 @@ str_loop:
     lda #$40
     sta blue
 draw_loop:
-    jsr drawloop
+    jsr waitnextframe
     lda ctrl
     and #1
     bne leave

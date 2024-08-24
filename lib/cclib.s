@@ -1,6 +1,6 @@
-.export drawloop, printbuff, printnum
+.export waitnextframe, printbuff, printnum
 
-drawloop:
+waitnextframe:
     pha
     lda $2000
 hold:
