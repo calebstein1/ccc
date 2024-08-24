@@ -3,6 +3,14 @@
 ctrl=$4001
 sbuff=$4020
 
+    ldy #68
+hello_loop:
+    lda hello_str,y
+    sta sbuff,y
+    dey
+    bpl hello_loop
+    jsr printbuff
+
 main:
     jsr drawloop
     lda ctrl
@@ -96,6 +104,9 @@ down_loop:
     bpl down_loop
     jsr printbuff
     rts
+
+hello_str:
+    .byte "Welcome to the CCC input test! Press a button to test your input...", $0A, $00
 
 primary_str:
     .byte "Primary button pressed", $0A, $00
