@@ -137,7 +137,9 @@ void shell_prompt() {
     fgets(cmd_buff, CMD_BUFF_SIZE, stdin);
     if (*cmd_buff == '\n') return;
 
-    cmd_parse = strtok(cmd_buff, " \n");
+    if (!(cmd_parse = strtok(cmd_buff, " \n"))) {
+        return;
+    }
     while (i < SHELL_CMD_COUNT && strcmp(cmd_parse, shell_str[i]) != 0) {
         i++;
     }
