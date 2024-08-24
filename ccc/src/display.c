@@ -20,10 +20,17 @@ void start_gpu() {
         fprintf(stderr, "Failed to init SDL: %s\n", SDL_GetError());
         return;
     }
-    int x_res = 800, y_res = 600;
+    int win_size;
+    int win_x = SDL_WINDOWPOS_UNDEFINED, win_y = SDL_WINDOWPOS_UNDEFINED;
     char win_title[256];
+
+    SCREEN_RESOLUTION = 128;
+    PIXEL_SIZE = 6;
+
+    init_window:
+    win_size = SCREEN_RESOLUTION * PIXEL_SIZE;
     snprintf(win_title, 256, "CCC %s", CCC_VER);
-    disp = SDL_CreateWindow(win_title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, x_res, y_res, SDL_WINDOW_SHOWN);
+    disp = SDL_CreateWindow(win_title, win_x, win_y, win_size, win_size, SDL_WINDOW_SHOWN);
     if (!disp) {
         fprintf(stderr, "Failed to create window: %s\n", SDL_GetError());
         return;
@@ -52,7 +59,15 @@ void start_gpu() {
         SDL_RenderPresent(renderer);
     }
 
+    SDL_GetWindowPosition(disp, &win_x, &win_y);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(disp);
+    if (g_state == GPU_RST) {
+        goto init_window;
+    }
     SDL_Quit();
+}
+
+void restart_gpu() {
+    g_state = GPU_RST;
 }

@@ -5,6 +5,7 @@
 
 #include "console.h"
 #include "shell.h"
+#include "display.h"
 #include "cpu.h"
 #include "opcodes.h"
 
@@ -40,7 +41,10 @@ void *start_cpu() {
         gettimeofday(&p_time, 0);
         if (l_cycle == p_time.tv_usec) continue;
 
-        if (prg_ram[0x4000]) {
+        if (prg_ram[0x2001]) {
+            prg_ram[0x2001] = 0;
+            restart_gpu();
+        } else if (prg_ram[0x4000]) {
             uint8_t low = *(prg_ram + s + 0x103);
             uint8_t hi = *(prg_ram + s + 0x104);
             printf("Breaking at address 0x%x\n", MAKE_WORD - 1);
