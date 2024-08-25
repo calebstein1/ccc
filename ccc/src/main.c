@@ -23,7 +23,6 @@ int main(int argc, char **argv) {
     }
 
     pthread_t cpu_thread;
-    pthread_t gpu_thread;
     pthread_create(&cpu_thread, NULL, start_cpu, NULL);
     start_gpu();
     pthread_join(cpu_thread, NULL);

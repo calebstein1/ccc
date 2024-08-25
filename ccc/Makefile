@@ -2,7 +2,7 @@ TARGET = bin/ccc
 SRC = $(wildcard src/*.c)
 OBJ = $(patsubst src/%.c, obj/%.o, $(SRC))
 CC = cc
-CFLAGS=-fsanitize=address,undefined -Iinclude
+CFLAGS=-std=c99 -Werror=all -fsanitize=address,undefined -Iinclude
 LDFLAGS=-lpthread -lSDL2
 
 all: clean $(TARGET)

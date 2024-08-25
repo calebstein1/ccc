@@ -50,3 +50,4 @@ void get_controller_state(SDL_Event *e) {
         }
     }
 }
+

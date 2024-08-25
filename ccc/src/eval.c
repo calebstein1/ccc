@@ -1079,7 +1079,6 @@ void cpyzx_f() {
 }
 
 void cpyzy_f() {
-    uint8_t low = *pc++;
     uint8_t op = *(prg_ram + *pc++ + y);
     if (y - op) {
         UNSET_Z;
