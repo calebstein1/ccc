@@ -7,7 +7,6 @@
 #include "colors.h"
 
 int main(int argc, char **argv) {
-    fputs("\e[1;1H\e[2J", stdout);
     if (!argv[1] || load_prg(argv[1])) {
         printf("\t\t  %s***************************%s\n", CYANB, RESET);
         printf("\t\t  %s* %s  ____    ____    ____%s  *%s\n", CYANB, YELLOW, CYANB, RESET);

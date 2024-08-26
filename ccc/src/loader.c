@@ -8,7 +8,7 @@
 #include "loader.h"
 
 int load_prg(const char *prg) {
-    struct stat p_stat = {};
+    struct stat p_stat;
     int fd;
     if ((fd = open(prg, O_RDONLY)) == -1) {
         return -1;

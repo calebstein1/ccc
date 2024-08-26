@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#include "bitfield.h"
+
 #define CCC_VER "v0.0.2-prealpha"
 #define OPCODE_COUNT 189
 
@@ -16,21 +18,21 @@
 #define GET_V (p >> 6 & 1)
 #define GET_N (p >> 7 & 1)
 
-#define SET_C (p |= 0b00000001)
-#define SET_Z (p |= 0b00000010)
-#define SET_I (p |= 0b00000100)
-#define SET_D (p |= 0b00001000)
-#define SET_B (p |= 0b00010000)
-#define SET_V (p |= 0b01000000)
-#define SET_N (p |= 0b10000000)
+#define SET_C (p |= S0)
+#define SET_Z (p |= S1)
+#define SET_I (p |= S2)
+#define SET_D (p |= S3)
+#define SET_B (p |= S4)
+#define SET_V (p |= S6)
+#define SET_N (p |= S7)
 
-#define UNSET_C (p &= 0b11111110)
-#define UNSET_Z (p &= 0b11111101)
-#define UNSET_I (p &= 0b11111011)
-#define UNSET_D (p &= 0b11110111)
-#define UNSET_B (p &= 0b11101111)
-#define UNSET_V (p &= 0b10111111)
-#define UNSET_N (p &= 0b01111111)
+#define UNSET_C (p &= U0)
+#define UNSET_Z (p &= U1)
+#define UNSET_I (p &= U2)
+#define UNSET_D (p &= U3)
+#define UNSET_B (p &= U4)
+#define UNSET_V (p &= U6)
+#define UNSET_N (p &= U7)
 
 #define STACK_PUSH(v) (*(prg_ram + s-- + 0x100) = v)
 #define STACK_POP (*(prg_ram + ++s + 0x100))
@@ -54,10 +56,10 @@ extern uint8_t p;
 
 extern cpu_state c_state;
 
-extern void (*eval_func[OPCODE_COUNT])();
+extern void (*eval_func[OPCODE_COUNT])(void);
 
-void init_ccrom();
-void *start_cpu();
-void stop_cpu();
+void init_ccrom(void);
+void *start_cpu(void *arg);
+void stop_cpu(void);
 
 #endif //CCC_CPU_H

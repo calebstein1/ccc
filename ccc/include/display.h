@@ -24,7 +24,7 @@ extern gpu_state g_state;
 extern uint8_t gpu_rom[0x8000];
 extern int screen_resolution;
 
-void start_gpu();
-void restart_gpu();
+void start_gpu(void);
+void restart_gpu(void);
 
 #endif //CCC_DISPLAY_H

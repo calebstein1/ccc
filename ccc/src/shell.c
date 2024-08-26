@@ -104,14 +104,13 @@ void continue_f(const uint8_t *args, const char *arg) {
 }
 
 void clear_f(const uint8_t *args, const char *arg) {
-    fputs("\e[1;1H\e[2J", stdout);
 }
 
 void exit_f(const uint8_t *args, const char *arg) {
     stop_cpu();
 }
 
-void shell_prompt() {
+void shell_prompt(void) {
     static void (*shell_func[])(const uint8_t *args, const char *arg) = {
 #define X(op, fn, ...) fn,
             SHELL_CMD_TBL
@@ -128,7 +127,7 @@ void shell_prompt() {
     char *cmd_parse;
     shell_cmd cmd;
     uint16_t arg_buff;
-    uint8_t args[MAX_CMD_ARGS] = {};
+    uint8_t args[MAX_CMD_ARGS];
     char *arg = NULL;
     uint8_t i = 0;
 
