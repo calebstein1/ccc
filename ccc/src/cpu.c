@@ -9,16 +9,16 @@
 #include "cpu.h"
 #include "opcodes.h"
 
-// RAM, Program Counter, and Stack Pointer
+/* RAM, Program Counter, and Stack Pointer */
 uint8_t prg_ram[0x10000];
 uint8_t *pc = &prg_ram[0x8000];
 uint8_t s = 0xff;
 
-// CPU Registers
+/* CPU Registers */
 uint8_t a, x, y;
 uint8_t p = 32;
 
-// Default brk handler
+/* Default brk handler */
 const uint8_t ccrom[] = { 0x48, 0xa9, 0x01, 0x8d, 0x00, 0x40, 0x68, 0x40 };
 
 cpu_state c_state = BOOT;
@@ -30,12 +30,14 @@ void init_ccrom(void) {
 }
 
 void *start_cpu(void *arg) {
+    (void)arg;
+
     struct timeval p_time;
-    uint32_t l_cycle = 0;
+    int32_t l_cycle;
 
     init_ccrom();
 
-    // Shutdown c_state is 0
+    /* Shutdown c_state is 0 */
     while (c_state) {
         l_cycle = p_time.tv_usec;
         gettimeofday(&p_time, 0);

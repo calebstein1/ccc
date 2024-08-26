@@ -7,6 +7,8 @@
 #include "colors.h"
 
 int main(int argc, char **argv) {
+    (void)argc;
+
     if (!argv[1] || load_prg(argv[1])) {
         printf("\t\t  %s***************************%s\n", CYANB, RESET);
         printf("\t\t  %s* %s  ____    ____    ____%s  *%s\n", CYANB, YELLOW, CYANB, RESET);
