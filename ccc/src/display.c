@@ -7,12 +7,13 @@
 
 gpu_state g_state = GPU_STP;
 u8 gpu_rom[0x8000];
-int screen_resolution;
 
-void start_gpu(void) {
+void
+start_gpu(void) {
     unsigned long last_frame = SDL_GetTicks();
     unsigned long cur_frame, d_frame;
     const int screen_resolutions[] = { 128, 64, 256 };
+    int screen_resolution;
 #define X(red, green, blue) { .r = red, .g = green, .b = blue },
     const struct color_t pal[] = {
             HW_PALETTE
@@ -79,6 +80,7 @@ void start_gpu(void) {
     SDL_Quit();
 }
 
-void restart_gpu(void) {
+void
+restart_gpu(void) {
     g_state = GPU_RST;
 }

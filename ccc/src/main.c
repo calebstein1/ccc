@@ -6,7 +6,8 @@
 #include "loader.h"
 #include "colors.h"
 
-int main(int argc, char **argv) {
+int
+main(int argc, char **argv) {
     pthread_t cpu_thread;
 
     (void)argc;

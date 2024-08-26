@@ -7,7 +7,8 @@
 #include "cpu.h"
 #include "loader.h"
 
-int load_prg(const char *prg) {
+int
+load_prg(const char *prg) {
     struct stat p_stat;
     int fd;
     if ((fd = open(prg, O_RDONLY)) == -1) {

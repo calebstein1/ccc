@@ -4,7 +4,8 @@
 #include "bitfield.h"
 #include "cpu.h"
 
-void get_controller_state(SDL_Event *e) {
+void
+get_controller_state(SDL_Event *e) {
     while(SDL_PollEvent(e)) {
         if (e->type == SDL_KEYDOWN) {
             if (e->key.keysym.sym == K_PRIMARY) {

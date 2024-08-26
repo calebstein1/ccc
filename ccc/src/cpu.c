@@ -22,13 +22,15 @@ const u8 ccrom[] = { 0x48, 0xa9, 0x01, 0x8d, 0x00, 0x40, 0x68, 0x40 };
 
 cpu_state c_state = BOOT;
 
-void init_ccrom(void) {
+void
+init_ccrom(void) {
     memcpy(&prg_ram[0x7ff8], ccrom, 8);
     prg_ram[0xfffe] = 0xf8;
     prg_ram[0xffff] = 0x7f;
 }
 
-void *start_cpu(void *arg) {
+void*
+start_cpu(void *arg) {
     struct timeval p_time;
     int32_t l_cycle;
     (void)arg;
@@ -70,6 +72,7 @@ void *start_cpu(void *arg) {
     return 0;
 }
 
-void stop_cpu(void) {
+void
+stop_cpu(void) {
     c_state = CPU_STP;
 }

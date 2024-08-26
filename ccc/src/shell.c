@@ -15,7 +15,8 @@
         SHELL_CMD_TBL
 #undef X
 
-void shell_prompt(void) {
+void
+shell_prompt(void) {
     static void (*shell_func[])(const u8 *args, const char *arg) = {
 #define X(op, fn, str) fn,
             SHELL_CMD_TBL
@@ -84,7 +85,8 @@ void shell_prompt(void) {
 /*
  * Shell interpreter functions
  */
-void help_f(const u8 *args, const char *arg) {
+void
+help_f(const u8 *args, const char *arg) {
     printf("  %speek %s[addr] %s- print the byte stored at %s[addr]%s\n", GREENB, CYAN, RESET, CYAN, RESET);
     printf("  %spoke %s[addr] %s[val] %s- write the byte %s[val]%s to %s[addr]%s\n", GREENB, CYAN, BLUE, RESET, BLUE, RESET, CYAN, RESET);
     printf("  %sload %s[prg] %s- attempt to load program located at path %s[prg]%s into memory\n", GREENB, CYAN, RESET, CYAN, RESET);
@@ -99,18 +101,21 @@ void help_f(const u8 *args, const char *arg) {
     (void)arg;
 }
 
-void peek_f(const u8 *args, const char *arg) {
+void
+peek_f(const u8 *args, const char *arg) {
     printf("%d\n", (u16)*(prg_ram + args[0] + (args[1] * 0x100)));
     (void)arg;
 }
 
-void poke_f(const u8 *args, const char *arg) {
+void
+poke_f(const u8 *args, const char *arg) {
     u8 *addr = prg_ram + args[0] + (args[1] * 0x100);
     *addr = args[2];
     (void)arg;
 }
 
-void ls_f(const u8 *args, const char *arg) {
+void
+ls_f(const u8 *args, const char *arg) {
     const char *filetypes[] = { "???", "FIFO", "CHR", "",
                           "DIR", "", "BLK", "",
                           "FILE", "", "SYM", "",
@@ -139,7 +144,8 @@ void cd_f(const u8 *args, const char *arg) {
     (void)args;
 }
 
-void load_f(const u8 *args, const char *arg) {
+void
+load_f(const u8 *args, const char *arg) {
     memset(&prg_ram[0x8000], 0, 0x8000);
     if (load_prg(arg)) {
         fprintf(stderr, "Failed to load program: %s%s%s\n", REDB, arg, RESET);
@@ -150,7 +156,8 @@ void load_f(const u8 *args, const char *arg) {
     (void)args;
 }
 
-void run_f(const u8 *args, const char *arg) {
+void
+run_f(const u8 *args, const char *arg) {
     init_ccrom();
     if (c_state == BOOT) {
         fputs("No program loaded\n", stderr);
@@ -163,7 +170,8 @@ void run_f(const u8 *args, const char *arg) {
     (void)arg;
 }
 
-void runanyway_f(const u8 *args, const char *arg) {
+void
+runanyway_f(const u8 *args, const char *arg) {
     init_ccrom();
     if (c_state == PRG_DBG) {
         fputs("Program already running\n", stderr);
@@ -174,14 +182,16 @@ void runanyway_f(const u8 *args, const char *arg) {
     (void)arg;
 }
 
-void status_f(const u8 *args, const char *arg) {
+void
+status_f(const u8 *args, const char *arg) {
     printf("a: %d\nx: %d\ny: %d\npc: 0x%x\ns: 0x%x\np: %d%d%d%d%d%d\n   NVDIZC\n",
            a, x, y, (u16)(pc - prg_ram), s, GET_N, GET_V, GET_D, GET_I, GET_Z, GET_C);
     (void)args;
     (void)arg;
 }
 
-void continue_f(const u8 *args, const char *arg) {
+void
+continue_f(const u8 *args, const char *arg) {
     if (c_state != PRG_DBG) {
         fputs("Not at a breakpoint\n", stderr);
     } else {
@@ -192,12 +202,14 @@ void continue_f(const u8 *args, const char *arg) {
     (void)arg;
 }
 
-void clear_f(const u8 *args, const char *arg) {
+void
+clear_f(const u8 *args, const char *arg) {
     (void)args;
     (void)arg;
 }
 
-void exit_f(const u8 *args, const char *arg) {
+void
+exit_f(const u8 *args, const char *arg) {
     stop_cpu();
     (void)args;
     (void)arg;
