@@ -7,7 +7,6 @@
 #include "shell.h"
 #include "display.h"
 #include "cpu.h"
-#include "opcodes.h"
 
 /* RAM, Program Counter, and Stack Pointer */
 uint8_t prg_ram[0x10000];
@@ -30,10 +29,9 @@ void init_ccrom(void) {
 }
 
 void *start_cpu(void *arg) {
-    (void)arg;
-
     struct timeval p_time;
     int32_t l_cycle;
+    (void)arg;
 
     init_ccrom();
 

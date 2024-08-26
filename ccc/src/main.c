@@ -7,6 +7,8 @@
 #include "colors.h"
 
 int main(int argc, char **argv) {
+    pthread_t cpu_thread;
+
     (void)argc;
 
     if (!argv[1] || load_prg(argv[1])) {
@@ -23,7 +25,6 @@ int main(int argc, char **argv) {
         c_state = PRG_RN;
     }
 
-    pthread_t cpu_thread;
     pthread_create(&cpu_thread, NULL, start_cpu, NULL);
     start_gpu();
     pthread_join(cpu_thread, NULL);

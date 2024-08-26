@@ -1,7 +1,22 @@
 #include <stdint.h>
 
-#include "opcodes.h"
 #include "cpu.h"
+
+/* FUnction prototypes */
+#define X(opcode, op_fn, str_lit) void op_fn(void);
+        OPCODES_LIST
+#undef X
+
+/* Jump table */
+void (*eval_func[OPCODE_COUNT])(void) = {
+#define X(opcode, op_fn, str_lit) op_fn,
+        OPCODES_LIST
+#undef X
+};
+
+/*
+ * Evaluator functions
+ */
 
 void adca_f(void) {
     uint8_t la = a;
@@ -687,10 +702,10 @@ void bpl65_f(void) {
 }
 
 void brk_f(void) {
-    SET_I;
-    SET_B;
     uint8_t low = PC_LOW;
     uint8_t hi = PC_HI;
+    SET_I;
+    SET_B;
     if (!low) {
         hi++;
     }
@@ -2477,21 +2492,27 @@ void rorac_f(void) {
 }
 
 void rti_f(void) {
+    uint8_t low;
+    uint8_t hi;
+
     p = STACK_POP;
+    low = STACK_POP;
+    hi = STACK_POP;
     UNSET_I;
     UNSET_B;
-    uint8_t low = STACK_POP;
-    uint8_t hi = STACK_POP;
     pc = prg_ram + MAKE_WORD;
 }
 
 void rts_f(void) {
+    uint8_t low;
+    uint8_t hi;
+
     if (s == 0xff) {
         stop_cpu();
         return;
     }
-    uint8_t low = STACK_POP;
-    uint8_t hi = STACK_POP;
+    low = STACK_POP;
+    hi = STACK_POP;
     pc = prg_ram + MAKE_WORD + 1;
 }
 
@@ -2867,9 +2888,3 @@ void tya_f(void) {
         UNSET_N;
     }
 }
-
-void (*eval_func[OPCODE_COUNT])(void) = {
-#define X(opcode, op_fn, ...) op_fn,
-        OPCODES_LIST
-#undef X
-};

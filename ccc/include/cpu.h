@@ -1,12 +1,10 @@
 #ifndef CCC_CPU_H
 #define CCC_CPU_H
 
-#include <stdint.h>
-
+#include "opcodes.h"
 #include "bitfield.h"
 
 #define CCC_VER "v0.0.2-prealpha"
-#define OPCODE_COUNT 189
 
 #define MAKE_WORD (((uint16_t)hi << 8) + low)
 
@@ -45,7 +43,7 @@ typedef enum cpu_state {
     BOOT,
     PRG_LD,
     PRG_DBG,
-    PRG_RN,
+    PRG_RN
 } cpu_state;
 
 extern uint8_t prg_ram[0x10000];
@@ -62,4 +60,4 @@ void init_ccrom(void);
 void *start_cpu(void *arg);
 void stop_cpu(void);
 
-#endif //CCC_CPU_H
+#endif

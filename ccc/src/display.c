@@ -10,27 +10,29 @@ uint8_t gpu_rom[0x8000];
 int screen_resolution;
 
 void start_gpu(void) {
-    uint64_t last_frame = SDL_GetTicks64();
-    uint64_t cur_frame, d_frame;
+    unsigned long last_frame = SDL_GetTicks();
+    unsigned long cur_frame, d_frame;
     const int screen_resolutions[] = { 128, 64, 256 };
-#define X(red, green, blue, ...) { .r = red, .g = green, .b = blue },
+#define X(red, green, blue) { .r = red, .g = green, .b = blue },
     const struct color_t pal[] = {
             HW_PALETTE
     };
 #undef X
-    (void)pal; /* delete once pal finalized */
 
     SDL_Window *disp;
     SDL_Renderer *renderer;
     SDL_Event e;
 
+    int win_size;
+    int win_x = SDL_WINDOWPOS_UNDEFINED, win_y = SDL_WINDOWPOS_UNDEFINED;
+    char win_title[256];
+
+    (void)pal; /* delete once pal finalized */
+
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         fprintf(stderr, "Failed to init SDL: %s\n", SDL_GetError());
         return;
     }
-    int win_size;
-    int win_x = SDL_WINDOWPOS_UNDEFINED, win_y = SDL_WINDOWPOS_UNDEFINED;
-    char win_title[256];
 
     SCREEN_RESOLUTION_MODE = 0;
     PIXEL_SIZE = 6;
@@ -54,7 +56,7 @@ void start_gpu(void) {
     while (g_state == GPU_RN && c_state) {
         get_controller_state(&e);
 
-        cur_frame = SDL_GetTicks64();
+        cur_frame = SDL_GetTicks();
         d_frame = cur_frame - last_frame;
         if (d_frame < SCREEN_TICKS_PER_FRAME) {
             continue;

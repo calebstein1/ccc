@@ -15,13 +15,13 @@
 #define PIXEL_SIZE (prg_ram[0x2006])
 
 #define HW_PALETTE                         \
-    X(0x00, 0x00, 0x00, ...) \
-    X(0xff, 0xff, 0xff, ...)
+    X(0x00, 0x00, 0x00) \
+    X(0xff, 0xff, 0xff)
 
 typedef enum gpu_state {
     GPU_STP,
     GPU_RN,
-    GPU_RST,
+    GPU_RST
 } gpu_state;
 
 struct color_t {
@@ -37,4 +37,4 @@ extern int screen_resolution;
 void start_gpu(void);
 void restart_gpu(void);
 
-#endif //CCC_DISPLAY_H
+#endif
