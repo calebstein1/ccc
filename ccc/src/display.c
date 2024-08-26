@@ -13,6 +13,12 @@ void start_gpu(void) {
     uint64_t last_frame = SDL_GetTicks64();
     uint64_t cur_frame, d_frame;
     const int screen_resolutions[] = { 128, 64, 256 };
+#define X(red, green, blue, ...) { .r = red, .g = green, .b = blue },
+    const struct color_t pal[] = {
+            HW_PALETTE
+    };
+#undef X
+    (void)pal; /* delete once pal finalized */
 
     SDL_Window *disp;
     SDL_Renderer *renderer;
