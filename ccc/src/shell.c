@@ -1,22 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <string.h>
 #include <unistd.h>
 #include <dirent.h>
 
+#include "fixed.h"
 #include "loader.h"
 #include "shell.h"
 #include "cpu.h"
 #include "colors.h"
 
 /* Function prototypes */
-#define X(op, fn, str) void fn(const uint8_t *args, const char *arg);
+#define X(op, fn, str) void fn(const u8 *args, const char *arg);
         SHELL_CMD_TBL
 #undef X
 
 void shell_prompt(void) {
-    static void (*shell_func[])(const uint8_t *args, const char *arg) = {
+    static void (*shell_func[])(const u8 *args, const char *arg) = {
 #define X(op, fn, str) fn,
             SHELL_CMD_TBL
 #undef X
@@ -31,10 +31,10 @@ void shell_prompt(void) {
     char cmd_buff[CMD_BUFF_SIZE];
     char *cmd_parse;
     shell_cmd cmd;
-    uint16_t arg_buff;
-    uint8_t args[MAX_CMD_ARGS];
+    u16 arg_buff;
+    u8 args[MAX_CMD_ARGS];
     char *arg = NULL;
-    uint8_t i = 0;
+    u8 i = 0;
 
     char dir_buff[CMD_BUFF_SIZE];
     getcwd(dir_buff, CMD_BUFF_SIZE);
@@ -57,7 +57,7 @@ void shell_prompt(void) {
     i = 0;
     while ((cmd_parse = strtok(NULL, " \n"))) {
         if ('0' <= *cmd_parse && *cmd_parse <= '9') {
-            arg_buff = (uint16_t)strtol(cmd_parse, 0, 0);
+            arg_buff = (u16)strtol(cmd_parse, 0, 0);
             if (arg_buff < 0xff) {
                 args[i++] = arg_buff;
                 i++;
@@ -84,7 +84,7 @@ void shell_prompt(void) {
 /*
  * Shell interpreter functions
  */
-void help_f(const uint8_t *args, const char *arg) {
+void help_f(const u8 *args, const char *arg) {
     printf("  %speek %s[addr] %s- print the byte stored at %s[addr]%s\n", GREENB, CYAN, RESET, CYAN, RESET);
     printf("  %spoke %s[addr] %s[val] %s- write the byte %s[val]%s to %s[addr]%s\n", GREENB, CYAN, BLUE, RESET, BLUE, RESET, CYAN, RESET);
     printf("  %sload %s[prg] %s- attempt to load program located at path %s[prg]%s into memory\n", GREENB, CYAN, RESET, CYAN, RESET);
@@ -99,18 +99,18 @@ void help_f(const uint8_t *args, const char *arg) {
     (void)arg;
 }
 
-void peek_f(const uint8_t *args, const char *arg) {
-    printf("%d\n", (uint16_t)*(prg_ram + args[0] + (args[1] * 0x100)));
+void peek_f(const u8 *args, const char *arg) {
+    printf("%d\n", (u16)*(prg_ram + args[0] + (args[1] * 0x100)));
     (void)arg;
 }
 
-void poke_f(const uint8_t *args, const char *arg) {
-    uint8_t *addr = prg_ram + args[0] + (args[1] * 0x100);
+void poke_f(const u8 *args, const char *arg) {
+    u8 *addr = prg_ram + args[0] + (args[1] * 0x100);
     *addr = args[2];
     (void)arg;
 }
 
-void ls_f(const uint8_t *args, const char *arg) {
+void ls_f(const u8 *args, const char *arg) {
     const char *filetypes[] = { "???", "FIFO", "CHR", "",
                           "DIR", "", "BLK", "",
                           "FILE", "", "SYM", "",
@@ -132,14 +132,14 @@ void ls_f(const uint8_t *args, const char *arg) {
     (void)args;
 }
 
-void cd_f(const uint8_t *args, const char *arg) {
+void cd_f(const u8 *args, const char *arg) {
     if (chdir(arg ? arg : ".")) {
         perror("chdir");
     }
     (void)args;
 }
 
-void load_f(const uint8_t *args, const char *arg) {
+void load_f(const u8 *args, const char *arg) {
     memset(&prg_ram[0x8000], 0, 0x8000);
     if (load_prg(arg)) {
         fprintf(stderr, "Failed to load program: %s%s%s\n", REDB, arg, RESET);
@@ -150,7 +150,7 @@ void load_f(const uint8_t *args, const char *arg) {
     (void)args;
 }
 
-void run_f(const uint8_t *args, const char *arg) {
+void run_f(const u8 *args, const char *arg) {
     init_ccrom();
     if (c_state == BOOT) {
         fputs("No program loaded\n", stderr);
@@ -163,7 +163,7 @@ void run_f(const uint8_t *args, const char *arg) {
     (void)arg;
 }
 
-void runanyway_f(const uint8_t *args, const char *arg) {
+void runanyway_f(const u8 *args, const char *arg) {
     init_ccrom();
     if (c_state == PRG_DBG) {
         fputs("Program already running\n", stderr);
@@ -174,14 +174,14 @@ void runanyway_f(const uint8_t *args, const char *arg) {
     (void)arg;
 }
 
-void status_f(const uint8_t *args, const char *arg) {
+void status_f(const u8 *args, const char *arg) {
     printf("a: %d\nx: %d\ny: %d\npc: 0x%x\ns: 0x%x\np: %d%d%d%d%d%d\n   NVDIZC\n",
-           a, x, y, (uint16_t)(pc - prg_ram), s, GET_N, GET_V, GET_D, GET_I, GET_Z, GET_C);
+           a, x, y, (u16)(pc - prg_ram), s, GET_N, GET_V, GET_D, GET_I, GET_Z, GET_C);
     (void)args;
     (void)arg;
 }
 
-void continue_f(const uint8_t *args, const char *arg) {
+void continue_f(const u8 *args, const char *arg) {
     if (c_state != PRG_DBG) {
         fputs("Not at a breakpoint\n", stderr);
     } else {
@@ -192,12 +192,12 @@ void continue_f(const uint8_t *args, const char *arg) {
     (void)arg;
 }
 
-void clear_f(const uint8_t *args, const char *arg) {
+void clear_f(const u8 *args, const char *arg) {
     (void)args;
     (void)arg;
 }
 
-void exit_f(const uint8_t *args, const char *arg) {
+void exit_f(const u8 *args, const char *arg) {
     stop_cpu();
     (void)args;
     (void)arg;

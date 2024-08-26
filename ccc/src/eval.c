@@ -1,5 +1,4 @@
-#include <stdint.h>
-
+#include "fixed.h"
 #include "cpu.h"
 
 /* FUnction prototypes */
@@ -19,10 +18,10 @@ void (*eval_func[OPCODE_COUNT])(void) = {
  */
 
 void adca_f(void) {
-    uint8_t la = a;
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD) + GET_C;
+    u8 la = a;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD) + GET_C;
     a += op;
     if (a < la) {
         SET_C;
@@ -47,10 +46,10 @@ void adca_f(void) {
 }
 
 void adcax_f(void) {
-    uint8_t la = a;
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + x) + GET_C;
+    u8 la = a;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + x) + GET_C;
     a += op;
     if (a < la) {
         SET_C;
@@ -75,10 +74,10 @@ void adcax_f(void) {
 }
 
 void adcay_f(void) {
-    uint8_t la = a;
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + y) + GET_C;
+    u8 la = a;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + y) + GET_C;
     a += op;
     if (a < la) {
         SET_C;
@@ -103,9 +102,9 @@ void adcay_f(void) {
 }
 
 void adcz_f(void) {
-    uint8_t la = a;
-    uint8_t low = *pc++;
-    uint8_t op = *(prg_ram + low) + GET_C;
+    u8 la = a;
+    u8 low = *pc++;
+    u8 op = *(prg_ram + low) + GET_C;
     a += op;
     if (a < la) {
         SET_C;
@@ -130,9 +129,9 @@ void adcz_f(void) {
 }
 
 void adczx_f(void) {
-    uint8_t la = a;
-    uint8_t low = *pc++;
-    uint8_t op = *(prg_ram + low + x) + GET_C;
+    u8 la = a;
+    u8 low = *pc++;
+    u8 op = *(prg_ram + low + x) + GET_C;
     a += op;
     if (a < la) {
         SET_C;
@@ -157,9 +156,9 @@ void adczx_f(void) {
 }
 
 void adczy_f(void) {
-    uint8_t la = a;
-    uint8_t low = *pc++;
-    uint8_t op = *(prg_ram + low + y) + GET_C;
+    u8 la = a;
+    u8 low = *pc++;
+    u8 op = *(prg_ram + low + y) + GET_C;
     a += op;
     if (a < la) {
         SET_C;
@@ -184,8 +183,8 @@ void adczy_f(void) {
 }
 
 void adci_f(void) {
-    uint8_t la = a;
-    uint8_t op = *pc++ + GET_C;
+    u8 la = a;
+    u8 op = *pc++ + GET_C;
     a += op;
     if (a < la) {
         SET_C;
@@ -210,9 +209,9 @@ void adci_f(void) {
 }
 
 void anda_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD);
     a &= op;
     if (a >> 7) {
         SET_N;
@@ -227,9 +226,9 @@ void anda_f(void) {
 }
 
 void andax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + x);
     a &= op;
     if (a >> 7) {
         SET_N;
@@ -244,9 +243,9 @@ void andax_f(void) {
 }
 
 void anday_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + y);
     a &= op;
     if (a >> 7) {
         SET_N;
@@ -261,8 +260,8 @@ void anday_f(void) {
 }
 
 void andz_f(void) {
-    uint8_t low = *pc++;
-    uint8_t op = *(prg_ram + low);
+    u8 low = *pc++;
+    u8 op = *(prg_ram + low);
     a &= op;
     if (a >> 7) {
         SET_N;
@@ -277,8 +276,8 @@ void andz_f(void) {
 }
 
 void andzx_f(void) {
-    uint8_t low = *pc++;
-    uint8_t op = *(prg_ram + low + x);
+    u8 low = *pc++;
+    u8 op = *(prg_ram + low + x);
     a &= op;
     if (a >> 7) {
         SET_N;
@@ -293,8 +292,8 @@ void andzx_f(void) {
 }
 
 void andzy_f(void) {
-    uint8_t low = *pc++;
-    uint8_t op = *(prg_ram + low + y);
+    u8 low = *pc++;
+    u8 op = *(prg_ram + low + y);
     a &= op;
     if (a >> 7) {
         SET_N;
@@ -323,9 +322,9 @@ void andi_f(void) {
 }
 
 void asla_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD;
     if (*op >> 7) {
         SET_C;
     } else {
@@ -345,9 +344,9 @@ void asla_f(void) {
 }
 
 void aslax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD + x;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD + x;
     if (*op >> 7) {
         SET_C;
     } else {
@@ -367,9 +366,9 @@ void aslax_f(void) {
 }
 
 void aslay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD + y;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD + y;
     if (*op >> 7) {
         SET_C;
     } else {
@@ -389,7 +388,7 @@ void aslay_f(void) {
 }
 
 void aslz_f(void) {
-    uint8_t *op = prg_ram + *pc++;
+    u8 *op = prg_ram + *pc++;
     if (*op >> 7) {
         SET_C;
     } else {
@@ -409,7 +408,7 @@ void aslz_f(void) {
 }
 
 void aslzx_f(void) {
-    uint8_t *op = prg_ram + *pc++ + x;
+    u8 *op = prg_ram + *pc++ + x;
     if (*op >> 7) {
         SET_C;
     } else {
@@ -429,7 +428,7 @@ void aslzx_f(void) {
 }
 
 void aslzy_f(void) {
-    uint8_t *op = prg_ram + *pc++ + y;
+    u8 *op = prg_ram + *pc++ + y;
     if (*op >> 7) {
         SET_C;
     } else {
@@ -469,8 +468,8 @@ void aslac_f(void) {
 
 void bcc_f(void) {
     if (!GET_C) {
-        uint8_t low = *pc++;
-        uint8_t hi = *pc++;
+        u8 low = *pc++;
+        u8 hi = *pc++;
         pc = prg_ram + MAKE_WORD;
         return;
     }
@@ -479,7 +478,7 @@ void bcc_f(void) {
 
 void bcc65_f(void) {
     if (!GET_C) {
-        int8_t off = (int8_t)*pc++;
+        s8 off = (s8)*pc++;
         pc += off;
         return;
     }
@@ -488,8 +487,8 @@ void bcc65_f(void) {
 
 void bcs_f(void) {
     if (GET_C) {
-        uint8_t low = *pc++;
-        uint8_t hi = *pc++;
+        u8 low = *pc++;
+        u8 hi = *pc++;
         pc = prg_ram + MAKE_WORD;
         return;
     }
@@ -498,7 +497,7 @@ void bcs_f(void) {
 
 void bcs65_f(void) {
     if (GET_C) {
-        int8_t off = (int8_t)*pc++;
+        s8 off = (s8)*pc++;
         pc += off;
         return;
     }
@@ -507,8 +506,8 @@ void bcs65_f(void) {
 
 void beq_f(void) {
     if (GET_Z) {
-        uint8_t low = *pc++;
-        uint8_t hi = *pc++;
+        u8 low = *pc++;
+        u8 hi = *pc++;
         pc = prg_ram + MAKE_WORD;
         return;
     }
@@ -517,7 +516,7 @@ void beq_f(void) {
 
 void beq65_f(void) {
     if (GET_Z) {
-        int8_t off = (int8_t)*pc++;
+        s8 off = (s8)*pc++;
         pc += off;
         return;
     }
@@ -525,9 +524,9 @@ void beq65_f(void) {
 }
 
 void bita_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD;
     if (*op >> 6) {
         SET_V;
     } else {
@@ -546,9 +545,9 @@ void bita_f(void) {
 }
 
 void bitax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD + x;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD + x;
     if (*op >> 6) {
         SET_V;
     } else {
@@ -567,9 +566,9 @@ void bitax_f(void) {
 }
 
 void bitay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD + y;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD + y;
     if (*op >> 6) {
         SET_V;
     } else {
@@ -588,7 +587,7 @@ void bitay_f(void) {
 }
 
 void bitz_f(void) {
-    uint8_t *op = prg_ram + *pc++;
+    u8 *op = prg_ram + *pc++;
     if (*op >> 6) {
         SET_V;
     } else {
@@ -607,7 +606,7 @@ void bitz_f(void) {
 }
 
 void bitzx_f(void) {
-    uint8_t *op = prg_ram + *pc++ + x;
+    u8 *op = prg_ram + *pc++ + x;
     if (*op >> 6) {
         SET_V;
     } else {
@@ -626,7 +625,7 @@ void bitzx_f(void) {
 }
 
 void bitzy_f(void) {
-    uint8_t *op = prg_ram + *pc++ + y;
+    u8 *op = prg_ram + *pc++ + y;
     if (*op >> 6) {
         SET_V;
     } else {
@@ -646,8 +645,8 @@ void bitzy_f(void) {
 
 void bmi_f(void) {
     if (GET_N) {
-        uint8_t low = *pc++;
-        uint8_t hi = *pc++;
+        u8 low = *pc++;
+        u8 hi = *pc++;
         pc = prg_ram + MAKE_WORD;
         return;
     }
@@ -656,7 +655,7 @@ void bmi_f(void) {
 
 void bmi65_f(void) {
     if (GET_N) {
-        int8_t off = (int8_t)*pc++;
+        s8 off = (s8)*pc++;
         pc += off;
         return;
     }
@@ -665,8 +664,8 @@ void bmi65_f(void) {
 
 void bne_f(void) {
     if (!GET_Z) {
-        uint8_t low = *pc++;
-        uint8_t hi = *pc++;
+        u8 low = *pc++;
+        u8 hi = *pc++;
         pc = prg_ram + MAKE_WORD;
         return;
     }
@@ -675,7 +674,7 @@ void bne_f(void) {
 
 void bne65_f(void) {
     if (!GET_Z) {
-        int8_t off = (int8_t)*pc++;
+        s8 off = (s8)*pc++;
         pc += off;
         return;
     }
@@ -684,8 +683,8 @@ void bne65_f(void) {
 
 void bpl_f(void) {
     if (!GET_N) {
-        uint8_t low = *pc++;
-        uint8_t hi = *pc++;
+        u8 low = *pc++;
+        u8 hi = *pc++;
         pc = prg_ram + MAKE_WORD;
         return;
     }
@@ -694,7 +693,7 @@ void bpl_f(void) {
 
 void bpl65_f(void) {
     if (!GET_N) {
-        int8_t off = (int8_t)*pc++;
+        s8 off = (s8)*pc++;
         pc += off;
         return;
     }
@@ -702,8 +701,8 @@ void bpl65_f(void) {
 }
 
 void brk_f(void) {
-    uint8_t low = PC_LOW;
-    uint8_t hi = PC_HI;
+    u8 low = PC_LOW;
+    u8 hi = PC_HI;
     SET_I;
     SET_B;
     if (!low) {
@@ -719,8 +718,8 @@ void brk_f(void) {
 
 void bvc_f(void) {
     if (!GET_V) {
-        uint8_t low = *pc++;
-        uint8_t hi = *pc++;
+        u8 low = *pc++;
+        u8 hi = *pc++;
         pc = prg_ram + MAKE_WORD;
         return;
     }
@@ -729,7 +728,7 @@ void bvc_f(void) {
 
 void bvc65_f(void) {
     if (!GET_V) {
-        int8_t off = (int8_t)*pc++;
+        s8 off = (s8)*pc++;
         pc += off;
         return;
     }
@@ -738,8 +737,8 @@ void bvc65_f(void) {
 
 void bvs_f(void) {
     if (GET_V) {
-        uint8_t low = *pc++;
-        uint8_t hi = *pc++;
+        u8 low = *pc++;
+        u8 hi = *pc++;
         pc = prg_ram + MAKE_WORD;
         return;
     }
@@ -748,7 +747,7 @@ void bvs_f(void) {
 
 void bvs65_f(void) {
     if (GET_V) {
-        int8_t off = (int8_t)*pc++;
+        s8 off = (s8)*pc++;
         pc += off;
         return;
     }
@@ -772,9 +771,9 @@ void clv_f(void) {
 }
 
 void cmpa_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD);
     if (a - op) {
         UNSET_Z;
     } else {
@@ -790,9 +789,9 @@ void cmpa_f(void) {
 }
 
 void cmpax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + x);
     if (a - op) {
         UNSET_Z;
     } else {
@@ -808,9 +807,9 @@ void cmpax_f(void) {
 }
 
 void cmpay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + y);
     if (a - op) {
         UNSET_Z;
     } else {
@@ -826,7 +825,7 @@ void cmpay_f(void) {
 }
 
 void cmpz_f(void) {
-    uint8_t op = *(prg_ram + *pc++);
+    u8 op = *(prg_ram + *pc++);
     if (a - op) {
         UNSET_Z;
     } else {
@@ -842,7 +841,7 @@ void cmpz_f(void) {
 }
 
 void cmpzx_f(void) {
-    uint8_t op = *(prg_ram + *pc++ + x);
+    u8 op = *(prg_ram + *pc++ + x);
     if (a - op) {
         UNSET_Z;
     } else {
@@ -858,7 +857,7 @@ void cmpzx_f(void) {
 }
 
 void cmpzy_f(void) {
-    uint8_t op = *(prg_ram + *pc++ + y);
+    u8 op = *(prg_ram + *pc++ + y);
     if (a - op) {
         UNSET_Z;
     } else {
@@ -874,7 +873,7 @@ void cmpzy_f(void) {
 }
 
 void cmpi_f(void) {
-    uint8_t op = *pc++;
+    u8 op = *pc++;
     if (a - op) {
         UNSET_Z;
     } else {
@@ -890,9 +889,9 @@ void cmpi_f(void) {
 }
 
 void cpxa_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD);
     if (x - op) {
         UNSET_Z;
     } else {
@@ -908,9 +907,9 @@ void cpxa_f(void) {
 }
 
 void cpxax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + x);
     if (x - op) {
         UNSET_Z;
     } else {
@@ -926,9 +925,9 @@ void cpxax_f(void) {
 }
 
 void cpxay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + y);
     if (x - op) {
         UNSET_Z;
     } else {
@@ -944,7 +943,7 @@ void cpxay_f(void) {
 }
 
 void cpxz_f(void) {
-    uint8_t op = *(prg_ram + *pc++);
+    u8 op = *(prg_ram + *pc++);
     if (x - op) {
         UNSET_Z;
     } else {
@@ -960,7 +959,7 @@ void cpxz_f(void) {
 }
 
 void cpxzx_f(void) {
-    uint8_t op = *(prg_ram + *pc++ + x);
+    u8 op = *(prg_ram + *pc++ + x);
     if (x - op) {
         UNSET_Z;
     } else {
@@ -976,7 +975,7 @@ void cpxzx_f(void) {
 }
 
 void cpxzy_f(void) {
-    uint8_t op = *(prg_ram + *pc++ + y);
+    u8 op = *(prg_ram + *pc++ + y);
     if (x - op) {
         UNSET_Z;
     } else {
@@ -992,7 +991,7 @@ void cpxzy_f(void) {
 }
 
 void cpxi_f(void) {
-    uint8_t op = *pc++;
+    u8 op = *pc++;
     if (x - op) {
         UNSET_Z;
     } else {
@@ -1008,9 +1007,9 @@ void cpxi_f(void) {
 }
 
 void cpya_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD);
     if (y - op) {
         UNSET_Z;
     } else {
@@ -1026,9 +1025,9 @@ void cpya_f(void) {
 }
 
 void cpyax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + x);
     if (y - op) {
         UNSET_Z;
     } else {
@@ -1044,9 +1043,9 @@ void cpyax_f(void) {
 }
 
 void cpyay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + y);
     if (y - op) {
         UNSET_Z;
     } else {
@@ -1062,7 +1061,7 @@ void cpyay_f(void) {
 }
 
 void cpyz_f(void) {
-    uint8_t op = *(prg_ram + *pc++);
+    u8 op = *(prg_ram + *pc++);
     if (y - op) {
         UNSET_Z;
     } else {
@@ -1078,7 +1077,7 @@ void cpyz_f(void) {
 }
 
 void cpyzx_f(void) {
-    uint8_t op = *(prg_ram + *pc++ + x);
+    u8 op = *(prg_ram + *pc++ + x);
     if (y - op) {
         UNSET_Z;
     } else {
@@ -1094,7 +1093,7 @@ void cpyzx_f(void) {
 }
 
 void cpyzy_f(void) {
-    uint8_t op = *(prg_ram + *pc++ + y);
+    u8 op = *(prg_ram + *pc++ + y);
     if (y - op) {
         UNSET_Z;
     } else {
@@ -1110,7 +1109,7 @@ void cpyzy_f(void) {
 }
 
 void cpyi_f(void) {
-    uint8_t op = *pc++;
+    u8 op = *pc++;
     if (y - op) {
         UNSET_Z;
     } else {
@@ -1126,8 +1125,8 @@ void cpyi_f(void) {
 }
 
 void deca_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD) -= 1;
     if (!*(prg_ram + MAKE_WORD)) {
         SET_Z;
@@ -1142,8 +1141,8 @@ void deca_f(void) {
 }
 
 void decax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD + x) -= 1;
     if (!*(prg_ram + MAKE_WORD + x)) {
         SET_Z;
@@ -1158,8 +1157,8 @@ void decax_f(void) {
 }
 
 void decay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD + y) -= 1;
     if (!*(prg_ram + MAKE_WORD + y)) {
         SET_Z;
@@ -1174,7 +1173,7 @@ void decay_f(void) {
 }
 
 void decz_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low) -= 1;
     if (!*(prg_ram + low)) {
         SET_Z;
@@ -1189,7 +1188,7 @@ void decz_f(void) {
 }
 
 void deczx_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low + x) -= 1;
     if (!*(prg_ram + low + x)) {
         SET_Z;
@@ -1204,7 +1203,7 @@ void deczx_f(void) {
 }
 
 void deczy_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low + y) -= 1;
     if (!*(prg_ram + low + y)) {
         SET_Z;
@@ -1247,9 +1246,9 @@ void dey_f(void) {
 }
 
 void eora_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD);
     a ^= op;
     if (a >> 7) {
         SET_N;
@@ -1264,9 +1263,9 @@ void eora_f(void) {
 }
 
 void eorax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + x);
     a ^= op;
     if (a >> 7) {
         SET_N;
@@ -1281,9 +1280,9 @@ void eorax_f(void) {
 }
 
 void eoray_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + y);
     a ^= op;
     if (a >> 7) {
         SET_N;
@@ -1298,7 +1297,7 @@ void eoray_f(void) {
 }
 
 void eorz_f(void) {
-    uint8_t op = *(prg_ram + *pc++);
+    u8 op = *(prg_ram + *pc++);
     a ^= op;
     if (a >> 7) {
         SET_N;
@@ -1313,7 +1312,7 @@ void eorz_f(void) {
 }
 
 void eorzx_f(void) {
-    uint8_t op = *(prg_ram + *pc++ + x);
+    u8 op = *(prg_ram + *pc++ + x);
     a ^= op;
     if (a >> 7) {
         SET_N;
@@ -1328,7 +1327,7 @@ void eorzx_f(void) {
 }
 
 void eorzy_f(void) {
-    uint8_t op = *(prg_ram + *pc++ + y);
+    u8 op = *(prg_ram + *pc++ + y);
     a ^= op;
     if (a >> 7) {
         SET_N;
@@ -1357,8 +1356,8 @@ void eori_f(void) {
 }
 
 void inca_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD) += 1;
     if (!*(prg_ram + MAKE_WORD)) {
         SET_Z;
@@ -1373,8 +1372,8 @@ void inca_f(void) {
 }
 
 void incax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD + x) += 1;
     if (!*(prg_ram + MAKE_WORD + x)) {
         SET_Z;
@@ -1389,8 +1388,8 @@ void incax_f(void) {
 }
 
 void incay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD + y) += 1;
     if (!*(prg_ram + MAKE_WORD + y)) {
         SET_Z;
@@ -1405,7 +1404,7 @@ void incay_f(void) {
 }
 
 void incz_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low) += 1;
     if (!*(prg_ram + low)) {
         SET_Z;
@@ -1420,7 +1419,7 @@ void incz_f(void) {
 }
 
 void inczx_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low + x) += 1;
     if (!*(prg_ram + low + x)) {
         SET_Z;
@@ -1435,7 +1434,7 @@ void inczx_f(void) {
 }
 
 void inczy_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low + y) += 1;
     if (!*(prg_ram + low + y)) {
         SET_Z;
@@ -1478,41 +1477,41 @@ void iny_f(void) {
 }
 
 void jmpa_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     pc = prg_ram + MAKE_WORD;
 }
 
 void jmpax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     pc = prg_ram + MAKE_WORD + x;
 }
 
 void jmpay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     pc = prg_ram + MAKE_WORD + y;
 }
 
 void jmpz_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     pc = prg_ram + low;
 }
 
 void jmpzx_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     pc = prg_ram + low + x;
 }
 
 void jmpzy_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     pc = prg_ram + low + y;
 }
 
 void jsr_f(void) {
-    uint8_t low = PC_LOW + 1;
-    uint8_t hi = PC_HI;
+    u8 low = PC_LOW + 1;
+    u8 hi = PC_HI;
     if (low <= 1) {
         hi++;
     }
@@ -1525,8 +1524,8 @@ void jsr_f(void) {
 }
 
 void ldaa_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     a = *(prg_ram + MAKE_WORD);
     if (!a) {
         SET_Z;
@@ -1541,8 +1540,8 @@ void ldaa_f(void) {
 }
 
 void ldaax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     a = *(prg_ram + MAKE_WORD + x);
     if (!a) {
         SET_Z;
@@ -1557,8 +1556,8 @@ void ldaax_f(void) {
 }
 
 void ldaay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     a = *(prg_ram + MAKE_WORD + y);
     if (!a) {
         SET_Z;
@@ -1573,7 +1572,7 @@ void ldaay_f(void) {
 }
 
 void ldaz_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     a = *(prg_ram + low);
     if (!a) {
         SET_Z;
@@ -1588,7 +1587,7 @@ void ldaz_f(void) {
 }
 
 void ldazx_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     a = *(prg_ram + low + x);
     if (!a) {
         SET_Z;
@@ -1603,7 +1602,7 @@ void ldazx_f(void) {
 }
 
 void ldazy_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     a = *(prg_ram + low + y);
     if (!a) {
         SET_Z;
@@ -1632,8 +1631,8 @@ void ldai_f(void) {
 }
 
 void ldxa_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     x = *(prg_ram + MAKE_WORD);
     if (!x) {
         SET_Z;
@@ -1648,8 +1647,8 @@ void ldxa_f(void) {
 }
 
 void ldxax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     x = *(prg_ram + MAKE_WORD + x);
     if (!x) {
         SET_Z;
@@ -1664,8 +1663,8 @@ void ldxax_f(void) {
 }
 
 void ldxay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     x = *(prg_ram + MAKE_WORD + y);
     if (!x) {
         SET_Z;
@@ -1680,7 +1679,7 @@ void ldxay_f(void) {
 }
 
 void ldxz_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     x = *(prg_ram + low);
     if (!x) {
         SET_Z;
@@ -1695,7 +1694,7 @@ void ldxz_f(void) {
 }
 
 void ldxzx_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     x = *(prg_ram + low + x);
     if (!x) {
         SET_Z;
@@ -1710,7 +1709,7 @@ void ldxzx_f(void) {
 }
 
 void ldxzy_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     x = *(prg_ram + low + y);
     if (!x) {
         SET_Z;
@@ -1739,8 +1738,8 @@ void ldxi_f(void) {
 }
 
 void ldya_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     y = *(prg_ram + MAKE_WORD);
     if (!y) {
         SET_Z;
@@ -1755,8 +1754,8 @@ void ldya_f(void) {
 }
 
 void ldyax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     y = *(prg_ram + MAKE_WORD + x);
     if (!y) {
         SET_Z;
@@ -1771,8 +1770,8 @@ void ldyax_f(void) {
 }
 
 void ldyay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     y = *(prg_ram + MAKE_WORD + y);
     if (!y) {
         SET_Z;
@@ -1787,7 +1786,7 @@ void ldyay_f(void) {
 }
 
 void ldyz_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     y = *(prg_ram + low);
     if (!y) {
         SET_Z;
@@ -1802,7 +1801,7 @@ void ldyz_f(void) {
 }
 
 void ldyzx_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     y = *(prg_ram + low + x);
     if (!y) {
         SET_Z;
@@ -1817,7 +1816,7 @@ void ldyzx_f(void) {
 }
 
 void ldyzy_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     y = *(prg_ram + low + y);
     if (!y) {
         SET_Z;
@@ -1846,9 +1845,9 @@ void ldyi_f(void) {
 }
 
 void lsra_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD;
     if (*op & 1) {
         SET_C;
     } else {
@@ -1864,9 +1863,9 @@ void lsra_f(void) {
 }
 
 void lsrax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD + x;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD + x;
     if (*op & 1) {
         SET_C;
     } else {
@@ -1882,9 +1881,9 @@ void lsrax_f(void) {
 }
 
 void lsray_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD + y;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD + y;
     if (*op & 1) {
         SET_C;
     } else {
@@ -1900,7 +1899,7 @@ void lsray_f(void) {
 }
 
 void lsrz_f(void) {
-    uint8_t *op = prg_ram + *pc++;
+    u8 *op = prg_ram + *pc++;
     if (*op & 1) {
         SET_C;
     } else {
@@ -1916,7 +1915,7 @@ void lsrz_f(void) {
 }
 
 void lsrzx_f(void) {
-    uint8_t *op = prg_ram + *pc++ + x;
+    u8 *op = prg_ram + *pc++ + x;
     if (*op & 1) {
         SET_C;
     } else {
@@ -1932,7 +1931,7 @@ void lsrzx_f(void) {
 }
 
 void lsrzy_f(void) {
-    uint8_t *op = prg_ram + *pc++ + y;
+    u8 *op = prg_ram + *pc++ + y;
     if (*op & 1) {
         SET_C;
     } else {
@@ -1965,9 +1964,9 @@ void lsrac_f(void) {
 void nop_f(void) {}
 
 void oraa_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD);
     a |= op;
     if (a >> 7) {
         SET_N;
@@ -1982,9 +1981,9 @@ void oraa_f(void) {
 }
 
 void oraax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + x);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + x);
     a |= op;
     if (a >> 7) {
         SET_N;
@@ -1999,9 +1998,9 @@ void oraax_f(void) {
 }
 
 void oraay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + y);
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + y);
     a |= op;
     if (a >> 7) {
         SET_N;
@@ -2016,7 +2015,7 @@ void oraay_f(void) {
 }
 
 void oraz_f(void) {
-    uint8_t op = *(prg_ram + *pc++);
+    u8 op = *(prg_ram + *pc++);
     a |= op;
     if (a >> 7) {
         SET_N;
@@ -2031,7 +2030,7 @@ void oraz_f(void) {
 }
 
 void orazx_f(void) {
-    uint8_t op = *(prg_ram + *pc++ + x);
+    u8 op = *(prg_ram + *pc++ + x);
     a |= op;
     if (a >> 7) {
         SET_N;
@@ -2046,7 +2045,7 @@ void orazx_f(void) {
 }
 
 void orazy_f(void) {
-    uint8_t op = *(prg_ram + *pc++ + y);
+    u8 op = *(prg_ram + *pc++ + y);
     a |= op;
     if (a >> 7) {
         SET_N;
@@ -2104,10 +2103,10 @@ void plp_f(void) {
 }
 
 void rola_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD;
-    uint8_t c = 0;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2133,10 +2132,10 @@ void rola_f(void) {
 }
 
 void rolax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD + x;
-    uint8_t c = 0;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD + x;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2162,10 +2161,10 @@ void rolax_f(void) {
 }
 
 void rolay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD + y;
-    uint8_t c = 0;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD + y;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2191,8 +2190,8 @@ void rolay_f(void) {
 }
 
 void rolz_f(void) {
-    uint8_t *op = prg_ram + *pc++;
-    uint8_t c = 0;
+    u8 *op = prg_ram + *pc++;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2218,8 +2217,8 @@ void rolz_f(void) {
 }
 
 void rolzx_f(void) {
-    uint8_t *op = prg_ram + *pc++ + x;
-    uint8_t c = 0;
+    u8 *op = prg_ram + *pc++ + x;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2245,8 +2244,8 @@ void rolzx_f(void) {
 }
 
 void rolzy_f(void) {
-    uint8_t *op = prg_ram + *pc++ + y;
-    uint8_t c = 0;
+    u8 *op = prg_ram + *pc++ + y;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2272,7 +2271,7 @@ void rolzy_f(void) {
 }
 
 void rolac_f(void) {
-    uint8_t c = 0;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2298,10 +2297,10 @@ void rolac_f(void) {
 }
 
 void rora_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD;
-    uint8_t c = 0;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2327,10 +2326,10 @@ void rora_f(void) {
 }
 
 void rorax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD + x;
-    uint8_t c = 0;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD + x;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2356,10 +2355,10 @@ void rorax_f(void) {
 }
 
 void roray_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t *op = prg_ram + MAKE_WORD + y;
-    uint8_t c = 0;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 *op = prg_ram + MAKE_WORD + y;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2385,8 +2384,8 @@ void roray_f(void) {
 }
 
 void rorz_f(void) {
-    uint8_t *op = prg_ram + *pc++;
-    uint8_t c = 0;
+    u8 *op = prg_ram + *pc++;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2412,8 +2411,8 @@ void rorz_f(void) {
 }
 
 void rorzx_f(void) {
-    uint8_t *op = prg_ram + *pc++ + x;
-    uint8_t c = 0;
+    u8 *op = prg_ram + *pc++ + x;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2439,8 +2438,8 @@ void rorzx_f(void) {
 }
 
 void rorzy_f(void) {
-    uint8_t *op = prg_ram + *pc++ + y;
-    uint8_t c = 0;
+    u8 *op = prg_ram + *pc++ + y;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2466,7 +2465,7 @@ void rorzy_f(void) {
 }
 
 void rorac_f(void) {
-    uint8_t c = 0;
+    u8 c = 0;
     if (GET_C) {
         c = 1;
     }
@@ -2492,8 +2491,8 @@ void rorac_f(void) {
 }
 
 void rti_f(void) {
-    uint8_t low;
-    uint8_t hi;
+    u8 low;
+    u8 hi;
 
     p = STACK_POP;
     low = STACK_POP;
@@ -2504,8 +2503,8 @@ void rti_f(void) {
 }
 
 void rts_f(void) {
-    uint8_t low;
-    uint8_t hi;
+    u8 low;
+    u8 hi;
 
     if (s == 0xff) {
         stop_cpu();
@@ -2517,10 +2516,10 @@ void rts_f(void) {
 }
 
 void sbca_f(void) {
-    uint8_t la = a;
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD) - GET_C;
+    u8 la = a;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD) - GET_C;
     a -= op;
     if (a > la) {
         SET_C;
@@ -2545,10 +2544,10 @@ void sbca_f(void) {
 }
 
 void sbcax_f(void) {
-    uint8_t la = a;
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + x) - GET_C;
+    u8 la = a;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + x) - GET_C;
     a -= op;
     if (a > la) {
         SET_C;
@@ -2573,10 +2572,10 @@ void sbcax_f(void) {
 }
 
 void sbcay_f(void) {
-    uint8_t la = a;
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
-    uint8_t op = *(prg_ram + MAKE_WORD + y) - GET_C;
+    u8 la = a;
+    u8 low = *pc++;
+    u8 hi = *pc++;
+    u8 op = *(prg_ram + MAKE_WORD + y) - GET_C;
     a -= op;
     if (a > la) {
         SET_C;
@@ -2601,8 +2600,8 @@ void sbcay_f(void) {
 }
 
 void sbcz_f(void) {
-    uint8_t la = a;
-    uint8_t op = *(prg_ram + *pc++) - GET_C;
+    u8 la = a;
+    u8 op = *(prg_ram + *pc++) - GET_C;
     a -= op;
     if (a > la) {
         SET_C;
@@ -2627,8 +2626,8 @@ void sbcz_f(void) {
 }
 
 void sbczx_f(void) {
-    uint8_t la = a;
-    uint8_t op = *(prg_ram + *pc++ + x) - GET_C;
+    u8 la = a;
+    u8 op = *(prg_ram + *pc++ + x) - GET_C;
     a -= op;
     if (a > la) {
         SET_C;
@@ -2653,8 +2652,8 @@ void sbczx_f(void) {
 }
 
 void sbczy_f(void) {
-    uint8_t la = a;
-    uint8_t op = *(prg_ram + *pc++ + y) - GET_C;
+    u8 la = a;
+    u8 op = *(prg_ram + *pc++ + y) - GET_C;
     a -= op;
     if (a > la) {
         SET_C;
@@ -2679,8 +2678,8 @@ void sbczy_f(void) {
 }
 
 void sbci_f(void) {
-    uint8_t la = a;
-    uint8_t op = *pc++ - GET_C;
+    u8 la = a;
+    u8 op = *pc++ - GET_C;
     a -= op;
     if (a > la) {
         SET_C;
@@ -2717,101 +2716,101 @@ void sei_f(void) {
 }
 
 void staa_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD) = a;
 }
 
 void staax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD + x) = a;
 }
 
 void staay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD + y) = a;
 }
 
 void staz_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low) = a;
 }
 
 void stazx_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low + x) = a;
 }
 
 void stazy_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low + y) = a;
 }
 
 void stxa_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD) = x;
 }
 
 void stxax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD + x) = x;
 }
 
 void stxay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD + y) = x;
 }
 
 void stxz_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low) = x;
 }
 
 void stxzx_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low + x) = x;
 }
 
 void stxzy_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low + y) = x;
 }
 
 void stya_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD) = y;
 }
 
 void styax_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD + x) = y;
 }
 
 void styay_f(void) {
-    uint8_t low = *pc++;
-    uint8_t hi = *pc++;
+    u8 low = *pc++;
+    u8 hi = *pc++;
     *(prg_ram + MAKE_WORD + y) = y;
 }
 
 void styz_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low) = y;
 }
 
 void styzx_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low + x) = y;
 }
 
 void styzy_f(void) {
-    uint8_t low = *pc++;
+    u8 low = *pc++;
     *(prg_ram + low + y) = y;
 }
 

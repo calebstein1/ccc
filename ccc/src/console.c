@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <stdint.h>
 
+#include "fixed.h"
 #include "console.h"
 #include "cpu.h"
 
@@ -9,6 +9,6 @@ void print_buffer(void) {
 }
 
 void print_number(void) {
-    printf("%d\n", (uint16_t)(prg_ram[0x4020] + (prg_ram[0x4021] ? prg_ram[0x4021] * 0x100 : 0)));
+    printf("%d\n", (u16)(prg_ram[0x4020] + (prg_ram[0x4021] ? prg_ram[0x4021] * 0x100 : 0)));
 }
 

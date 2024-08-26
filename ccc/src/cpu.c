@@ -1,24 +1,24 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <string.h>
 #include <sys/time.h>
 
+#include "fixed.h"
 #include "console.h"
 #include "shell.h"
 #include "display.h"
 #include "cpu.h"
 
 /* RAM, Program Counter, and Stack Pointer */
-uint8_t prg_ram[0x10000];
-uint8_t *pc = &prg_ram[0x8000];
-uint8_t s = 0xff;
+u8 prg_ram[0x10000];
+u8 *pc = &prg_ram[0x8000];
+u8 s = 0xff;
 
 /* CPU Registers */
-uint8_t a, x, y;
-uint8_t p = 32;
+u8 a, x, y;
+u8 p = 32;
 
 /* Default brk handler */
-const uint8_t ccrom[] = { 0x48, 0xa9, 0x01, 0x8d, 0x00, 0x40, 0x68, 0x40 };
+const u8 ccrom[] = { 0x48, 0xa9, 0x01, 0x8d, 0x00, 0x40, 0x68, 0x40 };
 
 cpu_state c_state = BOOT;
 
@@ -45,8 +45,8 @@ void *start_cpu(void *arg) {
             prg_ram[0x2001] = 0;
             restart_gpu();
         } else if (prg_ram[0x4000]) {
-            uint8_t low = *(prg_ram + s + 0x103);
-            uint8_t hi = *(prg_ram + s + 0x104);
+            u8 low = *(prg_ram + s + 0x103);
+            u8 hi = *(prg_ram + s + 0x104);
             printf("Breaking at address 0x%x\n", MAKE_WORD - 1);
             c_state = PRG_DBG;
         } else if (prg_ram[0x4018]) {

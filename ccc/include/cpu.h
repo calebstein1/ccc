@@ -1,12 +1,13 @@
 #ifndef CCC_CPU_H
 #define CCC_CPU_H
 
+#include "fixed.h"
 #include "opcodes.h"
 #include "bitfield.h"
 
 #define CCC_VER "v0.0.2-prealpha"
 
-#define MAKE_WORD (((uint16_t)hi << 8) + low)
+#define MAKE_WORD (((u16)hi << 8) + low)
 
 #define GET_C (p & 1)
 #define GET_Z (p >> 1 & 1)
@@ -46,11 +47,11 @@ typedef enum cpu_state {
     PRG_RN
 } cpu_state;
 
-extern uint8_t prg_ram[0x10000];
-extern uint8_t *pc;
-extern uint8_t s;
-extern uint8_t a, x, y;
-extern uint8_t p;
+extern u8 prg_ram[0x10000];
+extern u8 *pc;
+extern u8 s;
+extern u8 a, x, y;
+extern u8 p;
 
 extern cpu_state c_state;
 

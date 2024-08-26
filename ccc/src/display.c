@@ -6,7 +6,7 @@
 #include "cpu.h"
 
 gpu_state g_state = GPU_STP;
-uint8_t gpu_rom[0x8000];
+u8 gpu_rom[0x8000];
 int screen_resolution;
 
 void start_gpu(void) {

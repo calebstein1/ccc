@@ -1,7 +1,7 @@
 #ifndef CCC_DISPLAY_H
 #define CCC_DISPLAY_H
 
-#include <stdint.h>
+#include "fixed.h"
 
 #define SCREEN_FPS 60
 #define SCREEN_TICKS_PER_FRAME (1000 / SCREEN_FPS)
@@ -25,13 +25,13 @@ typedef enum gpu_state {
 } gpu_state;
 
 struct color_t {
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
+    u8 r;
+    u8 g;
+    u8 b;
 };
 
 extern gpu_state g_state;
-extern uint8_t gpu_rom[0x8000];
+extern u8 gpu_rom[0x8000];
 extern int screen_resolution;
 
 void start_gpu(void);
