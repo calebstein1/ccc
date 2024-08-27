@@ -5,7 +5,7 @@
 #include "opcodes.h"
 #include "bitfield.h"
 
-#define CCC_VER "v0.0.2-prealpha"
+#define CCC_VER "v0.0.3-prealpha"
 
 #define MAKE_WORD (((u16)hi << 8) + low)
 
@@ -54,8 +54,6 @@ extern u8 a, x, y;
 extern u8 p;
 
 extern cpu_state c_state;
-
-extern void (*eval_func[OPCODE_COUNT])(void);
 
 void init_ccrom(void);
 void *run_cpu(void *arg);

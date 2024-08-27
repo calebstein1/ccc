@@ -1,21 +1,7 @@
 #include "fixed.h"
+#include "eval.h"
 #include "cpu.h"
 
-/* Function prototypes */
-#define X(opcode, op_fn, str_lit) void op_fn(void);
-        OPCODES_LIST
-#undef X
-
-/* Jump table */
-void (*eval_func[OPCODE_COUNT])(void) = {
-#define X(opcode, op_fn, str_lit) op_fn,
-        OPCODES_LIST
-#undef X
-};
-
-/*
- * Evaluator functions
- */
 void
 adca_f(void) {
     u8 la = a;

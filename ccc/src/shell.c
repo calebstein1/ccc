@@ -12,11 +12,6 @@
 #include "cpu.h"
 #include "colors.h"
 
-/* Function prototypes */
-#define X(op, fn, str) void fn(const u8 *args, const char *arg);
-        SHELL_CMD_TBL
-#undef X
-
 void
 shell_prompt(void) {
     static void (*shell_func[])(const u8 *args, const char *arg) = {

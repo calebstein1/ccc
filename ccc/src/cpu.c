@@ -8,6 +8,7 @@
 #include "console.h"
 #include "shell.h"
 #include "display.h"
+#include "eval.h"
 #include "cpu.h"
 
 /* RAM, Program Counter, and Stack Pointer */
@@ -50,6 +51,11 @@ run_cpu(void *arg) {
             BNE, NOP, NOP, NOP, NOP, CMP_ZX, DEC_ZX, NOP, CLD, CMP_AY, NOP, NOP, NOP, CMP_AX, DEC_AX, NOP,
             CPX_I, NOP, NOP, NOP, CPX_Z, SBC_Z, INC_Z, NOP, INX, SBC_I, NOP, NOP, CPX_A, SBC_A, INC_A, NOP,
             BEQ, NOP, NOP, NOP, NOP, SBC_ZX, INC_ZX, NOP, SED, SBC_AY, NOP, NOP, NOP, SBC_AX, INC_AX, NOP
+    };
+    void (*eval_func[OPCODE_COUNT])(void) = {
+#define X(opcode, op_fn, str_lit) op_fn,
+            OPCODES_LIST
+#undef X
     };
     struct timeval p_time;
     long l_cycle;

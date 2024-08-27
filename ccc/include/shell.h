@@ -25,6 +25,10 @@ typedef enum shell_cmd {
     SHELL_CMD_COUNT
 } shell_cmd;
 
+/* Function prototypes */
 void shell_prompt(void);
+#define X(op, fn, str) void fn(const u8 *args, const char *arg);
+SHELL_CMD_TBL
+#undef X
 
 #endif
