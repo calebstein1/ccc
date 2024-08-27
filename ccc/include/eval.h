@@ -8,4 +8,4 @@
 OPCODES_LIST
 #undef X
 
-#endif
+#endif /* CCC_EVAL_H */

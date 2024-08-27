@@ -12,4 +12,4 @@
 
 void get_controller_state(SDL_Event *e);
 
-#endif
+#endif /* CCC_CONTROLLER_H */

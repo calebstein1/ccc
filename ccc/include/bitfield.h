@@ -19,4 +19,4 @@
 #define U6 0xbf
 #define U7 0x7f
 
-#endif
+#endif /* CCC_BITFIELD_H */

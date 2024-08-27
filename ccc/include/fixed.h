@@ -6,4 +6,4 @@ typedef char s8;
 typedef unsigned short u16;
 typedef short s16;
 
-#endif
+#endif /* CCC_FIXED_H */

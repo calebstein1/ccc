@@ -21,4 +21,4 @@
 #define CYANB "\033[1;36m"
 #define WHITEB "\033[1;37m"
 
-#endif
+#endif /* CCC_COLORS_H */

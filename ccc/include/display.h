@@ -14,20 +14,20 @@
 #define SCREEN_RESOLUTION_MODE (prg_ram[0x2005])
 #define PIXEL_SIZE (prg_ram[0x2006])
 
-#define HW_PALETTE                         \
-    X(0x00, 0x00, 0x00) \
-    X(0xff, 0xff, 0xff)
+#define HW_PALETTE						 \
+	X(0x00, 0x00, 0x00) \
+	X(0xff, 0xff, 0xff)
 
 typedef enum gpu_state {
-    GPU_STP,
-    GPU_RN,
-    GPU_RST
+	GPU_STP,
+	GPU_RN,
+	GPU_RST
 } gpu_state;
 
 struct color_t {
-    u8 r;
-    u8 g;
-    u8 b;
+	u8 r;
+	u8 g;
+	u8 b;
 };
 
 extern gpu_state g_state;
@@ -36,4 +36,4 @@ extern u8 gpu_rom[0x8000];
 void run_gpu(void);
 void restart_gpu(void);
 
-#endif
+#endif /* CCC_DISPLAY_H */

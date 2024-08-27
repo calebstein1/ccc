@@ -40,11 +40,11 @@
 #define PC_HI ((pc - prg_ram) >> 8)
 
 typedef enum cpu_state {
-    CPU_STP,
-    BOOT,
-    PRG_LD,
-    PRG_DBG,
-    PRG_RN
+	CPU_STP,
+	BOOT,
+	PRG_LD,
+	PRG_DBG,
+	PRG_RN
 } cpu_state;
 
 extern u8 prg_ram[0x10000];
@@ -59,4 +59,4 @@ void init_ccrom(void);
 void *run_cpu(void *arg);
 void stop_cpu(void);
 
-#endif
+#endif /* CCC_CPU_H */

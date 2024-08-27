@@ -4,4 +4,4 @@
 void print_buffer(void);
 void print_number(void);
 
-#endif
+#endif /* CCC_CONSOLE_H */

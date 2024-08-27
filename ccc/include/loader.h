@@ -3,4 +3,4 @@
 
 int load_prg(const char *prg);
 
-#endif
+#endif /* CCC_LOADER_H */
