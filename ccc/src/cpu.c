@@ -50,7 +50,7 @@ start_cpu(void *arg) {
             BEQ, NOP, NOP, NOP, NOP, SBC_ZX, INC_ZX, NOP, SED, SBC_AY, NOP, NOP, NOP, SBC_AX, INC_AX, NOP
     };
     struct timeval p_time;
-    int32_t l_cycle;
+    long l_cycle;
     (void)arg;
 
     init_ccrom();
