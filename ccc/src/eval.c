@@ -1,7 +1,7 @@
 #include "fixed.h"
 #include "cpu.h"
 
-/* FUnction prototypes */
+/* Function prototypes */
 #define X(opcode, op_fn, str_lit) void op_fn(void);
         OPCODES_LIST
 #undef X

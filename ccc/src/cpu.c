@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+
+/* Posix Headers */
 #include <sys/time.h>
 
 #include "fixed.h"
@@ -30,7 +32,7 @@ init_ccrom(void) {
 }
 
 void*
-start_cpu(void *arg) {
+run_cpu(void *arg) {
     const opcode_e t6502[] = {
             BRK, NOP, NOP, NOP, NOP, ORA_Z, ASL_Z, NOP, PHP, ORA_I, ASL_AC, NOP, NOP, ORA_A, ASL_A, NOP,
             BPL, NOP, NOP, NOP, NOP, ORA_ZX, ASL_ZX, NOP, CLC, ORA_AY, NOP, NOP, NOP, ORA_AX, ASL_AX, NOP,
@@ -57,6 +59,18 @@ start_cpu(void *arg) {
 
     /* Shutdown c_state is 0 */
     while (c_state) {
+        /*
+         * The clock rate is set to 1Mhz, or 1 instruction/microsecond
+         *
+         * This hack is used instead of usleep() because usleep would cause a
+         * 1us delay in addition to the time taken to evaluate the instruction,
+         * whereas this timer counts during evaluation.
+         *
+         * Right now, each instruction takes 1 clock cycle (or more, if slow).
+         * This is not accurate to a real 6502, where the instruction and
+         * addressing mode impact the number of clock cycles. This may be
+         * implemented in the future.
+         */
         l_cycle = p_time.tv_usec;
         gettimeofday(&p_time, 0);
         if (l_cycle == p_time.tv_usec) continue;

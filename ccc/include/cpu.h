@@ -58,7 +58,7 @@ extern cpu_state c_state;
 extern void (*eval_func[OPCODE_COUNT])(void);
 
 void init_ccrom(void);
-void *start_cpu(void *arg);
+void *run_cpu(void *arg);
 void stop_cpu(void);
 
 #endif

@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/* Posix Headers */
 #include <unistd.h>
 #include <dirent.h>
 
@@ -101,6 +103,11 @@ help_f(const u8 *args, const char *arg) {
     (void)arg;
 }
 
+/*
+ * It might seem like it would be more sensible to use u16 for the args array
+ * to avoid the math, but u8 was chosen to prevent a user from accidentally
+ * poking a 16-bit value into an 8-bit address.
+ */
 void
 peek_f(const u8 *args, const char *arg) {
     printf("%d\n", (u16)*(prg_ram + args[0] + (args[1] * 0x100)));
@@ -204,6 +211,8 @@ continue_f(const u8 *args, const char *arg) {
 
 void
 clear_f(const u8 *args, const char *arg) {
+    /* Not portable */
+    system("clear");
     (void)args;
     (void)arg;
 }

@@ -33,7 +33,7 @@ struct color_t {
 extern gpu_state g_state;
 extern u8 gpu_rom[0x8000];
 
-void start_gpu(void);
+void run_gpu(void);
 void restart_gpu(void);
 
 #endif

@@ -9,7 +9,7 @@ gpu_state g_state = GPU_STP;
 u8 gpu_rom[0x8000];
 
 void
-start_gpu(void) {
+run_gpu(void) {
     unsigned long last_frame = SDL_GetTicks();
     unsigned long cur_frame, d_frame;
     const int screen_resolutions[] = { 128, 64, 256 };
