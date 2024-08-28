@@ -5,6 +5,11 @@
 #include "controller.h"
 #include "cpu.h"
 
+/* Prototypes for private functions */
+void draw_all_sprites(SDL_Renderer *renderer, const struct color_t *pal);
+void draw_sprite(const struct sprite_slot_t *spr, SDL_Renderer *renderer, const struct color_t *pal);
+u8 get_cur_pixel(const struct sprite_slot_t *spr, const u8 *s_addr_low, const u8 *s_addr_hi, u8 i);
+
 gpu_state g_state = GPU_STP;
 u8 gpu_rom[0x8000];
 
@@ -73,6 +78,8 @@ run_gpu(void) {
 		SDL_SetRenderDrawColor(renderer, BG_R, BG_G, BG_B, 0xff);
 		SDL_RenderClear(renderer);
 
+		draw_all_sprites(renderer, pal);
+
 		SDL_RenderPresent(renderer);
 	}
 
@@ -88,4 +95,81 @@ run_gpu(void) {
 void
 restart_gpu(void) {
 	g_state = GPU_RST;
+}
+
+/*
+ * Private GPU functions
+ */
+
+void
+draw_all_sprites(SDL_Renderer *renderer, const struct color_t *pal) {
+	u8 i;
+	struct sprite_slot_t *cur_spr;
+
+	for (i = 0; i < MAX_SPRITES; i++) {
+		cur_spr = (struct sprite_slot_t *)(prg_ram + 0x2200 + (i * sizeof(struct sprite_slot_t)));
+		if (!cur_spr->in_use) continue;
+
+		draw_sprite(cur_spr, renderer, pal);
+	}
+}
+
+void
+draw_sprite(const struct sprite_slot_t *spr, SDL_Renderer *renderer, const struct color_t *pal) {
+	u8 i;
+	u8 low = spr->spr_num;
+	u8 hi = spr->spr_bnk;
+	u8 *s_addr = gpu_rom + MAKE_WORD;
+	u8 c, cur_pxl;
+	u8 subp_x = spr->spr_subp & 0xf;
+	u8 subp_y = (spr->spr_subp >> 4) & 0xf;
+	/* initialize y to 255 since we increment y each 8 pixels, and 0 is a multiple of 8 */
+	u8 x_off = 0, y_off = 255;
+	SDL_Rect pxl;
+
+	pxl.h = PIXEL_SIZE;
+	pxl.w = PIXEL_SIZE;
+
+	for (i = 0; i < SPR_NUM_PIXELS; i++) {
+		if (i % 8 == 0) {
+			x_off = 0;
+			y_off++;
+		} else {
+			x_off++;
+		}
+
+		cur_pxl = get_cur_pixel(spr, s_addr + (i / 8), s_addr + 64 + (i / 8), i % 8);
+		if (!cur_pxl) continue;
+
+		c = SPR_PAL + spr->spr_pal + cur_pxl;
+		SDL_SetRenderDrawColor(renderer, pal[c].r, pal[c].g, pal[c].b, 0xff);
+
+		pxl.x = spr->spr_x + (PIXEL_SIZE * x_off) + (subp_x / PIXEL_SIZE);
+		pxl.y = spr->spr_y + (PIXEL_SIZE * y_off) + (subp_y / PIXEL_SIZE);
+
+		SDL_RenderFillRect(renderer, &pxl);
+	}
+}
+
+u8
+get_cur_pixel(const struct sprite_slot_t *spr, const u8 *s_addr_low, const u8 *s_addr_hi, const u8 i) {
+	u8 low = (*s_addr_low >> i) & 1;
+	u8 hi = (*s_addr_hi >> i) & 1;
+	switch (MAKE_WORD) {
+		case 0x0:
+			return 0;
+		case 0x01:
+			return 1;
+		case 0x10:
+			return 2;
+		case 0x11:
+			return 3;
+		default:
+			fputs("Somehow, the running program made the impossible possible. CCC will now exit. Goodbye.\n", stderr);
+			fprintf(stderr, "\n(Processing sprite %u from bank %u resulted in an impossible pixel color on pixel %u)\n",
+				spr->spr_num, spr->spr_bnk, i);
+			stop_cpu();
+	}
+
+	return 0;
 }
