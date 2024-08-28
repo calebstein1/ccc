@@ -14,8 +14,8 @@
 #define SCREEN_RESOLUTION_MODE (prg_ram[0x2005])
 #define PIXEL_SIZE (prg_ram[0x2006])
 
-#define HW_PALETTE						 \
-	X(0x00, 0x00, 0x00) \
+#define HW_PALETTE		\
+	X(0x00, 0x00, 0x00)	\
 	X(0xff, 0xff, 0xff)
 
 typedef enum gpu_state {
@@ -23,6 +23,13 @@ typedef enum gpu_state {
 	GPU_RN,
 	GPU_RST
 } gpu_state;
+
+typedef enum resolution_mode {
+    S128,
+    S64,
+    S256,
+    NIN
+} resolution_mode;
 
 struct color_t {
 	u8 r;

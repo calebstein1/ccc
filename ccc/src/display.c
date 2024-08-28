@@ -12,8 +12,10 @@ void
 run_gpu(void) {
 	unsigned long int last_frame = SDL_GetTicks();
 	unsigned long int cur_frame, d_frame;
-	const int screen_resolutions[] = { 128, 64, 256 };
-	int screen_resolution;
+	const int x_dims[] = { 128, 64, 256, 256 };
+	const int y_dims[] = { 128, 64, 256, 224 };
+	int sres_x;
+	int sres_y;
 #define X(red, green, blue) { .r = red, .g = green, .b = blue },
 	const struct color_t pal[] = {
 			HW_PALETTE
@@ -24,8 +26,9 @@ run_gpu(void) {
 	SDL_Renderer *renderer;
 	SDL_Event e;
 
-	int win_size;
-	int win_x = SDL_WINDOWPOS_UNDEFINED, win_y = SDL_WINDOWPOS_UNDEFINED;
+	int win_size_x;
+	int win_size_y;
+	int win_pos_x = SDL_WINDOWPOS_UNDEFINED, win_pos_y = SDL_WINDOWPOS_UNDEFINED;
 	char win_title[256];
 
 	(void)pal; /* delete once pal finalized */
@@ -35,14 +38,16 @@ run_gpu(void) {
 		return;
 	}
 
-	SCREEN_RESOLUTION_MODE = 0;
-	PIXEL_SIZE = 6;
+	SCREEN_RESOLUTION_MODE = S128;
+	PIXEL_SIZE = 4;
 
 	init_window:
-	screen_resolution = screen_resolutions[SCREEN_RESOLUTION_MODE];
-	win_size = screen_resolution * PIXEL_SIZE;
+	sres_x = x_dims[SCREEN_RESOLUTION_MODE];
+	sres_y = y_dims[SCREEN_RESOLUTION_MODE];
+	win_size_x = sres_x * PIXEL_SIZE;
+	win_size_y = sres_y * PIXEL_SIZE;
 	snprintf(win_title, 256, "CCC %s", CCC_VER);
-	disp = SDL_CreateWindow(win_title, win_x, win_y, win_size, win_size, SDL_WINDOW_SHOWN);
+	disp = SDL_CreateWindow(win_title, win_pos_x, win_pos_y, win_size_x, win_size_y, SDL_WINDOW_SHOWN);
 	if (!disp) {
 		fprintf(stderr, "Failed to create window: %s\n", SDL_GetError());
 		return;
@@ -71,7 +76,7 @@ run_gpu(void) {
 		SDL_RenderPresent(renderer);
 	}
 
-	SDL_GetWindowPosition(disp, &win_x, &win_y);
+	SDL_GetWindowPosition(disp, &win_pos_x, &win_pos_y);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(disp);
 	if (g_state == GPU_RST) {
