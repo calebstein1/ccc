@@ -44,7 +44,7 @@ run_gpu(void) {
 	}
 
 	SCREEN_RESOLUTION_MODE = S128;
-	PIXEL_SIZE = 4;
+	PIXEL_SIZE = 6;
 
 	init_window:
 	sres_x = x_dims[SCREEN_RESOLUTION_MODE];
@@ -132,13 +132,13 @@ draw_sprite(const struct sprite_slot_t *spr, SDL_Renderer *renderer, const struc
 
 	for (i = 0; i < SPR_NUM_PIXELS; i++) {
 		if (i % 8 == 0) {
-			x_off = 0;
+			x_off = 7;
 			y_off++;
 		} else {
-			x_off++;
+			x_off--;
 		}
 
-		cur_pxl = get_cur_pixel(spr, s_addr + (i / 8), s_addr + 64 + (i / 8), i % 8);
+		cur_pxl = get_cur_pixel(spr, s_addr + (i / 8), s_addr + 8 + (i / 8), i % 8);
 		if (!cur_pxl) continue;
 
 		c = SPR_PAL + spr->spr_pal + cur_pxl;
@@ -160,14 +160,13 @@ get_cur_pixel(const struct sprite_slot_t *spr, const u8 *s_addr_low, const u8 *s
 			return 0;
 		case 0x01:
 			return 1;
-		case 0x10:
+		case 0x100:
 			return 2;
-		case 0x11:
+		case 0x101:
 			return 3;
 		default:
-			fputs("Somehow, the running program made the impossible possible. CCC will now exit. Goodbye.\n", stderr);
-			fprintf(stderr, "\n(Processing sprite %u from bank %u resulted in an impossible pixel color on pixel %u)\n",
-				spr->spr_num, spr->spr_bnk, i);
+			fprintf(stderr, "Processing sprite %u from bank %u resulted in an impossible pixel color on pixel %u, got %x\n\n",
+				spr->spr_num, spr->spr_bnk, i, MAKE_WORD);
 			stop_cpu();
 	}
 
