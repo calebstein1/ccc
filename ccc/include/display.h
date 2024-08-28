@@ -8,6 +8,7 @@
 
 #define MAX_SPRITES 8
 #define SPR_NUM_PIXELS 64
+#define SUBPIXEL_STEPS 16
 
 #define FRM_CNT (prg_ram[0x2000])
 
@@ -38,12 +39,12 @@ typedef enum resolution_mode {
 } resolution_mode;
 
 struct sprite_slot_t {
-    u8 in_use;
     u8 spr_num;
     u8 spr_bnk;
     u8 spr_x;
     u8 spr_y;
-    u8 spr_subp;
+    u8 spr_subp_x;
+    u8 spr_subp_y;
     u8 spr_pal;
     u8 spr_prop;
 };
