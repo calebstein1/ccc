@@ -17,8 +17,8 @@ void
 run_gpu(void) {
 	unsigned long int last_frame = SDL_GetTicks();
 	unsigned long int cur_frame, d_frame;
-	const int x_dims[] = { 128, 64, 256, 256 };
-	const int y_dims[] = { 128, 64, 256, 224 };
+	const int x_dims[] = { 128, 64, 256, 256, 160 };
+	const int y_dims[] = { 128, 64, 256, 224, 144 };
 	int sres_x;
 	int sres_y;
 #define X(red, green, blue) { .r = red, .g = green, .b = blue },

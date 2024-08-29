@@ -37,7 +37,8 @@ typedef enum resolution_mode {
     S128,
     S64,
     S256,
-    NIN
+    NIN,
+    GB
 } resolution_mode;
 
 struct sprite_slot_t {
