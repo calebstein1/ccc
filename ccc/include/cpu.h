@@ -5,7 +5,7 @@
 #include "opcodes.h"
 #include "bitfield.h"
 
-#define CCC_VER "v0.0.3-prealpha"
+#define CCC_VER "v0.0.4-prealpha"
 
 #define MAKE_WORD (((u16)hi << 8) + low)
 
