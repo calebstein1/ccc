@@ -73,7 +73,7 @@ move_player:
     beq check_right
     lda p_sx
     clc
-    sbc #$20
+    sbc #$40
     sta p_sx
     bcc check_right
     dec p_x
@@ -83,7 +83,7 @@ check_right:
     beq check_up
     lda p_sx
     clc
-    adc #$20
+    adc #$40
     sta p_sx
     bcc check_up
     inc p_x
@@ -93,7 +93,7 @@ check_up:
     beq check_down
     lda p_sy
     clc
-    sbc #$20
+    sbc #$40
     sta p_sy
     bcc check_down
     dec p_y
@@ -103,7 +103,7 @@ check_down:
     beq end_move
     lda p_sy
     clc
-    adc #$20
+    adc #$40
     sta p_sy
     bcc end_move
     inc p_y
