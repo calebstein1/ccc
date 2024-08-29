@@ -17,12 +17,12 @@ main(int argc, char **argv) {
 	/* Skip splash if loading a program directly */
 	if (!argv[1] || load_prg(argv[1])) {
 		printf("\t\t  %s***************************%s\n", CYANB, RESET);
-		printf("\t\t  %s* %s  ____	____	____%s  *%s\n", CYANB, YELLOW, CYANB, RESET);
+		printf("\t\t  %s* %s  ____    ____    ____%s  *%s\n", CYANB, YELLOW, CYANB, RESET);
 		printf("\t\t  %s* %s / ___|  / ___|  / ___|%s *%s\n", CYANB, YELLOW, CYANB, RESET);
-		printf("\t\t  %s* %s| |	 | |	 | |%s	 *%s\n", CYANB, YELLOW, CYANB, RESET);
+		printf("\t\t  %s* %s| |     | |     | |%s     *%s\n", CYANB, YELLOW, CYANB, RESET);
 		printf("\t\t  %s* %s| |___  | |___  | |___%s  *%s\n", CYANB, YELLOW, CYANB, RESET);
 		printf("\t\t  %s* %s \\____|  \\____|  \\____|%s *%s\n", CYANB, YELLOW, CYANB, RESET);
-		printf("\t\t  %s*						 *%s\n", CYANB, RESET);
+		printf("\t\t  %s*                         *%s\n", CYANB, RESET);
 		printf("\t\t  %s***************************%s\n\n", CYANB, RESET);
 		printf("\t\tWelcome to %sCCC %s%s%s\n\n\tRun %shelp%s at the prompt to list available commands\n\n", YELLOWB, REDB, CCC_VER, RESET, GREENB, RESET);
 	} else {
