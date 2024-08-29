@@ -57,7 +57,7 @@ run_gpu(void) {
 		fprintf(stderr, "Failed to create window: %s\n", SDL_GetError());
 		return;
 	}
-	renderer = SDL_CreateRenderer(disp, -1, SDL_RENDERER_SOFTWARE);
+	renderer = SDL_CreateRenderer(disp, -1, SDL_RENDERER_ACCELERATED);
 	if (!renderer) {
 		fprintf(stderr, "Failed to create renderer: %s\n", SDL_GetError());
 		return;
