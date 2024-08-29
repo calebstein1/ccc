@@ -143,7 +143,7 @@ draw_sprite(const struct sprite_slot_t *spr, SDL_Renderer *renderer, const struc
 		cur_pxl = get_cur_pixel(spr, s_addr + (i / 8), s_addr + 8 + (i / 8), i % 8);
 		if (!cur_pxl) continue;
 
-		c = SPR_PAL + spr->spr_pal + cur_pxl;
+		c = *(SPR_PAL + (spr->spr_pal * PAL_SIZE) + cur_pxl);
 		SDL_SetRenderDrawColor(renderer, pal[c].r, pal[c].g, pal[c].b, 0xff);
 
 		pxl.x = spr_x + (x_off * PIXEL_SIZE) + ((spr_subp_x * PIXEL_SIZE) / SUBPIXEL_STEPS);

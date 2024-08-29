@@ -53,6 +53,7 @@ init_enemy:
     lda #0
     jsr str_eslot_incx
     jsr str_eslot_incx
+    lda #1
     jsr str_eslot_incx
     rts
 
