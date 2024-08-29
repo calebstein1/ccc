@@ -99,7 +99,7 @@ run_cpu(void *arg) {
 			continue;
 		}
 
-		if(c_state == PRG_RN) {
+		if (c_state == PRG_RN) {
 			(*eval_func[t6502[*pc++]])();
 		} else {
 			shell_prompt();
