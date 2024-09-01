@@ -7,6 +7,11 @@
     p_sy=$2205
 
     e_slot=$2208
+    e_x=$220a
+    e_sx=$220c
+    e_y=$220b
+    e_sy=$220d
+
     ctrl=$4001
 
 init:
@@ -21,6 +26,7 @@ init:
 main:
     jsr waitnextframe
     jsr move_player
+    jsr move_enemy
     jmp main
     rts
 
@@ -108,5 +114,25 @@ check_down:
     bcc end_move
     inc p_y
 end_move:
+    rts
+
+move_enemy:
+    lda e_y
+    cmp p_y
+    beq end_enemy_move
+    lda e_sy
+    bcs move_enemy_down
+    clc
+    sbc #$20
+    sta e_sy
+    bcc end_enemy_move
+    dec e_y
+    jmp end_enemy_move
+move_enemy_down:
+    adc #$20
+    sta e_sy
+    bcc end_enemy_move
+    inc e_y
+end_enemy_move:
     rts
 
