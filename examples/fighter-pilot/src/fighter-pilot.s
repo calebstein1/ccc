@@ -1,5 +1,7 @@
     .import waitnextframe ; from cclib
 
+    s_buff=$4020
+
     p_slot=$2200
     p_x=$2202
     p_sx=$2204
@@ -75,6 +77,11 @@ str_eslot_incx:
 
 move_player:
     lda ctrl
+    and #%00000001
+    beq check_left
+    jsr print_shot_string
+check_left:
+    lda ctrl
     and #%00000100
     beq check_right
     lda p_sx
@@ -116,6 +123,17 @@ check_down:
 end_move:
     rts
 
+print_shot_string:
+    ldy #7
+load_char:
+    lda primary_btn_str,y
+    sta s_buff,y
+    dey
+    bpl load_char
+    lda #1
+    sta $4018
+    rts
+
 move_enemy:
     lda e_y
     cmp p_y
@@ -136,3 +154,5 @@ move_enemy_down:
 end_enemy_move:
     rts
 
+primary_btn_str:
+    .byte "Shot!", $0A, $00
