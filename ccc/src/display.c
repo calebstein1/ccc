@@ -117,7 +117,7 @@ draw_all_sprites(SDL_Renderer *renderer, const struct color_t *pal) {
 void
 draw_sprite(const struct sprite_slot_t *spr, SDL_Renderer *renderer, const struct color_t *pal) {
 	u8 i;
-	u8 low = spr->spr_num * 16;
+	u8 low = spr->spr_num << 4;
 	u8 hi = spr->spr_bnk;
 	u8 *s_addr = gpu_rom + MAKE_WORD;
 	u8 c, cur_pxl;
@@ -133,21 +133,21 @@ draw_sprite(const struct sprite_slot_t *spr, SDL_Renderer *renderer, const struc
 	pxl.w = PIXEL_SIZE;
 
 	for (i = 0; i < SPR_NUM_PIXELS; i++) {
-		if (i % 8 == 0) {
+		if ((i & 7) == 0) {
 			x_off = 7;
 			y_off++;
 		} else {
 			x_off--;
 		}
 
-		cur_pxl = get_cur_pixel(spr, s_addr + (i / 8), s_addr + 8 + (i / 8), i % 8);
+		cur_pxl = get_cur_pixel(spr, s_addr + (i >> 3), s_addr + 8 + (i >> 3), i & 7);
 		if (!cur_pxl) continue;
 
 		c = *(SPR_PAL + (spr->spr_pal * PAL_SIZE) + cur_pxl);
 		SDL_SetRenderDrawColor(renderer, pal[c].r, pal[c].g, pal[c].b, 0xff);
 
-		pxl.x = spr_x + (x_off * PIXEL_SIZE) + ((spr_subp_x * PIXEL_SIZE) / SUBPIXEL_STEPS);
-		pxl.y = spr_y + (y_off * PIXEL_SIZE) + ((spr_subp_y * PIXEL_SIZE) / SUBPIXEL_STEPS);
+		pxl.x = spr_x + (x_off * PIXEL_SIZE) + ((spr_subp_x * PIXEL_SIZE) >> SUBPIXEL_STEPS);
+		pxl.y = spr_y + (y_off * PIXEL_SIZE) + ((spr_subp_y * PIXEL_SIZE) >> SUBPIXEL_STEPS);
 
 		SDL_RenderFillRect(renderer, &pxl);
 	}

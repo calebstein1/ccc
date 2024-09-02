@@ -8,7 +8,7 @@
 
 #define MAX_SPRITES 32
 #define SPR_NUM_PIXELS 64
-#define SUBPIXEL_STEPS 16
+#define SUBPIXEL_STEPS 4 /* Used for bit shifts, not directly */
 
 #define FRM_CNT (prg_ram[0x2000])
 
