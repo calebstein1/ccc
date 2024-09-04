@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 
 /* Posix Headers */
 #include <sys/time.h>
@@ -9,28 +8,15 @@
 #include "shell.h"
 #include "display.h"
 #include "eval.h"
+#include "memory.h"
 #include "cpu.h"
 
-/* RAM, Program Counter, and Stack Pointer */
-u8 prg_ram[0x10000];
-u8 *pc = &prg_ram[0x8000];
-u8 s = 0xff;
-
-/* CPU Registers */
+/* CPU Registers, Stack Pointer */
 u8 a, x, y;
-u8 p = 32;
-
-/* Default brk handler */
-const u8 ccrom[] = { 0x48, 0xa9, 0x01, 0x8d, 0x00, 0x40, 0x68, 0x40 };
+u8 s = 0xff;
+u8 p = 0x20;
 
 cpu_state c_state = BOOT;
-
-void
-init_ccrom(void) {
-	memcpy(&prg_ram[0x7ff8], ccrom, 8);
-	prg_ram[0xfffe] = 0xf8;
-	prg_ram[0xffff] = 0x7f;
-}
 
 void*
 run_cpu(void *arg) {
@@ -81,20 +67,18 @@ run_cpu(void *arg) {
 		gettimeofday(&p_time, 0);
 		if (l_cycle == p_time.tv_usec) continue;
 
-		if (prg_ram[0x2001]) {
-			prg_ram[0x2001] = 0;
+		if (read_mem(0x2001)) {
+			zmem(0x2001);
 			restart_gpu();
-		} else if (prg_ram[0x4000]) {
-			u8 low = *(prg_ram + s + 0x103);
-			u8 hi = *(prg_ram + s + 0x104);
-			printf("Breaking at address 0x%x\n", MAKE_WORD - 1);
+		} else if (read_mem(0x4000)) {
+			printf("Breaking at address 0x%x\n", read_mem16(s + 0x103) - 1);
 			c_state = PRG_DBG;
-		} else if (prg_ram[0x4018]) {
-			prg_ram[0x4018] = 0;
+		} else if (read_mem(0x4018)) {
+			zmem(0x4018);
 			print_buffer();
 			continue;
-		} else if (prg_ram[0x4019]) {
-			prg_ram[0x4019] = 0;
+		} else if (read_mem(0x4019)) {
+			zmem(0x4019);
 			print_number();
 			continue;
 		}
@@ -114,3 +98,13 @@ void
 stop_cpu(void) {
 	c_state = CPU_STP;
 }
+
+void
+init_ccrom(void) {
+	/* Default brk handler */
+	const u8 ccrom[] = { 0x48, 0xa9, 0x01, 0x8d, 0x00, 0x40, 0x68, 0x40 };
+
+	write_nmem(0x7ff8, ccrom, 8);
+	write_mem16(0xfffe, 0x7ff8);
+}
+

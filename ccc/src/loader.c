@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 
 #include "display.h"
+#include "memory.h"
 #include "cpu.h"
 #include "loader.h"
 
@@ -24,7 +25,7 @@ load_prg(const char *prg) {
 	lseek(fd, 0, SEEK_SET);
 	read(fd, pc, 0x8000);
 	read(fd, gpu_rom, 0x4000);
-	read(fd, &prg_ram[0x2100], 0xff);
+	read(fd, get_ptr(0x2100), 0x100);
 	close(fd);
 	c_state = PRG_LD;
 

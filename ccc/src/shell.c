@@ -9,6 +9,7 @@
 #include "fixed.h"
 #include "loader.h"
 #include "shell.h"
+#include "memory.h"
 #include "cpu.h"
 #include "colors.h"
 
@@ -105,14 +106,13 @@ help_f(const u8 *args, const char *arg) {
  */
 void
 peek_f(const u8 *args, const char *arg) {
-	printf("%d\n", (u16)*(prg_ram + args[0] + (args[1] * 0x100)));
+	printf("%d\n", read_mem(args[0] + (args[1] * 0x100)));
 	(void)arg;
 }
 
 void
 poke_f(const u8 *args, const char *arg) {
-	u8 *addr = prg_ram + args[0] + (args[1] * 0x100);
-	*addr = args[2];
+	write_mem(args[0] + (args[1] * 0x100), args[2]);
 	(void)arg;
 }
 
@@ -148,7 +148,6 @@ void cd_f(const u8 *args, const char *arg) {
 
 void
 load_f(const u8 *args, const char *arg) {
-	memset(&prg_ram[0x8000], 0, 0x8000);
 	if (load_prg(arg)) {
 		fprintf(stderr, "Failed to load program: %s%s%s\n", REDB, arg, RESET);
 	} else {
@@ -187,7 +186,7 @@ runanyway_f(const u8 *args, const char *arg) {
 void
 status_f(const u8 *args, const char *arg) {
 	printf("a: %d\nx: %d\ny: %d\npc: 0x%x\ns: 0x%x\np: %d%d%d%d%d%d\n   NVDIZC\n",
-		   a, x, y, (u16)(pc - prg_ram), s, GET_N, GET_V, GET_D, GET_I, GET_Z, GET_C);
+		   a, x, y, (u16)(pc - get_ptr(0)), s, GET_N, GET_V, GET_D, GET_I, GET_Z, GET_C);
 	(void)args;
 	(void)arg;
 }
@@ -197,7 +196,7 @@ continue_f(const u8 *args, const char *arg) {
 	if (c_state != PRG_DBG) {
 		fputs("Not at a breakpoint\n", stderr);
 	} else {
-		prg_ram[0x4000] = 0;
+		zmem(0x4000);
 		c_state = PRG_RN;
 	}
 	(void)args;

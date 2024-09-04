@@ -1,7 +1,7 @@
 #ifndef CCC_CONTROLLER_H
 #define CCC_CONTROLLER_H
 
-#define CONTROLLER_BITFIELD (prg_ram[0x4001])
+#define CONTROLLER_BITFIELD 0x4001
 
 #define K_PRIMARY SDLK_x
 #define K_SECONDARY SDLK_z

@@ -33,11 +33,11 @@
 #define UNSET_V (p &= U6)
 #define UNSET_N (p &= U7)
 
-#define STACK_PUSH(v) (*(prg_ram + s-- + 0x100) = v)
-#define STACK_POP (*(prg_ram + ++s + 0x100))
+#define STACK_PUSH(v) (write_mem(s-- + 0x100, v))
+#define STACK_POP (read_mem(++s + 0x100))
 
-#define PC_LOW ((pc - prg_ram) & 0xff)
-#define PC_HI ((pc - prg_ram) >> 8)
+#define PC_LOW ((pc - get_ptr(0)) & 0xff)
+#define PC_HI ((pc - get_ptr(0)) >> 8)
 
 typedef enum cpu_state {
 	CPU_STP,
@@ -47,11 +47,7 @@ typedef enum cpu_state {
 	PRG_RN
 } cpu_state;
 
-extern u8 prg_ram[0x10000];
-extern u8 *pc;
-extern u8 s;
-extern u8 a, x, y;
-extern u8 p;
+extern u8 s, a, x, y, p;
 
 extern cpu_state c_state;
 

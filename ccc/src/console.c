@@ -2,15 +2,18 @@
 
 #include "fixed.h"
 #include "console.h"
+#include "memory.h"
 #include "cpu.h"
 
 void
 print_buffer(void) {
-	printf("%s", &prg_ram[0x4020]);
+	printf("%s", get_ptr(0x4020));
 }
 
 void
 print_number(void) {
-	printf("%d\n", (u16)(prg_ram[0x4020] + (prg_ram[0x4021] ? prg_ram[0x4021] * 0x100 : 0)));
+	u8 low = read_mem(0x4020);
+	u8 hi = read_mem(0x4021);
+	printf("%d\n", MAKE_WORD);
 }
 

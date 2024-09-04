@@ -10,15 +10,15 @@
 #define SPR_NUM_PIXELS 64
 #define SUBPIXEL_STEPS 4 /* Used for bit shifts, not directly */
 
-#define FRM_CNT (prg_ram[0x2000])
+#define FRM_CNT 0x2000
 
-#define SPR_PAL (prg_ram + 0x2100)
+#define SPR_PAL 0x2100
 #define PAL_SIZE 4
-#define BG_R (prg_ram[0x2002])
-#define BG_G (prg_ram[0x2003])
-#define BG_B (prg_ram[0x2004])
-#define SCREEN_RESOLUTION_MODE (prg_ram[0x2005])
-#define PIXEL_SIZE (prg_ram[0x2006])
+#define BG_R 0x2002
+#define BG_G 0x2003
+#define BG_B 0x2004
+#define SCREEN_RESOLUTION_MODE 0x2005
+#define PIXEL_SIZE 0x2006
 
 #define HW_PALETTE		\
 	X(0x00, 0x00, 0x00)	\
@@ -34,22 +34,22 @@ typedef enum gpu_state {
 } gpu_state;
 
 typedef enum resolution_mode {
-    S128,
-    S64,
-    S256,
-    NIN,
-    GB
+	S128,
+	S64,
+	S256,
+	NIN,
+	GB
 } resolution_mode;
 
 struct sprite_slot_t {
-    u8 spr_num;
-    u8 spr_bnk;
-    u8 spr_x;
-    u8 spr_y;
-    u8 spr_subp_x;
-    u8 spr_subp_y;
-    u8 spr_pal;
-    u8 spr_prop;
+	u8 spr_num;
+	u8 spr_bnk;
+	u8 spr_x;
+	u8 spr_y;
+	u8 spr_subp_x;
+	u8 spr_subp_y;
+	u8 spr_pal;
+	u8 spr_prop;
 };
 
 struct color_t {
