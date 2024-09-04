@@ -1,6 +1,6 @@
 #include <string.h>
+
 #include "memory.h"
-#include "cpu.h"
 
 u8 prg_ram[0x10000];
 u8 *pc = &prg_ram[0x8000];
@@ -14,7 +14,7 @@ u16
 read_mem16(u16 addr) {
 	u8 low = prg_ram[addr];
 	u8 hi = prg_ram[addr + 1];
-	return MAKE_WORD;
+	return low + (hi * 0x100);
 }
 
 void
