@@ -124,6 +124,7 @@ draw_sprite(const struct sprite_slot_t *spr, SDL_Renderer *renderer, const struc
 	u8 c, cur_pxl;
 	u16 spr_x = spr->spr_x * p_size;
 	u16 spr_y = spr->spr_y * p_size;
+	/* Subpixel position is high nibble of spr->spr_subp_{x,y} */
 	u8 spr_subp_x = spr->spr_subp_x >> 4;
 	u8 spr_subp_y = spr->spr_subp_y >> 4;
 	/* initialize y to 255 since we increment y each 8 pixels, and 0 is a multiple of 8 */
@@ -134,6 +135,7 @@ draw_sprite(const struct sprite_slot_t *spr, SDL_Renderer *renderer, const struc
 	pxl.w = p_size;
 
 	for (i = 0; i < SPR_NUM_PIXELS; i++) {
+		/* i & 7 == i % 8 */
 		if ((i & 7) == 0) {
 			x_off = 7;
 			y_off++;
