@@ -16,8 +16,7 @@ u8 gpu_rom[0x8000];
 
 void
 run_gpu(void) {
-	unsigned long int last_frame = SDL_GetTicks();
-	unsigned long int cur_frame, d_frame;
+	unsigned long int frame_start, frame_end, frame_time;
 	const int x_dims[] = { 128, 64, 256, 256, 160 };
 	const int y_dims[] = { 128, 64, 256, 224, 144 };
 	int sres_x;
@@ -66,15 +65,10 @@ run_gpu(void) {
 	g_state = GPU_RN;
 
 	while (g_state == GPU_RN && c_state) {
-		get_controller_state(&e);
-
-		cur_frame = SDL_GetTicks();
-		d_frame = cur_frame - last_frame;
-		if (d_frame < SCREEN_TICKS_PER_FRAME) {
-			continue;
-		}
-		last_frame = cur_frame;
+		frame_start = SDL_GetTicks();
 		inc_mem(FRM_CNT);
+
+		get_controller_state(&e);
 
 		SDL_SetRenderDrawColor(renderer, read_mem(BG_R), read_mem(BG_G), read_mem(BG_B), 0xff);
 		SDL_RenderClear(renderer);
@@ -82,6 +76,11 @@ run_gpu(void) {
 		draw_all_sprites(renderer, pal);
 
 		SDL_RenderPresent(renderer);
+
+		frame_end = SDL_GetTicks();
+		if ((frame_time = frame_end - frame_start) < SCREEN_TICKS_PER_FRAME) {
+			SDL_Delay(SCREEN_TICKS_PER_FRAME - frame_time);
+		}
 	}
 
 	SDL_GetWindowPosition(disp, &win_pos_x, &win_pos_y);
