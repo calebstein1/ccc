@@ -22,6 +22,7 @@
 
 /* Incomplete, just for testing right now */
 #define HW_PALETTE		\
+	/* (r, g, b) */         \
 	X(0x00, 0x00, 0x00)	\
 	X(0xff, 0x00, 0x00)	\
 	X(0x00, 0xff, 0x40)	\

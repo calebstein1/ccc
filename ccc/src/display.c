@@ -21,11 +21,11 @@ run_gpu(void) {
 	const int y_dims[] = { 128, 64, 256, 224, 144 };
 	int sres_x;
 	int sres_y;
-#define X(red, green, blue) { red, green, blue },
 	const struct color_t pal[] = {
+#define X(red, green, blue) { red, green, blue },
 			HW_PALETTE
-	};
 #undef X
+	};
 
 	SDL_Window *disp;
 	SDL_Renderer *renderer;
@@ -35,8 +35,6 @@ run_gpu(void) {
 	int win_size_y;
 	int win_pos_x = SDL_WINDOWPOS_UNDEFINED, win_pos_y = SDL_WINDOWPOS_UNDEFINED;
 	char win_title[256];
-
-	(void)pal; /* delete once pal finalized */
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		fprintf(stderr, "Failed to init SDL: %s\n", SDL_GetError());
