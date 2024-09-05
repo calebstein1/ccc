@@ -21,7 +21,7 @@ run_gpu(void) {
 	const int y_dims[] = { 128, 64, 256, 224, 144 };
 	int sres_x;
 	int sres_y;
-#define X(red, green, blue) { .r = red, .g = green, .b = blue },
+#define X(red, green, blue) { red, green, blue },
 	const struct color_t pal[] = {
 			HW_PALETTE
 	};

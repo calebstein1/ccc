@@ -20,6 +20,7 @@
 #define SCREEN_RESOLUTION_MODE 0x2005
 #define PIXEL_SIZE 0x2006
 
+/* Incomplete, just for testing right now */
 #define HW_PALETTE		\
 	X(0x00, 0x00, 0x00)	\
 	X(0xff, 0x00, 0x00)	\
