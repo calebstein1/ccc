@@ -1,4 +1,4 @@
-    .import waitnextframe ; from cclib
+    .import waitnextframe, printbuff ; from cclib
 
     s_buff=$4020
 
@@ -130,8 +130,7 @@ load_char:
     sta s_buff,y
     dey
     bpl load_char
-    lda #1
-    sta $4018
+    jsr printbuff
     rts
 
 move_enemy:
