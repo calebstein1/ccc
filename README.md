@@ -1,5 +1,9 @@
 # Caleb's Crappy Console
 
+## Notice: CCC has been superceded by [Amphora](https://github.com/calebstein1/amphora), a modern 2D pixel game engine which utilizes CCC's rendering engine but adds many more modern features for game development and runs on the native CPU, rather than an emulated 6502
+
+## This project was a fantastic exercise, building a virtual CPU, but Amphora will be much more useful going forward in actually making games
+
 Caleb's Crappy Console is a new fantasy console under heavy development and coming soon.
 
 Unlike other fantasy consoles that aim to be easy to use by running languages like Lua, this console runs it's own custom virtual 8-bit CPU that's based on the design of the 6502 CPU.
